@@ -1,5 +1,7 @@
 # Judicial Intelligence — U.S. Consumer Rights
 
+**Repository:** [github.com/TiagoIA-UX/judicial-intelligence](https://github.com/TiagoIA-UX/judicial-intelligence)
+
 Dedicated repository for the **United States** market: public site + Signal Hub bot.
 
 | Folder | Contents |
