@@ -58,11 +58,13 @@ copy .env.local.example .env.local
 
 ## Site deploy (Vercel)
 
-1. Import this repository on [Vercel](https://vercel.com).
-2. **Root Directory:** `site`
-3. Framework: Next.js (auto-detected).
+1. Import [github.com/TiagoIA-UX/judicial-intelligence](https://github.com/TiagoIA-UX/judicial-intelligence) on [Vercel](https://vercel.com).
+2. **Root Directory:** `site` ← **required** (otherwise build fails with “No Next.js version detected”)
+3. Framework: Next.js (auto-detected from `site/package.json`)
 4. Domain: `judicialintelligence.com` + redirect `www`.
 5. Environment variables only when forms/backend are active — never commit secrets.
+
+If deploy fails with **No Next.js version detected**, open **Settings → General → Root Directory → `site` → Save → Redeploy**.
 
 ## Bot 24/7 deploy (VPS)
 
