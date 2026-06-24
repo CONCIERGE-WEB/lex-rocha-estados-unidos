@@ -56,15 +56,30 @@ copy .env.local.example .env.local
 | **Local bot** | `.\INICIAR.ps1` (dorking + `/agenda` commands) |
 | **24/7 bot** | Linux VPS with systemd (`lexbot-us`) |
 
-## Site deploy (Vercel)
+## Site deploy (Vercel — team-zairyx)
 
-1. Import [github.com/TiagoIA-UX/judicial-intelligence](https://github.com/TiagoIA-UX/judicial-intelligence) on [Vercel](https://vercel.com).
-2. **Root Directory:** `site` ← **required** (otherwise build fails with “No Next.js version detected”)
-3. Framework: Next.js (auto-detected from `site/package.json`)
-4. Domain: `judicialintelligence.com` + redirect `www`.
-5. Environment variables only when forms/backend are active — never commit secrets.
+Project: [vercel.com/team-zairyx/judicial-intelligence](https://vercel.com/team-zairyx/judicial-intelligence)
 
-If deploy fails with **No Next.js version detected**, open **Settings → General → Root Directory → `site` → Save → Redeploy**.
+### Required (fixes “No Next.js version detected”)
+
+1. **Settings → General → Root Directory → `site` → Save**
+2. **Clear overrides:** leave Build / Install / Output as **default** (empty) when Root Directory is `site`
+3. Paste env vars from `.env.local` (see `.\scripts\vercel-env.ps1`)
+4. **Redeploy** (disable “Use existing Build Cache”)
+
+Or run (with [Vercel token](https://vercel.com/account/tokens) for team-zairyx):
+
+```powershell
+$env:VERCEL_TOKEN = "..."
+.\scripts\configurar-vercel-root.ps1
+```
+
+Then import repo if needed:
+
+1. GitHub: `TiagoIA-UX/judicial-intelligence`
+2. **Root Directory:** `site`
+3. Framework: Next.js (auto from `site/package.json`)
+4. Domain: `judicialintelligence.com`
 
 ## Bot 24/7 deploy (VPS)
 
