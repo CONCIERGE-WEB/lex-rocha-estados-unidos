@@ -1,0 +1,61 @@
+# Referência R1/R2/R3 — tom humano; só o nosso serviço documental (sem indicar terceiros)
+
+meta:
+  tenant: lex_portugal
+  moeda: EUR
+
+categorias:
+  pt_cancelamento:
+    r1: "Olá — percebemos a frustração com fidelização ou renovação. O seu caso merece ser lido com atenção."
+    r2: "Depois de uma reclamação formal, a empresa costuma ter cerca de 15 dias úteis para responder. Guarde provas e datas."
+    r3: "Podemos preparar um relatório documental só para si, com valor fixo acordado por escrito antes de pagar."
+
+  pt_cobranca_indevida:
+    r1: "Olá — cobranças indevidas são das queixas mais frequentes; não está só."
+    r2: "Pode contestar por escrito e esperar resposta em cerca de 15 dias úteis. Registe tudo o que aconteceu."
+    r3: "Organizamos o quadro documental do seu caso por um valor acordado antes do pagamento."
+
+  pt_produto_nao_entregue:
+    r1: "Olá — atrasos e não entrega são stressantes e há formas de reclamar formalmente."
+    r2: "Registe datas e mensagens. A empresa costuma ter cerca de 15 dias úteis para responder à reclamação."
+    r3: "Relatório com cronologia e passos possíveis — plano Essencial a partir de €29."
+
+  pt_burla:
+    r1: "Olá — situações de burla pedem calma e registo do que aconteceu."
+    r2: "Guarde provas e formalize a queixa por escrito — sem prometer resultado."
+    r3: "Análise documental completa para decidir os próximos passos com mais clareza."
+
+  pt_saude_seguro:
+    r1: "Olá — recusas de cobertura ou atrasos em seguros/saúde são exigentes emocionalmente."
+    r2: "A reclamação formal ao fornecedor costuma ter resposta em cerca de 15 dias úteis."
+    r3: "Relatório reservado com o enquadramento aplicável ao seu tipo de contrato."
+
+  pt_telecom:
+    r1: "Olá — alterações de preço ou fidelização em telecom são queixas muito comuns."
+    r2: "Após reclamação formal, conte com cerca de 15 dias úteis de resposta. Guarde contratos e faturas."
+    r3: "Relatório Padrão por cerca de €39 — valor confirmado por escrito antes de avançar."
+
+  pt_banco:
+    r1: "Olá — comissões e contestações bancárias têm um enquadramento próprio."
+    r2: "Reclame por escrito e espere resposta em cerca de 15 dias úteis. Documente cada contacto."
+    r3: "Relatório documental com o quadro do seu caso — valor acordado por escrito."
+
+  pt_energia:
+    r1: "Olá — faturas de energia incorretas ou mudanças de tarifa merecem verificação."
+    r2: "Formalize a reclamação à comercializadora; a resposta costuma chegar em cerca de 15 dias úteis."
+    r3: "Relatório com quadro claro do caso e passos possíveis."
+
+  pt_habitacao:
+    r1: "Olá — arrendamento e cauções são temas sensíveis; os seus direitos importam."
+    r2: "Documente o que aconteceu e formalize a reclamação; a resposta habitual é em cerca de 15 dias úteis."
+    r3: "Síntese documental para decidir — planos desde €29."
+
+  pt_ecommerce:
+    r1: "Olá — compras online com atraso ou reembolso pendente são muito frequentes."
+    r2: "O direito de devolução e reembolso depende do tipo de compra; à reclamação, costuma haver resposta em cerca de 15 dias úteis."
+    r3: "Relatório reservado com passos concretos e valor acordado por escrito."
+
+  pt_logistica:
+    r1: "Olá — encomendas em atraso com CTT ou transportadora são stressantes."
+    r2: "Guarde comprovativos de envio e prazos; formalize a reclamação — cerca de 15 dias úteis para resposta."
+    r3: "Análise Essencial por cerca de €29 para organizar o caso."

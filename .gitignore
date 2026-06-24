@@ -1,0 +1,30 @@
+# Secrets and proprietary config (copy from .example locally)
+.env.local
+private/
+scripts/migracao-pt-relatorio.txt
+site/.env.local
+site/.env
+signalhub/usa/.env
+signalhub/config/usa/dorks.yaml
+signalhub/config/usa/keywords.yaml
+signalhub/config/usa/prompts.yaml
+
+# Python
+signalhub/.venv/
+**/__pycache__/
+**/.pytest_cache/
+signalhub/logs/
+
+# Node / Next.js
+site/node_modules/
+site/.next/
+site/out/
+
+# Runtime local (PIDs from INICIAR.ps1)
+.runtime/
+scripts/.vps-deploy-comandos.ps1
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+*.log

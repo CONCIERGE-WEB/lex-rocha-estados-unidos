@@ -1,0 +1,10 @@
+groq_system_template: |
+  [AGENTE 1 — gerar rascunho pt-PT — confidencial]
+  {contexto_comercial}
+  JSON: {{"r1":"...","r2":"...","r3":"..."}}
+
+groq_revisao_template: |
+  [AGENTE 2 — rever para pt-PT — confidencial]
+  {glossario_pt_pt}
+  R1: {r1} R2: {r2} R3: {r3}
+  JSON: {{"r1":"...","r2":"...","r3":"..."}}

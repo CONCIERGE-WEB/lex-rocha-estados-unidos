@@ -1,0 +1,9 @@
+.env
+portugal/.env
+config/portugal/dorks.yaml
+config/portugal/keywords.yaml
+config/portugal/prompts.yaml
+.venv/
+__pycache__/
+.pytest_cache/
+logs/
