@@ -1,16 +1,14 @@
-/** Estado de disponibilidade do operador (agenda aberta/fechada). */
+/** Operator availability (open queue vs high volume). */
+
+import { AGENDA_COPY } from "@/lib/constants/prazos-entrega";
 
 export type AgendaStatus = {
   disponivel: boolean;
   mensagem: string;
+  prazoEntrega: string;
   fonte: "supabase" | "env";
   atualizadoEm?: string;
 };
-
-const MSG_ABERTA =
-  "Disponível para novos pedidos — resposta por WhatsApp em horário alargado.";
-const MSG_FECHADA =
-  "Agenda temporariamente fechada — pode deixar mensagem; respondemos assim que possível.";
 
 export async function obterAgendaStatus(): Promise<AgendaStatus> {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -29,9 +27,11 @@ export async function obterAgendaStatus(): Promise<AgendaStatus> {
         const rows = await res.json();
         if (rows?.[0]) {
           const disp = Boolean(rows[0].agenda_disponivel);
+          const copy = disp ? AGENDA_COPY.aberta : AGENDA_COPY.fechada;
           return {
             disponivel: disp,
-            mensagem: disp ? MSG_ABERTA : MSG_FECHADA,
+            mensagem: copy.corpo,
+            prazoEntrega: copy.prazoEntrega,
             fonte: "supabase",
             atualizadoEm: rows[0].updated_at,
           };
@@ -43,9 +43,11 @@ export async function obterAgendaStatus(): Promise<AgendaStatus> {
   }
 
   const envDisp = process.env.AGENDA_DISPONIVEL !== "false";
+  const copy = envDisp ? AGENDA_COPY.aberta : AGENDA_COPY.fechada;
   return {
     disponivel: envDisp,
-    mensagem: envDisp ? MSG_ABERTA : MSG_FECHADA,
+    mensagem: copy.corpo,
+    prazoEntrega: copy.prazoEntrega,
     fonte: "env",
   };
 }

@@ -16,11 +16,11 @@ export const COPY = {
     ctaSecondary: "See how it works",
     trustChips: [
       "Free analysis — pay only if you want the report",
-      "Price confirmed before you proceed",
-      "Delivered by email within 24 business hours",
+      "Exact price shown before you pay",
+      "Human-reviewed report — typically within 24 business hours",
     ],
     trustLine:
-      "If we can't find documented similar cases, we'll tell you before asking for any payment.",
+      "If we can't find documented similar cases, we'll tell you before asking for any payment. Every paid report is reviewed by a human before we email it.",
   },
 
   dor: {
@@ -74,21 +74,22 @@ export const COPY = {
         tempo: "~2 min",
       },
       {
-        titulo: "We cross-reference your case (a few minutes)",
+        titulo: "We cross-reference your case",
         detalhe:
-          "The system searches public U.S. decisions in situations similar to your case.",
+          "Research tools scan public U.S. decisions similar to your situation — this free step takes only a few minutes.",
         tempo: "A few minutes",
       },
       {
-        titulo: "Review and delivery (up to 24 business hours)",
+        titulo: "You see the plan and exact price",
         detalhe:
-          "Results are verified before they're sent — to ensure what you receive has real context and applies to your specific situation.",
-        tempo: "24 business hours",
+          "We recommend a plan and show the fixed dollar amount. You decide whether to proceed — no charge until you choose.",
+        tempo: "Your decision",
       },
       {
-        titulo: "Decide at your own pace",
-        detalhe: "Nothing expires. Read it carefully, decide when you're ready.",
-        tempo: "At your pace",
+        titulo: "Human review, then email delivery",
+        detalhe:
+          "After payment, a human specialist reviews the research draft, verifies it fits your case, and sends the final report by email. Typical timing depends on current availability (shown before you pay).",
+        tempo: "24–48 business hours",
       },
     ],
   },
@@ -164,10 +165,14 @@ export const COPY = {
     },
     passo3: {
       aCarregar: "Analyzing your case…",
-      aCarregarHint: "Cross-referencing with similar public cases. A few seconds.",
-      planoLabel: "Recommended plan for you",
-      confianca: "Analysis confidence level",
-      semSurpresas: "Price confirmed at checkout — no surprises.",
+      aCarregarHint:
+        "Cross-referencing public records — usually under two minutes. You'll then see your recommended plan, exact price, and current delivery availability.",
+      planoLabel: "Recommended plan · exact price at checkout",
+      confianca: "Screening confidence",
+      semSurpresas: "This is the exact amount if you proceed — no hidden fees.",
+      entregaTitulo: "If you proceed today",
+      entregaNota:
+        "Delivery timing follows the availability status below. Every report is human-reviewed before email — never sent automatically by software alone.",
       ctaPagar: "Proceed to secure payment",
       ctaAvancar: "Proceed anyway",
       ctaHonestidade: "I appreciate the honesty",
@@ -196,7 +201,7 @@ export const COPY = {
     trackingHint: "Save this code to check status anytime at Track order.",
     passos: [
       "Check your email for the receipt (it may go to spam)",
-      "You'll receive the reviewed report by email — usually within 24 business hours",
+      "A human specialist reviews your report — typical delivery within 24 business hours (Mon–Fri)",
       "Save the document: it's the basis for your next step with the company",
     ],
     cta: "Back to home",
@@ -213,7 +218,33 @@ export const COPY = {
     notFound: "Order not found. Check the code and try again.",
     newRequest: "Start a new analysis",
     estimateNote:
-      "Delivery estimates are based on business hours and may shift during human review.",
+      "Delivery estimates reflect business hours and human review time. Status updates when your report is being reviewed or has been emailed.",
+  },
+
+  delivery: {
+    eyebrow: "Timelines & availability",
+    title: "Clear timing — like professional services you already trust",
+    lead:
+      "Free screening is fast. Paid reports take longer because a human reviews every line before we email you — the same pattern used by major legal and tax platforms.",
+    phases: [
+      {
+        title: "Free screening",
+        detail: "You describe your case. We cross-reference public U.S. records and show a recommended plan with the exact price.",
+        timing: "~2 minutes",
+      },
+      {
+        title: "Your decision",
+        detail: "You choose whether to pay. Current queue availability is shown so you know what to expect before checkout.",
+        timing: "Immediate",
+      },
+      {
+        title: "Human review & delivery",
+        detail: "After payment, a specialist verifies the research draft against your facts and sends the final report by email.",
+        timing: "Typically 24 business hours (up to 48 when busy)",
+      },
+    ],
+    footnote:
+      "Business hours = Monday–Friday, excluding U.S. federal holidays. WhatsApp messages are answered separately, as soon as we can.",
   },
 
   reportSample: {
@@ -293,10 +324,10 @@ export const COPY = {
   },
 
   stats: [
-    { value: "24h", label: "Typical delivery after payment" },
-    { value: "$29–59", label: "Fixed plans — price shown upfront" },
-    { value: "Free", label: "Initial case analysis" },
-    { value: "Public", label: "U.S. court & agency records only" },
+    { value: "24h", label: "Typical delivery after payment (business hours)" },
+    { value: "$29–59", label: "Fixed plans — exact price before checkout" },
+    { value: "Human", label: "Specialist review before every report" },
+    { value: "Free", label: "Initial case screening (~2 min)" },
   ],
 
   solutions: {
@@ -332,7 +363,7 @@ export const COPY = {
     eyebrow: "Our approach",
     title: "Consumer law is complex. We clarify it.",
     lead:
-      "Like enterprise legal intelligence — but built for everyday disputes. Technology plus human review, grounded in public records.",
+      "Like enterprise legal intelligence — technology speeds research; humans review and deliver every report.",
     cards: [
       {
         title: "Research, not opinions",
@@ -364,7 +395,11 @@ export const COPY = {
       },
       {
         q: "How fast do I receive the report?",
-        a: "Usually within 24 business hours after payment, following human review of the generated draft.",
+        a: "After payment, a human specialist reviews your report before we email it. When our queue is open, most clients receive it within 24 business hours (Mon–Fri). During high volume, it may take up to 48 business hours — you'll see current availability before you pay.",
+      },
+      {
+        q: "Does AI write and send my report automatically?",
+        a: "No. Research tools help gather public records, but a human reads, checks, and assembles your report. Nothing is sent without that review.",
       },
       {
         q: "Which payment methods do you accept?",

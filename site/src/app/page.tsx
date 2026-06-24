@@ -1,4 +1,5 @@
 import { CtaBand } from "@/components/cta-band";
+import { DeliveryCommitmentBand } from "@/components/delivery-commitment-band";
 import { ExemploRelatorio } from "@/components/exemplo-relatorio";
 import { ExpertiseBand } from "@/components/expertise-band";
 import { FaqSection } from "@/components/faq-section";
@@ -149,6 +150,7 @@ export default function HomePage() {
         </section>
 
         <ExpertiseBand />
+        <DeliveryCommitmentBand />
         <PublicSourcesSection />
         <ExemploRelatorio />
 

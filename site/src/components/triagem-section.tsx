@@ -5,6 +5,8 @@ import { useState } from "react";
 
 import { useRouter } from "next/navigation";
 
+import { AgendaStatusStrip } from "@/components/agenda-status-strip";
+import { HumanReviewNotice } from "@/components/human-review-notice";
 import { COPY } from "@/lib/constants/copy-en";
 import { AREAS_CASO, planoPorId } from "@/lib/triagem/criterios-planos";
 import type { ResultadoTriagem } from "@/lib/triagem/analisar-caso";
@@ -197,17 +199,17 @@ export function TriagemSection() {
                   {resultado.casoFavoravel || resultado.precedente === "nenhum" ? (
                     <div className="rounded-md border-2 border-trust bg-folio p-6">
                       <p className="cite-label">{T.passo3.planoLabel}</p>
-                      <h3 className="mt-2 font-display text-2xl font-semibold text-ink">
+                      <h3 className="mt-2 font-display text-2xl font-bold text-ink">
                         {resultado.planoNome}
                       </h3>
-                      <p className="mt-2 font-display text-4xl font-semibold text-verify">
+                      <p className="mt-2 font-display text-4xl font-bold text-verify">
                         ${resultado.preco}
                       </p>
-                      <p className="mt-4 text-body text-muted">{plano.descricao}</p>
-                      <ul className="mt-4 space-y-2 text-sm text-ink">
+                      <p className="mt-4 text-body font-medium text-muted">{plano.descricao}</p>
+                      <ul className="mt-4 space-y-2 text-sm font-medium text-ink">
                         {resultado.incluiNoPlano.map((item) => (
                           <li key={item} className="flex gap-2">
-                            <span className="text-trust" aria-hidden="true">
+                            <span className="text-verify" aria-hidden="true">
                               ✓
                             </span>
                             {item}
@@ -215,10 +217,21 @@ export function TriagemSection() {
                         ))}
                       </ul>
                       {resultado.casoFavoravel ? (
-                        <p className="mt-4 text-xs text-muted">
+                        <p className="mt-4 text-xs font-medium text-muted">
                           {T.passo3.confianca}: {resultado.confianca}. {T.passo3.semSurpresas}
                         </p>
                       ) : null}
+                    </div>
+                  ) : null}
+
+                  {resultado.casoFavoravel || resultado.precedente === "nenhum" ? (
+                    <div className="space-y-4">
+                      <p className="font-display text-base font-bold text-ink">
+                        {T.passo3.entregaTitulo}
+                      </p>
+                      <AgendaStatusStrip />
+                      <HumanReviewNotice compact />
+                      <p className="text-xs font-medium text-muted">{T.passo3.entregaNota}</p>
                     </div>
                   ) : null}
 

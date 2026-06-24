@@ -33,7 +33,9 @@ export function ExemploRelatorio() {
                 Consumer Rights Research Report
               </p>
               <p className="mt-2 text-lg font-bold text-onDark">Unauthorized charge — wireless carrier</p>
-              <p className="mt-1 text-sm font-medium text-onDarkMuted">Standard plan · Delivered in 24 business hours</p>
+              <p className="mt-1 text-sm font-medium text-onDarkMuted">
+                Standard plan · Human-reviewed · typically within 24 business hours
+              </p>
             </div>
 
             <div className="border-b border-ink/8 px-6 py-5 md:px-8">

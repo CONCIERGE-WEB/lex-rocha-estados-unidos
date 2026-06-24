@@ -72,8 +72,8 @@ export function HomeHero() {
             </ul>
 
             <p className="mt-6 rounded-lg border border-verify/40 bg-verify/15 px-4 py-3 text-sm font-medium text-onDark">
-              <span className="font-bold text-verify">Transparent screening.</span>{" "}
-              If we cannot find documented similar cases, we tell you first.
+              <span className="font-bold text-verify">Human-reviewed delivery.</span>{" "}
+              Research tools assist — a specialist verifies every report before email.
             </p>
           </aside>
         </div>
