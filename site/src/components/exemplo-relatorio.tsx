@@ -18,13 +18,16 @@ export function ExemploRelatorio() {
               </li>
               <li className="flex gap-2">
                 <span className="text-verify">✓</span>
-                Comparable U.S. outcomes cited
+                Comparable U.S. cases — and what was granted
               </li>
               <li className="flex gap-2">
                 <span className="text-verify">✓</span>
-                Ordered next steps and estimates
+                Sources consulted (court and date)
               </li>
             </ul>
+            <p className="mt-6 text-xs italic text-muted">
+              Research only — no recommendations or legal advice.
+            </p>
           </div>
 
           <div className="overflow-hidden rounded-2xl border border-ink/10 bg-folio shadow-lift">
@@ -51,13 +54,13 @@ export function ExemploRelatorio() {
 
             <div className="border-b border-ink/8 px-6 py-5 md:px-8">
               <p className="mb-3 font-mono text-xs font-semibold uppercase tracking-wide text-muted">
-                2 · Similar cases already decided in the U.S.
+                2 · Similar cases already decided — and what was granted
               </p>
               <div className="rounded-lg border border-ink/8 bg-paper p-4">
                 <p className="text-sm font-semibold text-ink">State consumer court — California, 2024</p>
                 <p className="mt-1 text-sm text-muted">
-                  Nearly identical situation. Outcome favorable to the consumer. Full refund plus
-                  documented damages.
+                  Nearly identical facts. Decision favorable to the consumer.{" "}
+                  <span className="font-medium text-ink">Granted: full refund plus documented damages.</span>
                 </p>
               </div>
               <div className="mt-4 space-y-2">
@@ -65,13 +68,14 @@ export function ExemploRelatorio() {
                 <div className="h-3 w-full rounded bg-paper" />
                 <div className="h-3 w-5/6 rounded bg-paper" />
               </div>
-              <p className="mt-4 text-xs italic text-muted">+ 2 additional precedents in the full report</p>
+              <p className="mt-4 text-xs italic text-muted">+ 2 additional decided cases in the full report</p>
             </div>
 
             <div className="px-6 py-5 md:px-8">
               <p className="mb-3 font-mono text-xs font-semibold uppercase tracking-wide text-muted">
-                3 · Suggested next steps
+                3 · Sources consulted
               </p>
+              <p className="mb-3 text-xs text-muted">Court and date only — no links, no recommendations.</p>
               <div className="space-y-2">
                 <div className="h-4 w-full rounded bg-cite" />
                 <div className="h-3 w-5/6 rounded bg-paper" />

@@ -11,13 +11,12 @@ export const CRITERIOS_PLANOS = {
     inclui: [
       "Your case explained in plain language",
       "Up to 2 public decisions in similar cases",
-      "Estimated timelines and amounts",
-      "Suggested next steps",
+      "What was granted in each cited case",
     ],
     nao_inclui: [
-      "Detailed timeline of multiple events",
-      "Extended comparative value overview",
-      "More than 2 in-depth precedents",
+      "Recommendations or next-step advice (research only)",
+      "Extended comparative case overview",
+      "More than 2 in-depth decided cases",
     ],
   },
   padrao: {
@@ -27,14 +26,14 @@ export const CRITERIOS_PLANOS = {
     ideal_para:
       "Case with some complexity, several related issues, or significant amount in dispute.",
     inclui: [
-      "In-depth case analysis",
+      "In-depth research of your case",
       "3 to 5 public decisions in similar cases",
-      "Position traffic light (strong / moderate / difficult)",
-      "Detailed timeline and amount estimates",
+      "What was granted in each cited case",
+      "What U.S. consumer law says about your situation",
     ],
     nao_inclui: [
+      "Recommendations or next-step advice (research only)",
       "Detailed multi-party timeline",
-      "Extensive report for complex litigation",
     ],
   },
   completo: {
@@ -44,12 +43,14 @@ export const CRITERIOS_PLANOS = {
     ideal_para:
       "Situation with multiple phases, multiple entities, high amounts in dispute, or need for rigorous timeline.",
     inclui: [
-      "Detailed report with timeline",
-      "Extended precedent overview",
-      "Complete position and probability analysis",
-      "Estimated court and out-of-court timelines",
+      "Detailed report with a factual timeline of the cited cases",
+      "Extended set of public decisions in similar cases",
+      "What was granted across the cited cases",
+      "What U.S. consumer law says about your situation",
     ],
-    nao_inclui: ["Legal representation or court action"],
+    nao_inclui: [
+      "Recommendations, strategy, or legal representation",
+    ],
   },
 } as const;
 

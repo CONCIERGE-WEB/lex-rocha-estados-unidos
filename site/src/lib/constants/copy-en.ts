@@ -43,8 +43,8 @@ export const COPY = {
         text: "Real cases, already decided in the U.S., in situations similar to yours. With outcomes.",
       },
       {
-        title: "What you can expect",
-        text: "Average timelines, typical amounts, and likelihood of success — with honesty about what we can't guarantee.",
+        title: "What those cases were granted",
+        text: "The concrete relief consumers actually obtained in documented similar cases — refunds, damages, cancellations. Reported as research, never as a promise or recommendation.",
       },
     ],
   },
@@ -55,11 +55,10 @@ export const COPY = {
     items: [
       "Your case explained in plain language",
       "What U.S. consumer law says about your situation",
-      "Similar cases already decided — and how they turned out",
-      "Your current position — strong, moderate, or difficult",
-      "Concrete, ordered next steps",
-      "Estimated amounts and timelines based on real cases",
+      "Similar cases already decided — and what was granted",
+      "The concrete relief obtained in those documented cases",
       "Identified sources (court and date — no links)",
+      "Research only — no recommendations or legal advice",
     ],
   },
 
@@ -371,7 +370,7 @@ export const COPY = {
       },
       {
         title: "Plain-language delivery",
-        text: "Your report explains where you stand, what similar cases decided, and sensible next steps.",
+        text: "Your report explains what U.S. law says and what similar cases were actually granted — plain facts, no advice.",
       },
       {
         title: "Transparent before payment",
