@@ -5,3 +5,6 @@ out/
 .env.local
 *.log
 .vercel
+# --- segredos (token GitHub / env) ---
+.env.*
+!.env.example

@@ -1,12 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
-import { emailValido } from "@/lib/email";
 import { PLANOS } from "@/lib/constants/empresa";
 
+export const CHECKOUT_CASO_KEY = "ji_checkout_caso";
+
 type ClientType = "individual" | "business" | null;
+
+type TriagemGuardada = {
+  planoId?: string;
+  confianca?: string;
+  casoFavoravel?: boolean;
+  justificativa?: string;
+};
+
+type CasoGuardado = {
+  descricao?: string;
+  area?: string;
+  triagem?: TriagemGuardada;
+};
 
 type Props = {
   planoId: string;
@@ -16,21 +30,34 @@ export function CheckoutFlow({ planoId }: Props) {
   const plano = PLANOS.find((p) => p.id === planoId);
 
   const [clientType, setClientType] = useState<ClientType>(null);
-  const [receiptEmail, setReceiptEmail] = useState("");
+  const [descricao, setDescricao] = useState("");
+  const [area, setArea] = useState("");
+  const [triagem, setTriagem] = useState<TriagemGuardada | undefined>(undefined);
+  const [veioDaTriagem, setVeioDaTriagem] = useState(false);
   const [terms, setTerms] = useState(false);
   const [erro, setErro] = useState("");
   const [aCarregar, setACarregar] = useState(false);
 
-  const step = useMemo(() => {
-    if (clientType === "business") return 1;
-    if (clientType !== "individual") return 1;
-    return 2;
-  }, [clientType]);
+  useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem(CHECKOUT_CASO_KEY);
+      if (!raw) return;
+      const guardado = JSON.parse(raw) as CasoGuardado;
+      const desc = guardado.descricao?.trim() ?? "";
+      if (desc) setDescricao(desc);
+      if (guardado.area) setArea(guardado.area);
+      if (guardado.triagem) setTriagem(guardado.triagem);
+      setVeioDaTriagem(desc.length >= 80);
+    } catch {
+      // ignore malformed session data
+    }
+  }, []);
 
-  const progress = clientType === "business" ? 50 : step === 1 ? 50 : 100;
+  const step = useMemo(() => (clientType === "individual" ? 2 : 1), [clientType]);
+  const progress = clientType === "individual" ? 100 : 50;
 
   const canContinue =
-    clientType === "individual" && emailValido(receiptEmail) && terms;
+    clientType === "individual" && descricao.trim().length >= 80 && terms;
 
   const continuePayment = async () => {
     setErro("");
@@ -38,19 +65,33 @@ export function CheckoutFlow({ planoId }: Props) {
 
     setACarregar(true);
     try {
-      const res = await fetch("/api/checkout/intent", {
+      const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          plano: planoId,
-          emailRecibo: receiptEmail.trim(),
-          termosAceites: true,
+          planoId,
+          aceiteContrato: true,
+          descricaoCaso: descricao.trim(),
+          areaCaso: area || undefined,
+          triagem: triagem
+            ? {
+                planoId: triagem.planoId,
+                confianca: triagem.confianca,
+                casoFavoravel: triagem.casoFavoravel,
+                justificativa: triagem.justificativa,
+              }
+            : undefined,
         }),
       });
       const data = (await res.json()) as { url?: string; erro?: string; error?: string };
       if (!res.ok || !data.url) {
         setErro(data.erro ?? data.error ?? "Could not continue to payment.");
         return;
+      }
+      try {
+        sessionStorage.removeItem(CHECKOUT_CASO_KEY);
+      } catch {
+        // ignore
       }
       window.location.href = data.url;
     } catch {
@@ -145,24 +186,43 @@ export function CheckoutFlow({ planoId }: Props) {
             Confirm and pay
           </h2>
 
-          <div>
-            <label htmlFor="receipt-email" className="block font-semibold text-ink">
-              Email for receipt and report delivery
-            </label>
-            <input
-              id="receipt-email"
-              type="email"
-              autoComplete="email"
-              value={receiptEmail}
-              onChange={(e) => setReceiptEmail(e.target.value)}
-              className="input-field"
-              placeholder="you@email.com"
-            />
-            <p className="mt-2 text-sm text-muted">
-              Your Stripe receipt and final report will be sent here. We do not share your email
-              with third parties beyond payment processing.
-            </p>
-          </div>
+          {veioDaTriagem ? (
+            <div className="rounded-md border border-trust/30 bg-cite/40 p-4">
+              <p className="text-sm font-semibold text-ink">Case from your free analysis</p>
+              <p className="mt-2 line-clamp-4 text-sm text-muted">{descricao}</p>
+              <button
+                type="button"
+                onClick={() => setVeioDaTriagem(false)}
+                className="mt-3 text-sm text-trust underline underline-offset-4"
+              >
+                Edit case description
+              </button>
+            </div>
+          ) : (
+            <div>
+              <label htmlFor="case-description" className="block font-semibold text-ink">
+                Describe your case
+              </label>
+              <p className="mt-1 text-sm text-muted">
+                The more detail, the better the report. Minimum 80 characters.
+              </p>
+              <textarea
+                id="case-description"
+                value={descricao}
+                onChange={(e) => setDescricao(e.target.value)}
+                rows={6}
+                className="input-field mt-2 min-h-[8rem] resize-y"
+                placeholder="E.g.: I bought online in January. The product arrived defective. The store refused a return for 3 weeks..."
+              />
+              <p className="mt-2 text-sm text-muted">{descricao.trim().length} / 8000</p>
+            </div>
+          )}
+
+          <p className="rounded-md border border-ink/10 bg-paper px-4 py-3 text-sm text-muted">
+            Your receipt and final report are sent to the email you enter on the next screen
+            (secure Stripe checkout). We do not share your email with third parties beyond payment
+            processing.
+          </p>
 
           <div className="flex gap-3">
             <input

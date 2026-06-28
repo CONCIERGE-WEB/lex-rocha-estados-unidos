@@ -25,12 +25,12 @@ export default function CheckoutPage({
       <SiteHeader />
       <main id="content" className="border-b border-ink/8 bg-paper py-12 md:py-16">
         <div className="mx-auto max-w-6xl px-4 md:px-6">
-          <p className="section-eyebrow">Antes do pagamento</p>
+          <p className="section-eyebrow">Before you pay</p>
           <h1 className="mt-3 font-display text-3xl font-semibold text-ink md:text-4xl">
-            Confirme os detalhes fiscais
+            Confirm your order
           </h1>
           <p className="mt-4 max-w-2xl text-body text-muted">
-            Três perguntas rápidas. Depois será redireccionado para o pagamento seguro Stripe.
+            A couple of quick questions, then you&apos;ll be redirected to secure Stripe payment.
           </p>
 
           <div className="mt-10">

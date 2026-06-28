@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { AgendaStatusStrip } from "@/components/agenda-status-strip";
+import { CHECKOUT_CASO_KEY } from "@/components/checkout-flow";
 import { HumanReviewNotice } from "@/components/human-review-notice";
 import { COPY } from "@/lib/constants/copy-en";
 import { AREAS_CASO, planoPorId } from "@/lib/triagem/criterios-planos";
@@ -63,6 +64,27 @@ export function TriagemSection() {
     setPasso(1);
     setResultado(null);
     setErro("");
+  };
+
+  const irParaCheckout = (res: ResultadoTriagem) => {
+    try {
+      sessionStorage.setItem(
+        CHECKOUT_CASO_KEY,
+        JSON.stringify({
+          descricao: descricao.trim(),
+          area,
+          triagem: {
+            planoId: res.planoId,
+            confianca: res.confianca,
+            casoFavoravel: res.casoFavoravel,
+            justificativa: res.justificativa,
+          },
+        })
+      );
+    } catch {
+      // sessionStorage unavailable — checkout will ask for the description again
+    }
+    router.push(`/checkout?plano=${encodeURIComponent(res.planoId)}`);
   };
 
   const plano = resultado ? planoPorId(resultado.planoId) : null;
@@ -239,9 +261,7 @@ export function TriagemSection() {
                     {resultado.casoFavoravel ? (
                       <button
                         type="button"
-                        onClick={() =>
-                          router.push(`/checkout?plano=${encodeURIComponent(resultado.planoId)}`)
-                        }
+                        onClick={() => irParaCheckout(resultado)}
                         className="btn-primary"
                       >
                         {T.passo3.ctaPagar} — ${resultado.preco}
@@ -250,11 +270,7 @@ export function TriagemSection() {
                       <>
                         <button
                           type="button"
-                          onClick={() =>
-                            router.push(
-                              `/checkout?plano=${encodeURIComponent(resultado.planoId)}`
-                            )
-                          }
+                          onClick={() => irParaCheckout(resultado)}
                           className="btn-secondary"
                         >
                           {T.passo3.ctaAvancar} — ${resultado.preco}

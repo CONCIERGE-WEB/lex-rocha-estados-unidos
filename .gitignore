@@ -28,3 +28,7 @@ scripts/.vps-deploy-comandos.ps1
 .DS_Store
 Thumbs.db
 *.log
+# --- segredos (token GitHub / env) ---
+.env
+.env.*
+!.env.example
