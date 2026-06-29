@@ -26,6 +26,12 @@ export default function PrivacyPage() {
         This policy describes how {EMPRESA.marca} handles your personal information when you use
         our consumer rights research service in the United States.
       </p>
+      <p>
+        {EMPRESA.marca} is not a law firm. Because no attorney-client relationship is created,{" "}
+        <strong>your communications with us are not protected by attorney-client privilege</strong>.
+        Please share only what is needed to research your case, and avoid sending highly sensitive
+        identifiers (such as your SSN).
+      </p>
 
       <h2>1. Data controller</h2>
       <p>

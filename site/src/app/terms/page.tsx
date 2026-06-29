@@ -23,6 +23,58 @@ export default function TermsPage() {
         public U.S. sources. The service is not a law firm and does not include court representation.
       </p>
 
+      <h2>Not a law firm — not legal advice</h2>
+      <p>
+        {EMPRESA.marca} is <strong>not a law firm</strong>, is not your attorney, and does not
+        provide legal advice or representation. We provide{" "}
+        <strong>independent legal information and documentary research</strong> drawn from public
+        U.S. records, explained in plain language so you can clearly understand where your situation
+        stands.
+      </p>
+      <p>
+        Reading this site or one of our reports{" "}
+        <strong>does not create an attorney-client relationship</strong>, and your communications
+        with us are <strong>not protected by attorney-client privilege</strong>. The information we
+        provide is general and is not tailored to your specific circumstances. Laws change and vary
+        from state to state, and every case turns on its own facts. The outcomes of the public cases
+        we cite <strong>do not guarantee</strong> any particular result in your situation. The
+        decision about how to proceed — including whether to hire a licensed attorney in your state —
+        is <strong>always yours</strong>.
+      </p>
+
+      <h2>Our legal standing</h2>
+      <p>
+        U.S. law draws a clear line between <strong>legal information</strong> and{" "}
+        <strong>legal advice</strong>. Legal information — what the law says and what courts have
+        publicly decided — is public and may be researched, explained, and published by anyone.
+        Legal advice — applying the law to one person&apos;s specific facts and recommending a course
+        of action — is reserved for licensed attorneys. We operate strictly on the information side
+        of that line.
+      </p>
+      <ul className="list-disc space-y-2 pl-6">
+        <li>
+          <strong>First Amendment</strong> — Researching, explaining, and publishing public legal
+          information is protected speech.
+        </li>
+        <li>
+          <strong>Unauthorized-practice-of-law (UPL) rules</strong> — Across U.S. states, UPL
+          covers giving advice or representing someone, not teaching or providing general
+          information about the law that is not directed as specific advice to a specific person
+          (see, e.g., the ABA Model Definition of the Practice of Law, and state rules such as
+          Wisconsin Supreme Court Rule Chapter 23, which expressly exclude providing information
+          about the law).
+        </li>
+        <li>
+          <strong>Established practice</strong> — Plain-English legal-information services have
+          operated lawfully in the United States on this exact basis for decades.
+        </li>
+      </ul>
+      <p>
+        To stay firmly on the information side of that line, we never tell you what to do, never
+        represent you, never guarantee outcomes, and never claim to act as — or substitute for — a
+        licensed attorney.
+      </p>
+
       <h2>Scope</h2>
       <p>
         The report organizes information to support your decision, including references available
@@ -85,7 +137,7 @@ export default function TermsPage() {
           <strong>Public court records</strong> — state and federal decisions
         </li>
         <li>
-          <strong>Federal Register</strong> — federalregulations.gov — Federal regulations
+          <strong>Federal Register</strong> — federalregister.gov — Federal regulations
         </li>
       </ul>
       <p>
