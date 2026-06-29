@@ -1,6 +1,7 @@
 import { completarGroq, groqConfigurado } from "@/lib/groq";
 import { notificarAdminNovoRelatorio } from "@/lib/email/resend";
 import { PROMPT_RELATORIO_SISTEMA } from "@/lib/prompts/relatorio-system";
+import { rodapeRelatorio } from "@/lib/relatorio/rodape";
 import { getSupabase } from "@/lib/supabase";
 
 const MODELO = process.env.GROQ_MODEL?.trim() || "llama-3.3-70b-versatile";
@@ -57,11 +58,13 @@ export async function gerarRelatorioPedido(relatorioId: string): Promise<void> {
       { maxTokens: 3500 }
     );
 
+    const conteudoFinal = `${conteudo.trim()}\n${rodapeRelatorio()}`;
+
     await supabase
       .from("relatorios_pedido")
       .update({
-        conteudo_rascunho: conteudo,
-        conteudo_editado: conteudo,
+        conteudo_rascunho: conteudoFinal,
+        conteudo_editado: conteudoFinal,
         status: "revisao",
         erro_geracao: null,
         modelo_ia: MODELO,

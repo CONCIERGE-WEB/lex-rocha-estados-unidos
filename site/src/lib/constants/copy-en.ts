@@ -416,6 +416,8 @@ export const COPY = {
 
   footer: {
     tagline: "Independent documentary research on U.S. consumer rights.",
+    disclaimer:
+      `${EMPRESA.marca} provides independent, informational consumer-rights research based on public records. It is not a law firm and does not provide legal advice or representation. Using this site or reading a report does not create an attorney-client relationship, and your communications are not protected by attorney-client privilege. Laws change and vary by state; every case turns on its own facts. The final decision in any matter is always yours.`,
     columns: {
       product: "Product",
       company: "Company",

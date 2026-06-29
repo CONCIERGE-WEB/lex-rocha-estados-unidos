@@ -29,8 +29,8 @@ export const PLANOS = [
     ideal: "One problem, one company",
     inclui: [
       "Case explained in plain language",
-      "Up to 2 precedents in similar cases",
-      "Estimated timelines and amounts",
+      "Up to 2 public decisions in similar cases",
+      "What was granted in each cited case",
     ],
   },
   {
@@ -42,10 +42,10 @@ export const PLANOS = [
       "When there are multiple related issues or the amount at stake warrants more detail.",
     ideal: "Situation with more than one aspect",
     inclui: [
-      "In-depth case analysis",
-      "3 to 5 precedents in similar cases",
-      "Current position and probabilities",
-      "Detailed estimates",
+      "In-depth research of your case",
+      "3 to 5 public decisions in similar cases",
+      "What was granted in each cited case",
+      "What U.S. consumer law says about your situation",
     ],
   },
   {
@@ -56,9 +56,9 @@ export const PLANOS = [
       "For disputes that drag on, have a timeline, or involve more than one party.",
     ideal: "Case with history or multiple phases",
     inclui: [
-      "Detailed report with timeline",
-      "Extended precedent overview",
-      "Estimated court and out-of-court timelines",
+      "Detailed report with a factual timeline of the cited cases",
+      "Extended set of public decisions in similar cases",
+      "What was granted across the cited cases",
     ],
   },
 ] as const;

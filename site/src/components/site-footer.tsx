@@ -118,13 +118,16 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-3 border-t border-onDark/15 pt-8 text-xs font-medium text-onDarkMuted sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            © {ano} {EMPRESA.marca}. All rights reserved.
-          </p>
-          <p>
-            {EMPRESA.forma} · {EMPRESA.paisSede}
-          </p>
+        <div className="mt-12 border-t border-onDark/15 pt-8">
+          <p className="max-w-4xl text-xs leading-relaxed text-onDarkMuted">{F.disclaimer}</p>
+          <div className="mt-6 flex flex-col gap-3 text-xs font-medium text-onDarkMuted sm:flex-row sm:items-center sm:justify-between">
+            <p>
+              © {ano} {EMPRESA.marca}. All rights reserved.
+            </p>
+            <p>
+              {EMPRESA.forma} · {EMPRESA.paisSede}
+            </p>
+          </div>
         </div>
       </div>
     </footer>
