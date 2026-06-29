@@ -22,7 +22,7 @@ export function HomeHero() {
 
             <ul
               className="mt-8 flex flex-wrap gap-2"
-              aria-label="Guarantees"
+              aria-label="Our commitments"
             >
               {H.trustChips.map((chip) => (
                 <li
