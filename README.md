@@ -1,3 +1,7 @@
+> **© 2026 Tiago Aureliano da Rocha — Lex Rocha, prestação de serviços (CNPJ 61.699.939/0001-80).**  
+> Todos os direitos reservados. Software proprietário — ver [LICENSE](./LICENSE).  
+> Produto: **Judicial Intelligence** · Repositório: `TiagoIA-UX`
+
 # Judicial Intelligence — U.S. Consumer Rights
 
 **Repository:** [github.com/TiagoIA-UX/judicial-intelligence](https://github.com/TiagoIA-UX/judicial-intelligence)
