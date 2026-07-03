@@ -11,7 +11,7 @@ const env = Object.fromEntries(
 );
 
 const key = env.GROQ_API_KEY;
-const model = env.GROQ_MODEL || "llama-3.3-70b-versatile";
+const model = env.GROQ_MODEL || "openai/gpt-oss-120b";
 console.log("Key present:", Boolean(key), "| Model:", model);
 
 const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {

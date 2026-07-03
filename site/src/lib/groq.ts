@@ -15,7 +15,7 @@ export async function completarGroq(
     throw new Error("GROQ_API_KEY ausente");
   }
 
-  const model = process.env.GROQ_MODEL?.trim() || "llama-3.3-70b-versatile";
+  const model = process.env.GROQ_MODEL?.trim() || "openai/gpt-oss-120b";
   const res = await fetch(GROQ_URL, {
     method: "POST",
     headers: {

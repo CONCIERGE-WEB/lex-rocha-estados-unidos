@@ -231,7 +231,7 @@ class SignalHubEngine:
         max_tokens: int = 450,
         temperature: float = 0.7,
     ) -> str:
-        model = self.env.get("GROQ_MODEL", "llama-3.3-70b-versatile")
+        model = self.env.get("GROQ_MODEL", "openai/gpt-oss-120b")
         async with httpx.AsyncClient(timeout=35) as c:
             r = await c.post(
                 "https://api.groq.com/openai/v1/chat/completions",

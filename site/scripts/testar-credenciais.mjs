@@ -164,7 +164,7 @@ async function testGroq() {
     });
     const data = await res.json();
     if (!res.ok) return fail("Groq API", data.error?.message ?? res.status);
-    const model = env.GROQ_MODEL ?? "llama-3.3-70b-versatile";
+    const model = env.GROQ_MODEL ?? "openai/gpt-oss-120b";
     const has = data.data?.some((m) => m.id === model);
     if (has) ok("Groq API", `modelo ${model} disponível`);
     else warn("Groq API", `autenticado mas modelo ${model} não listado`);

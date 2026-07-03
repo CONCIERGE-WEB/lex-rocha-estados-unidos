@@ -4,7 +4,7 @@ import { PROMPT_RELATORIO_SISTEMA } from "@/lib/prompts/relatorio-system";
 import { rodapeRelatorio } from "@/lib/relatorio/rodape";
 import { getSupabase } from "@/lib/supabase";
 
-const MODELO = process.env.GROQ_MODEL?.trim() || "llama-3.3-70b-versatile";
+const MODELO = process.env.GROQ_MODEL?.trim() || "openai/gpt-oss-120b";
 
 export async function gerarRelatorioPedido(relatorioId: string): Promise<void> {
   const supabase = getSupabase();

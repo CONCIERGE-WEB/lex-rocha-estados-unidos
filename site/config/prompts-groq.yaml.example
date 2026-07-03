@@ -3,13 +3,13 @@
 # Em produção, os prompts activos estão em src/lib/prompts/*.ts
 
 triagem:
-  model: llama-3.3-70b-versatile
+  model: openai/gpt-oss-120b
   temperature: 0.25
   max_tokens: 900
   # Ver src/lib/prompts/triagem-system.ts para texto completo
 
 relatorio:
-  model: llama-3.3-70b-versatile
+  model: openai/gpt-oss-120b
   max_tokens: 3500
   # Ver src/lib/prompts/relatorio-system.ts para texto completo
 
