@@ -1,41 +1,41 @@
 /**
- * Rota A — linter de individualização (Módulo 5.1).
- * Determinístico: regex/lista, sem IA.
- * Bloqueia linguagem de consultoria individualizada (Lei 8.906/94).
+ * Route A — individualization linter (Module 5.1) — United States (en-US).
+ * Deterministic regex/list — no AI.
+ * Blocks individualized legal advice language (UPL / not legal advice).
  */
 
-/** Sem \\b após acentos — em JS \\b não trata ê/ç como word-char. */
 export const EXPRESSOES_PROIBIDAS_ROTA_A = [
-  { id: "seu_caso", padrao: /seu caso/i },
-  { id: "o_seu_caso", padrao: /o seu caso/i },
-  { id: "seu_caso_se_enquadra", padrao: /seu caso se enquadra/i },
-  { id: "voce_tem_direito", padrao: /voc[eê] tem direito/i },
-  { id: "no_seu_caso", padrao: /no seu caso/i },
-  { id: "recomendamos_que_voce", padrao: /recomendamos que voc[eê]/i },
-  { id: "aconselhamos", padrao: /aconselhamos/i },
-  { id: "nossa_orientacao", padrao: /nossa orienta[cç][aã]o/i },
-  { id: "fundamento_do_seu_caso", padrao: /fundamento (jur[ií]dico )?do seu caso/i },
-  { id: "aplicavel_ao_seu_caso", padrao: /aplic[aá]vel ao seu caso/i },
-  { id: "parecer", padrao: /parecer/i },
-  { id: "consultoria_juridica", padrao: /consultoria jur[ií]dica/i },
-  { id: "assessoria_juridica", padrao: /assessoria jur[ií]dica/i },
-  { id: "orientacao_juridica", padrao: /orienta[cç][aã]o jur[ií]dica/i },
-  { id: "voce_vai_ganhar", padrao: /voc[eê] vai ganhar/i },
-  { id: "sua_chance", padrao: /sua chance (é|e) de/i },
-  { id: "probabilidade_de_ganhar", padrao: /probabilidade de ganhar/i },
-  { id: "resultado_esperado", padrao: /resultado esperado/i },
+  { id: "your_case", padrao: /\byour case\b/i },
+  { id: "in_your_case", padrao: /\bin your case\b/i },
+  { id: "your_situation_legal", padrao: /\byour (specific )?situation (is|means|shows)/i },
+  { id: "you_are_entitled", padrao: /\byou('re| are) entitled to\b/i },
+  { id: "you_have_right", padrao: /\byou have (a |the )?right to\b/i },
+  { id: "we_recommend_you", padrao: /\bwe recommend that you\b/i },
+  { id: "we_advise_you", padrao: /\bwe advise you\b/i },
+  { id: "our_recommendation", padrao: /\bour recommendation is\b/i },
+  { id: "legal_advice", padrao: /\blegal advice\b/i },
+  { id: "legal_opinion", padrao: /\blegal opinion\b/i },
+  { id: "attorney_client", padrao: /\battorney-client\b/i },
+  { id: "applicable_to_your_case", padrao: /\bapplicable to your case\b/i },
+  { id: "in_your_specific_case", padrao: /\bin your specific case\b/i },
+  { id: "you_will_win", padrao: /\byou('ll| will) win\b/i },
+  { id: "probability_winning", padrao: /\bprobability of winning\b/i },
+  { id: "chances_of_winning", padrao: /\b(chance|chances) of winning\b/i },
+  { id: "expected_outcome", padrao: /\bexpected outcome\b/i },
+  { id: "likely_outcome_your", padrao: /\blikely outcome (for|in) your case\b/i },
+  { id: "unauthorized_practice", padrao: /\bunauthorized practice of law\b/i },
 ] as const;
 
 export const FORMULACOES_PERMITIDAS_ROTA_A = [
-  "casos com fatos semelhantes aos relatados",
-  "mesma categoria",
-  "essa categoria costuma ser fundamentada",
-  "tribunais decidiram historicamente",
-  "dado estatístico observado nessa categoria",
-  "panorama estatístico",
-  "síntese informativa",
-  "informe de referência",
-  "resultado histórico observado nessa categoria",
+  "cases with similar facts to those reported",
+  "same category",
+  "this category is typically grounded in",
+  "courts have historically decided",
+  "statistical data observed in this category",
+  "statistical overview",
+  "informational summary",
+  "reference report",
+  "historical outcome observed in this category",
 ] as const;
 
 export type OcorrenciaLinter = {
@@ -49,10 +49,23 @@ export type ResultadoLinterIndividualizacao = {
   ocorrencias: OcorrenciaLinter[];
 };
 
+/** IDs where industry-standard negated disclaimers must not trigger the linter. */
+const IDS_COM_NEGACAO_PERMITIDA = new Set(["legal_advice", "legal_opinion"]);
+
 /**
- * Varre o texto por expressões proibidas.
- * Qualquer ocorrência → fail (bloqueia entrega).
+ * Allows "this does not constitute legal advice" while still blocking
+ * affirmative individualized phrasing like "you have legal advice on your case".
  */
+export function precedidoPorNegacao(texto: string, indice: number): boolean {
+  const janela = texto.slice(Math.max(0, indice - 80), indice).toLowerCase();
+  return (
+    /\b(not|no|never|without|nor)\b/.test(janela) ||
+    /\b(doesn't|does not|don't|do not|isn't|is not|is no|cannot|can't|won't|will not)\b/.test(
+      janela
+    )
+  );
+}
+
 export function lintarIndividualizacao(
   texto: string
 ): ResultadoLinterIndividualizacao {
@@ -65,6 +78,12 @@ export function lintarIndividualizacao(
     const re = new RegExp(item.padrao.source, flags);
     let m: RegExpExecArray | null;
     while ((m = re.exec(texto)) !== null) {
+      if (
+        IDS_COM_NEGACAO_PERMITIDA.has(item.id) &&
+        precedidoPorNegacao(texto, m.index)
+      ) {
+        continue;
+      }
       ocorrencias.push({
         id: item.id,
         trecho: m[0],
@@ -84,49 +103,34 @@ export function assertSemIndividualizacao(texto: string): void {
   if (r.status === "fail") {
     const trechos = r.ocorrencias.map((o) => `"${o.trecho}" (${o.id})`).join(", ");
     throw new Error(
-      `Linter Rota A: individualização indevida detectada: ${trechos}`
+      `Route A linter: improper individualization detected: ${trechos}`
     );
   }
 }
 
-/** Prompt de sistema do montador (Módulo 4) — Rota A. */
-export const PROMPT_SISTEMA_MONTAGEM_ROTA_A = `Você é um agente de montagem de relatórios informativos e estatísticos sobre categorias
-de casos de consumo. Você NÃO presta consultoria, assessoria ou direção jurídica — essas
-são atividades privativas de advogado inscrito na OAB (art. 1º e 3º, Lei 8.906/94), e
-você não está autorizado a exercê-las, mesmo que solicitado. Sua função é análoga à de
-uma plataforma de jurimetria: reportar padrões estatísticos e decisões públicas por
-categoria, nunca aplicar direito ao fato individual de quem paga pelo relatório.
+export const PROMPT_SISTEMA_MONTAGEM_ROTA_A = `You assemble informational, statistical reports about categories of consumer cases
+in the United States. You do NOT provide legal advice, legal opinions, or individualized
+guidance — that would be unauthorized practice of law. Your role is like legal analytics:
+report patterns and public decisions by category, never apply law to the paying client's
+individual facts.
 
-REGRA ESTRUTURAL (não estilística — é o que define a natureza do produto):
-O sujeito de toda frase jurídica do relatório deve ser a CATEGORIA ou o conjunto de
-"casos semelhantes", nunca o cliente individual. Se uma frase pode ser reescrita
-trocando "essa categoria de casos" por "o seu caso" sem soar estranha, ela está
-individualizando indevidamente e deve ser reescrita.
+STRUCTURAL RULE:
+The subject of every legal sentence must be the CATEGORY or "similar cases", never the
+individual client. If a sentence still reads naturally when you replace "this category"
+with "your case", it improperly individualizes and must be rewritten.
 
-PROIBIDO (nunca gerar, em nenhuma variação ou sinônimo):
-- "seu caso", "o seu caso se enquadra em", "você tem direito a", "no seu caso"
-- "recomendamos que você", "aconselhamos", "nossa orientação é"
-- "o fundamento do seu caso é", "aplicável ao seu caso"
-- "parecer", "consultoria jurídica", "assessoria jurídica", "orientação jurídica"
-- qualquer afirmação de resultado individual ("você vai ganhar", "sua chance é de X%")
+FORBIDDEN:
+- "your case", "in your case", "you're entitled to", "we recommend that you"
+- "legal advice", "legal opinion", outcome promises ("you will win", "probability of winning")
 
-OBRIGATÓRIO (formulações-padrão a usar):
-- "casos com fatos semelhantes aos relatados (mesma categoria: [nome da categoria])"
-- "essa categoria costuma ser fundamentada em [artigo/lei], conforme o banco de decisões consultado"
-- "tribunais decidiram historicamente da seguinte forma em casos dessa categoria: ..."
-- "dado estatístico observado nessa categoria: [percentual/faixa de valor], com base em [fonte]"
+REQUIRED:
+- "cases with similar facts to those reported (same category: …)"
+- "this category is typically grounded in …"
+- "courts have historically decided in cases in this category …"
 
-REGRAS DE FONTE:
-1. Você SÓ pode citar número de processo, súmula, tribunal ou link que estejam
-   literalmente presentes no JSON da categoria fornecido no contexto.
-2. Estatísticas só podem vir do campo estatisticas do JSON.
-3. Se o JSON não tiver dado suficiente, declare a limitação explicitamente.
+SOURCE RULES:
+1. Only cite docket numbers, courts, or links literally present in the category JSON.
+2. Statistics only from the estatisticas field.
+3. Prefer primary sources (official court and .gov domains).
 
-USO DOS DADOS DO CLIENTE:
-Os dados estruturados do cliente (nome, datas, valores, empresa) servem SOMENTE para
-personalizar a narrativa factual introdutória. Eles NUNCA devem ser combinados com
-fundamentos jurídicos para produzir uma conclusão sobre o caso específico.
-
-SAÍDA OBRIGATÓRIA:
-Ao final, gerar seção "Fontes para conferência" listando cada link_oficial usado,
-copiado exatamente como está no JSON.`;
+OUTPUT: a "Sources for verification" section listing each link_oficial used, copied from JSON.`;

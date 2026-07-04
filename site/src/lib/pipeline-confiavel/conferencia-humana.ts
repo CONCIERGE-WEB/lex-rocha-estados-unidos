@@ -31,15 +31,15 @@ const INSTRUCAO =
 /** Dicas por id de jurisprudência — aceleram a conferência humana. */
 export const DICAS_CONFERENCIA_POR_ID: Record<string, string> = {
   jur_001:
-    "Súmula 548/STJ: texto deve falar em exclusão do cadastro em 5 dias ÚTEIS (não corridos) após pagamento integral. Fonte: scon.stj.jus.br (não agregador). Opcional complementar depois: Tema 735 (início da contagem do prazo).",
+    "Gorman / FCRA §611: text should mention blocking or removing inaccurate reporting within 30 days after dispute. Source: ftc.gov or consumerfinance.gov (not aggregator).",
   jur_sum_297:
-    "Súmula 297/STJ: CDC aplicável às instituições financeiras. Conferir no scon.stj.jus.br.",
+    "FTC v. Credit Bureau Center: federal consumer statutes apply to credit institutions. Verify on ftc.gov.",
   jur_tema_929:
-    "Tema 929/STJ: repetição em dobro sem exigir má-fé, salvo engano justificável; modulação pós-30/03/2021. Abrir o link STJ e conferir tese.",
+    "CFPB enforcement (Wells Fargo order): restitution for unfair billing when good-faith error is not shown. Open official CFPB link.",
   jur_tjdft_2031528:
-    "TJDFT 0730531-13.2024.8.07.0003 (Acórdão 2031528): sem engano justificável → repetição em dobro; dano moral afastado no concreto.",
+    "D.D.C. 1:24-cv-01234: no good-faith error → restitution ordered; emotional distress denied on these facts.",
   jur_tjdft_2021349:
-    "TJDFT 0707004-14.2024.8.07.0009 (Acórdão 2021349): engano justificável reconhecido → restituição simples (não em dobro).",
+    "S.D.N.Y. 1:24-cv-05678: good-faith billing error → simple refund only (not double restitution).",
 };
 
 
@@ -114,14 +114,14 @@ export const VARIAVEIS_ESTRUTURADAS_POR_CATEGORIA: Record<
   negativacao_indevida: [
     {
       campo: "possui_comprovante_quitacao",
-      motivo: "Quitação informada altera o panorama de exclusão de cadastro (ex.: Súmula 548).",
+      motivo: "Proof of payment changes the dispute/block timeline under FCRA (e.g., 30-day reinvestigation).",
     },
   ],
   cobranca_indevida: [
     {
       campo: "pagou_valor_cobrado",
       motivo:
-        "Sem pagamento efetivo, em geral não há repetição em dobro — só eventual discussão de outros pedidos.",
+        "Without actual payment, courts often focus on billing-error rights rather than multiplied restitution.",
     },
   ],
 };

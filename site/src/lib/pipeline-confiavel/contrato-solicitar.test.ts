@@ -64,9 +64,9 @@ describe("pipeline-confiavel/contrato-solicitar", () => {
     });
     expect(r.linter.status).toBe("pass");
     expect(r.verificacao.status).toBe("pass");
-    expect(r.rascunho).toContain("Tema 929");
-    expect(r.rascunho).toContain("0730531-13.2024.8.07.0003");
-    expect(r.rascunho.toLowerCase()).not.toContain("seu caso");
+    expect(r.rascunho).toContain("CFPB v. Wells Fargo");
+    expect(r.rascunho).toContain("1:24-cv-01234");
+    expect(r.rascunho.toLowerCase()).not.toContain("your case");
     expect(r.entradaBanco.citacoes_conferidas).toBe(false);
   });
 });

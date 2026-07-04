@@ -1,13 +1,22 @@
 /**
- * Regra geral: link_oficial prefere fonte primária do tribunal/Planalto
- * sobre agregadores (Jusbrasil, etc.). O usuário abre esse link para o inteiro teor.
+ * U.S.: prefer official .gov / uscourts over legal aggregators.
  */
 
 const AGREGADORES = [
+  "justia.com",
+  "casetext.com",
+  "findlaw.com",
+  "leagle.com",
+  "law.cornell.edu",
   "jusbrasil.com.br",
-  "escavador.com",
-  "juit.io",
-  "projuris.com.br",
+] as const;
+
+const SUFIXOS_PRIMARIOS = [
+  "uscourts.gov",
+  "ftc.gov",
+  "consumerfinance.gov",
+  "justice.gov",
+  "supremecourt.gov",
 ] as const;
 
 export function hostnameDeUrl(url: string): string | null {
@@ -21,28 +30,20 @@ export function hostnameDeUrl(url: string): string | null {
 export function isAgregadorJurisprudencia(url: string): boolean {
   const host = hostnameDeUrl(url);
   if (!host) return false;
-  return AGREGADORES.some(
-    (a) => host === a || host.endsWith(`.${a}`)
-  );
+  return AGREGADORES.some((a) => host === a || host.endsWith(`.${a}`));
 }
 
-/** Tribunal (.jus.br), Planalto e gov.br oficiais — não agregador. */
+/** Official court or federal/state .gov — not aggregators. */
 export function isFontePrimariaOficial(url: string): boolean {
   const host = hostnameDeUrl(url);
   if (!host) return false;
   if (isAgregadorJurisprudencia(url)) return false;
-  return (
-    host.endsWith(".jus.br") ||
-    host === "planalto.gov.br" ||
-    host.endsWith(".planalto.gov.br") ||
-    host.endsWith(".gov.br")
-  );
+  if (SUFIXOS_PRIMARIOS.some((s) => host === s || host.endsWith(`.${s}`))) {
+    return true;
+  }
+  return host.endsWith(".gov") && !host.includes("blog");
 }
 
-/**
- * Entre dois links candidatos, escolhe o oficial do tribunal/Planalto.
- * Se só um for primário, esse vence. Se ambos ou nenhum, mantém o preferido.
- */
 export function priorizarLinkOficial(params: {
   preferido: string;
   candidatoOficial?: string | null;
@@ -64,10 +65,6 @@ export function priorizarLinkOficial(params: {
   return preferido;
 }
 
-/**
- * Normaliza link_oficial de uma ficha: se o atual for agregador e houver
- * alternativa oficial, troca. Caso contrário mantém.
- */
 export function resolverLinkOficialPreferido(
   linkAtual: string,
   alternativasOficiais: string[] = []

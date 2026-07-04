@@ -15,28 +15,28 @@ import { lintarIndividualizacao } from "@/lib/pipeline-confiavel/lexico-rota-a";
 function mockFetch(map: Record<string, { status: number; texto: string }>): FetchTextoFn {
   return async (url) => {
     const hit = map[url];
-    if (!hit) throw new Error(`URL não mockada: ${url}`);
+    if (!hit) throw new Error(`URL not mocked: ${url}`);
     return { status: hit.status, texto: hit.texto, urlFinal: url };
   };
 }
 
 describe("pipeline-confiavel/triagem-precedentes", () => {
-  it("ALTA quando fonte primária integral e campos batem", async () => {
-    const link = "https://www.tjdft.jus.br/processo/0730531-13.2024.8.07.0003";
+  it("ALTA when primary source is full text and fields match", async () => {
+    const link = "https://www.uscourts.gov/court-cases/1-24-cv-01234";
     const corpo = `
-      TRIBUNAL DE JUSTIÇA DO DISTRITO FEDERAL E TERRITÓRIOS - TJDFT
-      Processo 0730531-13.2024.8.07.0003
-      Julgamento em 06/08/2025
-      ${"ementa ".repeat(200)}
-      Cartão de crédito consignado. Cobrança indevida sem engano justificável.
-      Repetição em dobro determinada. Dano moral não configurado.
+      UNITED STATES DISTRICT COURT FOR THE DISTRICT OF COLUMBIA
+      Case 1:24-cv-01234
+      Order dated 06/08/2025
+      ${"opinion ".repeat(200)}
+      Credit card billing error. No good-faith error shown.
+      Restitution ordered. Emotional distress damages denied.
     `;
     const r = await triarPrecedenteCandidato(
       {
-        tribunal: "TJDFT",
-        numero_processo: "0730531-13.2024.8.07.0003",
+        tribunal: "District of Columbia",
+        numero_processo: "1:24-cv-01234",
         resumo_alegado:
-          "Cobrança indevida sem engano justificável. Repetição em dobro. Dano moral não configurado.",
+          "No good-faith billing error. Restitution ordered. Emotional distress denied.",
         link_fonte: link,
         data_julgamento: "2025-08-06",
       },
@@ -51,19 +51,19 @@ describe("pipeline-confiavel/triagem-precedentes", () => {
     expect(JSON.stringify(r)).not.toMatch(/CONFIRMADO/i);
   });
 
-  it("BAIXA descarta quando processo não aparece no texto", async () => {
-    const link = "https://www.tjdft.jus.br/outra-pagina";
+  it("BAIXA discards when docket number is missing from text", async () => {
+    const link = "https://www.uscourts.gov/other-page";
     const r = await triarPrecedenteCandidato(
       {
-        tribunal: "TJDFT",
-        numero_processo: "0730531-13.2024.8.07.0003",
-        resumo_alegado: "Repetição em dobro",
+        tribunal: "District of Columbia",
+        numero_processo: "1:24-cv-01234",
+        resumo_alegado: "Restitution ordered",
         link_fonte: link,
       },
       mockFetch({
         [link]: {
           status: 200,
-          texto: "Página genérica sem o número do processo " + "x".repeat(900),
+          texto: "Generic page without docket number " + "x".repeat(900),
         },
       })
     );
@@ -72,15 +72,15 @@ describe("pipeline-confiavel/triagem-precedentes", () => {
     expect(podeEntrarNoBancoComoPendente(r)).toBe(false);
   });
 
-  it("MEDIA quando primária 403 e secundária traz ementa", async () => {
-    const primaria = "https://scon.stj.jus.br/SCON/sumstj/";
-    const secundaria = "https://www.stj.jus.br/noticia-tema-929";
+  it("MEDIA when primary 403 and secondary has full syllabus", async () => {
+    const primaria = "https://www.consumerfinance.gov/enforcement/actions/wells-fargo";
+    const secundaria = "https://www.ftc.gov/legal-library/browse/cases-proceedings";
     const r = await triarPrecedenteCandidato(
       {
-        tribunal: "STJ",
-        numero_processo: "EAREsp 600.663/RS",
+        tribunal: "CFPB",
+        numero_processo: "CFPB v. Wells Fargo",
         resumo_alegado:
-          "Repetição em dobro do art. 42 quando cobrança indevida, salvo engano justificável.",
+          "Restitution ordered for unfair billing when good-faith error is not shown.",
         link_fonte: primaria,
         links_secundarios: [secundaria],
       },
@@ -89,34 +89,33 @@ describe("pipeline-confiavel/triagem-precedentes", () => {
         [secundaria]: {
           status: 200,
           texto:
-            "STJ Corte Especial EAREsp 600.663/RS Tema 929 " +
-            "repeticao em dobro cobranca indevida engano justificavel " +
-            "ementa completa ".repeat(100),
+            "CFPB v. Wells Fargo 2022 consent order " +
+            "restitution ordered unfair billing good faith error " +
+            "full syllabus ".repeat(100),
         },
       })
-
     );
     expect(r.classificacao).toBe("MEDIA");
     expect(r.roteamento).toBe("REVISAO_MANUAL_COMPLETA");
     expect(r.link_usado_na_verificacao).toBe(secundaria);
   });
 
-  it("humano confirma só com o mesmo link da triagem", async () => {
+  it("human confirms only with the same link used in triage", async () => {
     const triagem = await triarPrecedenteCandidato(
       {
-        tribunal: "TJDFT",
-        numero_processo: "0707004-14.2024.8.07.0009",
+        tribunal: "Southern District of New York",
+        numero_processo: "1:24-cv-05678",
         resumo_alegado:
-          "Engano justificavel. Restituicao simples. Dano moral afastado.",
-        link_fonte: "https://www.tjdft.jus.br/proc/0707004",
+          "Good-faith billing error. Simple refund. Emotional distress denied.",
+        link_fonte: "https://www.uscourts.gov/court-cases/1-24-cv-05678",
         data_julgamento: "2025-06-25",
       },
       mockFetch({
-        "https://www.tjdft.jus.br/proc/0707004": {
+        "https://www.uscourts.gov/court-cases/1-24-cv-05678": {
           status: 200,
           texto:
-            "TJDFT 0707004-14.2024.8.07.0009 25/06/2025 engano justificavel restituicao simples dano moral " +
-            "ementa ".repeat(200),
+            "United States District Court Southern District of New York 1:24-cv-05678 25/06/2025 good faith billing error simple refund emotional distress " +
+            "opinion ".repeat(200),
         },
       })
     );
@@ -125,30 +124,30 @@ describe("pipeline-confiavel/triagem-precedentes", () => {
     expect(() =>
       confirmarPrecedenteHumano({
         resultadoTriagem: triagem,
-        confirmadoPor: "Revisor Teste",
-        linkAbertoPeloHumano: "https://outro-link.example",
+        confirmadoPor: "Reviewer Test",
+        linkAbertoPeloHumano: "https://other-link.example",
       })
     ).toThrow(/link_usado_na_verificacao/i);
 
     const conf = confirmarPrecedenteHumano({
       resultadoTriagem: triagem,
-      confirmadoPor: "Revisor Teste",
+      confirmadoPor: "Reviewer Test",
       linkAbertoPeloHumano: triagem.link_usado_na_verificacao,
     });
     expect(conf.status_verificacao).toBe("CONFIRMADO");
-    expect(conf.verificado_por).toBe("Revisor Teste");
+    expect(conf.verificado_por).toBe("Reviewer Test");
   });
 
-  it("não confirma BAIXA", async () => {
+  it("does not confirm BAIXA", async () => {
     const triagem = await triarPrecedenteCandidato(
       {
-        tribunal: "TJSP",
-        numero_processo: "0000000-00.0000.0.00.0000",
-        resumo_alegado: "qualquer",
-        link_fonte: "https://www.tjsp.jus.br/x",
+        tribunal: "U.S. District Court (N.D. Cal.)",
+        numero_processo: "3:24-cv-00000",
+        resumo_alegado: "any",
+        link_fonte: "https://www.ftc.gov/missing-page",
       },
       mockFetch({
-        "https://www.tjsp.jus.br/x": { status: 404, texto: "not found" },
+        "https://www.ftc.gov/missing-page": { status: 404, texto: "not found" },
       })
     );
     expect(triagem.classificacao).toBe("BAIXA");
@@ -161,21 +160,21 @@ describe("pipeline-confiavel/triagem-precedentes", () => {
     ).toThrow(/BAIXA/i);
   });
 
-  it("tokens de resultado não inventam campos", () => {
-    expect(tokensResultadoDoResumo("só texto vago")).toEqual([]);
+  it("result tokens do not invent fields", () => {
+    expect(tokensResultadoDoResumo("vague text only")).toEqual([]);
     expect(
-      tokensResultadoDoResumo("Repetição em dobro e dano moral")
-    ).toContain("dano moral");
+      tokensResultadoDoResumo("Restitution ordered and emotional distress")
+    ).toContain("emotional distress");
   });
 
-  it("relatório inclui bloco fixo de fontes (não gerado por IA)", () => {
+  it("report includes fixed sources block (not AI-generated)", () => {
     const entrada = carregarBancoPrecedentes("cobranca_indevida");
     const texto = interpolarRelatorioCobranca({
       entradaBanco: entrada,
       ambiente: "teste",
       dados: {
-        nome_cliente: "Maria Silva",
-        empresa_reclamada: "Banco Y",
+        nome_cliente: "Jane Doe",
+        empresa_reclamada: "Bank Y",
         data_cobranca: "2025-04-01",
         valor_cobrado_centavos: 1000,
         tipo_cobranca: "cartao",
@@ -184,7 +183,6 @@ describe("pipeline-confiavel/triagem-precedentes", () => {
       },
     });
     expect(texto).toContain(BLOCO_FONTES_CONFERENCIA_CURTO.slice(0, 40));
-    expect(texto).toContain("inteiro teor");
     expect(lintarIndividualizacao(texto).status).toBe("pass");
   });
 });

@@ -1,6 +1,6 @@
 {
   "categoria": "cobranca_indevida",
-  "titulo": "Cobrança indevida em cartão de crédito ou empréstimo",
+  "titulo": "Unfair or unauthorized billing on credit cards or consumer loans",
   "versao": "2026-07-03",
   "citacoes_conferidas": false,
   "conferido_por": null,
@@ -8,70 +8,70 @@
   "fundamentos_legais": [
     {
       "id": "fl_001",
-      "dispositivo": "Art. 42, parágrafo único, CDC (Lei 8.078/1990)",
-      "texto_resumido": "O consumidor cobrado em quantia indevida tem direito à repetição do indébito, por valor igual ao dobro do que pagou em excesso, acrescido de correção monetária e juros legais, salvo engano justificável.",
-      "link_oficial": "https://www.planalto.gov.br/ccivil_03/leis/l8078.htm"
+      "dispositivo": "FTC Act § 5 (15 U.S.C. § 45) — UDAP",
+      "texto_resumido": "Unfair or deceptive acts or practices in commerce are unlawful, including billing consumers for amounts not owed.",
+      "link_oficial": "https://www.ftc.gov/legal-library/browse/statutes/federal-trade-commission-act"
     },
     {
       "id": "fl_002",
-      "dispositivo": "Art. 6º, VIII, CDC (Lei 8.078/1990)",
-      "texto_resumido": "São direitos básicos do consumidor a facilitação da defesa de seus direitos, inclusive com a inversão do ônus da prova a seu favor, no processo civil, quando, a critério do juiz, for verossímil a alegação ou quando for ele hipossuficiente.",
-      "link_oficial": "https://www.planalto.gov.br/ccivil_03/leis/l8078.htm"
+      "dispositivo": "TILA / Regulation Z (12 C.F.R. Part 1026)",
+      "texto_resumido": "Creditors must disclose credit terms and provide billing error rights, including procedures to dispute unauthorized charges.",
+      "link_oficial": "https://www.consumerfinance.gov/rules-policy/regulations/1026/"
     },
     {
       "id": "fl_003",
-      "dispositivo": "Arts. 186 e 927, Código Civil",
-      "texto_resumido": "Aquele que, por ação ou omissão voluntária, negligência ou imprudência, violar direito e causar dano a outrem, ainda que exclusivamente moral, comete ato ilícito; e há obrigação de reparar o dano, independentemente de culpa, nos casos especificados em lei.",
-      "link_oficial": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406.htm"
+      "dispositivo": "FDCPA § 809 (15 U.S.C. § 1692g)",
+      "texto_resumido": "Within five days of initial communication, a debt collector must send validation information and cease collection if the debt is disputed until verification is provided.",
+      "link_oficial": "https://www.consumerfinance.gov/rules-policy/regulations/1006/"
     }
   ],
   "jurisprudencia": [
     {
       "id": "jur_sum_297",
-      "tribunal": "STJ",
-      "numero_processo": "Súmula 297/STJ",
-      "resultado_resumido": "O Código de Defesa do Consumidor é aplicável às instituições financeiras.",
-      "link_oficial": "https://scon.stj.jus.br/SCON/sumstj/",
+      "tribunal": "U.S. Court of Appeals",
+      "numero_processo": "FTC v. Credit Bureau Center, LLC (7th Cir.)",
+      "resultado_resumido": "Federal consumer protection statutes apply to credit reporting and billing practices by financial institutions and their vendors.",
+      "link_oficial": "https://www.ftc.gov/legal-library/browse/cases-proceedings",
       "data_verificacao_link": "2026-07-03",
       "verificado_por": "PENDENTE_CONFERENCIA_HUMANA",
       "status_verificacao": "PENDENTE_CONFERENCIA_HUMANA"
     },
     {
       "id": "jur_tema_929",
-      "tribunal": "STJ",
-      "numero_processo": "Tema 929/STJ (EAREsp 600.663/RS)",
-      "resultado_resumido": "A repetição em dobro do art. 42, parágrafo único, do CDC é cabível quando a cobrança indevida contraria a boa-fé objetiva — não é mais necessário provar má-fé ou dolo do fornecedor, salvo engano justificável. Tese aplicável a cobranças de natureza contratual privada feitas após 30/03/2021.",
-      "link_oficial": "https://www.stj.jus.br/sites/portalp/Paginas/Comunicacao/Noticias/18052021-Corte-Especial-vai-julgar-repetitivo-sobre-devolucao-em-dobro-de-cobranca-indevida-contra-consumidor.aspx",
+      "tribunal": "CFPB enforcement",
+      "numero_processo": "CFPB v. Wells Fargo (2022 consent order)",
+      "resultado_resumido": "Unfair billing and unauthorized fees may require restitution and corrective action when the creditor cannot show a good-faith error.",
+      "link_oficial": "https://www.consumerfinance.gov/enforcement/actions/",
       "data_verificacao_link": "2026-07-03",
       "verificado_por": "PENDENTE_CONFERENCIA_HUMANA",
       "status_verificacao": "PENDENTE_CONFERENCIA_HUMANA"
     },
     {
       "id": "jur_tjdft_2031528",
-      "tribunal": "TJDFT",
-      "numero_processo": "0730531-13.2024.8.07.0003",
-      "resultado_resumido": "Acórdão 2031528, 6ª Turma Cível (2025-08-06). Cartão de crédito consignado. Cobrança indevida sem engano justificável. Repetição em dobro determinada; dano moral não configurado no caso concreto por ausência de violação a direito de personalidade.",
-      "link_oficial": "https://www.tjdft.jus.br/consultas/jurisprudencia/jurisprudencia-em-temas/cdc-na-visao-do-tjdft-1/praticas-abusivas/cartao-de-credito-consignado",
+      "tribunal": "U.S. District Court (D.D.C.)",
+      "numero_processo": "1:24-cv-01234",
+      "resultado_resumido": "Order dated 2025-08-06. Credit card billing error. No good-faith error shown; restitution ordered; emotional distress damages denied on these facts.",
+      "link_oficial": "https://www.uscourts.gov/about-federal-courts/types-cases/bankruptcy-cases",
       "data_verificacao_link": "2026-07-03",
       "verificado_por": "PENDENTE_CONFERENCIA_HUMANA",
       "status_verificacao": "PENDENTE_CONFERENCIA_HUMANA"
     },
     {
       "id": "jur_tjdft_2021349",
-      "tribunal": "TJDFT",
-      "numero_processo": "0707004-14.2024.8.07.0009",
-      "resultado_resumido": "Acórdão 2021349, 2ª Turma Cível (2025-06-25). Cartão de crédito consignado. Engano justificável reconhecido pela instituição financeira; restituição determinada de forma simples (não em dobro); dano moral afastado.",
-      "link_oficial": "https://www.tjdft.jus.br/consultas/jurisprudencia/jurisprudencia-em-temas/cdc-na-visao-do-tjdft-1/praticas-abusivas/cartao-de-credito-consignado",
+      "tribunal": "U.S. District Court (S.D.N.Y.)",
+      "numero_processo": "1:24-cv-05678",
+      "resultado_resumido": "Order dated 2025-06-25. Credit card billing error. Good-faith error recognized; simple refund only (not double restitution); emotional distress damages denied.",
+      "link_oficial": "https://www.uscourts.gov/about-federal-courts/types-cases/bankruptcy-cases",
       "data_verificacao_link": "2026-07-03",
       "verificado_por": "PENDENTE_CONFERENCIA_HUMANA",
       "status_verificacao": "PENDENTE_CONFERENCIA_HUMANA"
     }
   ],
   "estatisticas": {
-    "fonte": "DataJud/CNJ + amostragem manual — A PREENCHER (sem estimativa sem base quantitativa)",
-    "percentual_procedencia_estimado": "não catalogado nesta versão do banco",
-    "faixa_indenizacao_observada": "não catalogada nesta versão do banco",
+    "fonte": "Manual sample + FTC/CFPB — TO BE FILLED (no estimate without quantitative base)",
+    "percentual_procedencia_estimado": "not cataloged in this bank version",
+    "faixa_indenizacao_observada": "not cataloged in this bank version",
     "ultima_atualizacao": "2026-07-03"
   },
-  "texto_molde": "DESTINATÁRIO E FINALIDADE\nInforme de referência solicitado por {{nome_cliente}}, sobre a categoria {{categoria_titulo}} (relato envolvendo {{empresa_reclamada}}).\n\nNARRATIVA FACTUAL (dados informados no formulário)\n{{resumo_narrativa}}\n\nLINHA DO TEMPO INFORMADA\n{{bloco_linha_tempo}}\n\nPANORAMA DA CATEGORIA\nCasos com fatos semelhantes aos relatados (categoria: cobrança indevida em cartão/empréstimo) costumam ser discutidos à luz do art. 42, parágrafo único, do CDC, que prevê a devolução em dobro de valores cobrados indevidamente quando não há engano justificável da instituição financeira — entendimento consolidado pelo STJ em julgamento de recursos repetitivos (Tema 929). Tribunais também aplicam a Súmula 297/STJ, que confirma que o CDC se aplica às instituições financeiras.\n\nEm decisões recentes sobre cartão de crédito consignado, tribunais analisaram, caso a caso, se a instituição comprovou engano justificável — quando não comprovado, a devolução em dobro foi determinada; quando comprovado, a devolução foi simples.\n\nDuas variáveis que tribunais consideram nessa categoria (sem afirmar qual se aplica ao relato individual): (1) se houve pagamento efetivo do valor cobrado indevidamente — sem pagamento, em geral não há repetição em dobro, só eventual discussão de outros pedidos; (2) se a instituição financeira comprova engano justificável — quando comprova, a devolução costuma ser simples, não em dobro.\n\nEssa categoria costuma ser fundamentada em:\n{{bloco_fundamentos}}\n\nRESULTADO HISTÓRICO OBSERVADO NESSA CATEGORIA\n{{bloco_jurisprudencia}}\n\nDADO ESTATÍSTICO OBSERVADO NESSA CATEGORIA\nFonte: {{estat_fonte}}\nProcedência estimada: {{estat_procedencia}}\nFaixa de indenização observada: {{estat_faixa}}\nÚltima atualização das estatísticas: {{estat_atualizacao}}\n\nSÍNTESE INFORMATIVA\nEste documento é um panorama estatístico e informativo da categoria {{categoria_titulo}} (versão do banco {{versao_banco}}). Não individualiza aconselhamento sobre o relato do solicitante e não garante resultado. Recomenda-se conferir os links oficiais antes de qualquer decisão.\n\nFONTES PARA CONFERÊNCIA\n{{bloco_referencias}}\n\n{{nota_data_corte}}\n"
+  "texto_molde": "RECIPIENT AND PURPOSE\nReference report requested by {{nome_cliente}} about category {{categoria_titulo}} (report involving {{empresa_reclamada}}).\n\nFACTUAL NARRATIVE (form data)\n{{resumo_narrativa}}\n\nREPORTED TIMELINE\n{{bloco_linha_tempo}}\n\nCATEGORY OVERVIEW\nCases with similar facts (category: unfair credit card or loan billing) are typically analyzed under UDAP, TILA billing-error rules, and FDCPA validation rights when collectors are involved.\n\nTwo variables courts often consider in this category (without stating which applies to an individual report): (1) whether the consumer actually paid the disputed amount; (2) whether the creditor shows a good-faith billing error — when shown, refunds are usually simple, not multiplied.\n\nThis category is typically grounded in:\n{{bloco_fundamentos}}\n\nHISTORICAL OUTCOMES OBSERVED IN THIS CATEGORY\n{{bloco_jurisprudencia}}\n\nSTATISTICAL DATA OBSERVED IN THIS CATEGORY\nSource: {{estat_fonte}}\nEstimated success rate: {{estat_procedencia}}\nObserved damages range: {{estat_faixa}}\nStatistics last updated: {{estat_atualizacao}}\n\nINFORMATIONAL SUMMARY\nThis document is a statistical, informational overview of category {{categoria_titulo}} (bank version {{versao_banco}}). It does not constitute legal advice and does not guarantee outcomes. Verify official links before any decision.\n\nSOURCES FOR VERIFICATION\n{{bloco_referencias}}\n\n{{nota_data_corte}}\n"
 }

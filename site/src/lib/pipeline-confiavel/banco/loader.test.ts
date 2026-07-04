@@ -16,6 +16,8 @@ describe("pipeline-confiavel/banco/loader", () => {
     expect(entrada.jurisprudencia.length).toBeGreaterThan(0);
     expect(entrada.texto_molde).toContain("{{nome_cliente}}");
     expect(urlsAutorizadasDoBanco(entrada).length).toBeGreaterThan(0);
-    expect(numerosProcessoDoBanco(entrada)).toContain("Súmula 548/STJ");
+    expect(numerosProcessoDoBanco(entrada)).toContain(
+      "Gorman v. Wolpoff & Abramson, 854 F. Supp. 914"
+    );
   });
 });

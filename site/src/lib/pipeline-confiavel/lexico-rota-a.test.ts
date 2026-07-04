@@ -8,26 +8,27 @@ import {
   lintarIndividualizacao,
 } from "@/lib/pipeline-confiavel/lexico-rota-a";
 
-describe("pipeline-confiavel/lexico-rota-a (Rota A)", () => {
-  it("bloqueia cada expressão proibida da tabela", () => {
+describe("pipeline-confiavel/lexico-rota-a (Route A — en-US)", () => {
+  it("blocks forbidden individualized legal phrasing in English", () => {
     expect(EXPRESSOES_PROIBIDAS_ROTA_A.length).toBeGreaterThan(10);
     const frases = [
-      "o seu caso se enquadra em negativação",
-      "você tem direito a indenização",
-      "no seu caso o tribunal",
-      "recomendamos que você procure",
-      "aconselhamos a ação",
-      "nossa orientação é",
-      "o fundamento do seu caso é o art. 42",
-      "aplicável ao seu caso",
-      "este parecer recomenda",
-      "consultoria jurídica gratuita",
-      "assessoria jurídica online",
-      "orientação jurídica personalizada",
-      "você vai ganhar a ação",
-      "sua chance é de 80%",
-      "probabilidade de ganhar é alta",
-      "resultado esperado favorável",
+      "in your case the court will",
+      "your case qualifies under",
+      "you're entitled to damages",
+      "you have a right to sue",
+      "we recommend that you file",
+      "we advise you to contact",
+      "our recommendation is to sue",
+      "this is legal advice",
+      "our legal opinion is",
+      "applicable to your case",
+      "in your specific case",
+      "you will win this dispute",
+      "probability of winning is high",
+      "chances of winning are good",
+      "expected outcome is favorable",
+      "likely outcome in your case",
+      "unauthorized practice of law",
     ];
     for (const frase of frases) {
       const r = lintarIndividualizacao(frase);
@@ -36,15 +37,30 @@ describe("pipeline-confiavel/lexico-rota-a (Rota A)", () => {
     }
   });
 
-  it("relatório interpolado Rota A passa no linter", () => {
+  it("allows standard negated legal-advice disclaimers", () => {
+    const disclaimers = [
+      "This report does not constitute legal advice.",
+      "This is not legal advice about your situation.",
+      "The content is not legal advice and does not guarantee outcomes.",
+      "We do not provide legal advice on individual cases.",
+    ];
+    for (const frase of disclaimers) {
+      expect(lintarIndividualizacao(frase).status, frase).toBe("pass");
+    }
+    expect(lintarIndividualizacao("You should rely on our legal advice for your case.").status).toBe(
+      "fail"
+    );
+  });
+
+  it("interpolated Route A report passes the linter", () => {
     limparCacheBancoPrecedentes();
     const entrada = carregarBancoPrecedentes("negativacao_indevida");
     const texto = interpolarRelatorioNegativacao({
       entradaBanco: entrada,
       ambiente: "teste",
       dados: {
-        nome_cliente: "Maria Silva",
-        empresa_reclamada: "Empresa X",
+        nome_cliente: "Jane Doe",
+        empresa_reclamada: "Company X",
         data_negativacao: "2025-03-10",
         valor_negativado_centavos: 5000,
         ja_tentou_resolver_diretamente: false,
@@ -53,8 +69,7 @@ describe("pipeline-confiavel/lexico-rota-a (Rota A)", () => {
     });
     const r = lintarIndividualizacao(texto);
     expect(r.status).toBe("pass");
-    expect(texto.toLowerCase()).toContain("categoria");
-    expect(texto.toLowerCase()).toContain("fontes para conferência");
-    expect(texto.toLowerCase()).toContain("panorama estatístico");
+    expect(texto.toLowerCase()).toContain("category");
+    expect(texto.toLowerCase()).toContain("sources for verification");
   });
 });

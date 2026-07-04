@@ -22,9 +22,9 @@ describe("pipeline-confiavel/orquestracao", () => {
     expect(r.linter.status).toBe("pass");
     expect(r.verificacao.status).toBe("pass");
     expect(r.itemFila.fila).toBe("rapida");
-    expect(r.rascunho.toLowerCase()).toContain("síntese informativa");
-    expect(r.rascunho.toLowerCase()).toContain("categoria");
-    expect(r.rascunho.toLowerCase()).not.toContain("seu caso");
+    expect(r.rascunho.toLowerCase()).toContain("informational summary");
+    expect(r.rascunho.toLowerCase()).toContain("category");
+    expect(r.rascunho.toLowerCase()).not.toContain("your case");
   });
 });
 

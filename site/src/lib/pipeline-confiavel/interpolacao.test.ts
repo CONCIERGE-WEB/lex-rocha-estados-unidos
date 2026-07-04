@@ -27,12 +27,12 @@ describe("pipeline-confiavel/interpolacao", () => {
     });
     expect(texto).toContain("Maria Silva");
     expect(texto).toContain("Empresa X");
-    expect(texto).toContain("Súmula 548/STJ");
-    expect(texto).toContain("planalto.gov.br");
+    expect(texto).toContain("Gorman v. Wolpoff");
+    expect(texto).toContain("consumerfinance.gov");
     expect(texto).toContain("vigentes em 2026-07-03");
     expect(texto).not.toContain("{{");
-    expect(PROMPT_SISTEMA_INTERPOLACAO_RESTRITO).toMatch(/categoria/i);
-    expect(PROMPT_SISTEMA_INTERPOLACAO_RESTRITO).toMatch(/8\.906/i);
+    expect(PROMPT_SISTEMA_INTERPOLACAO_RESTRITO).toMatch(/category/i);
+    expect(PROMPT_SISTEMA_INTERPOLACAO_RESTRITO).toMatch(/unauthorized practice of law/i);
   });
 
   it("produção recusa categoria com citacoes_conferidas false", () => {

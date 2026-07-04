@@ -174,6 +174,13 @@ export function tokensResultadoDoResumo(resumo: string): string[] {
     "indenizacao",
     "engano justificavel",
     "sumula",
+    "restitution ordered",
+    "restitution",
+    "emotional distress",
+    "simple refund",
+    "good-faith",
+    "good faith",
+    "billing error",
   ];
   return candidatos.filter((c) => n.includes(c));
 }

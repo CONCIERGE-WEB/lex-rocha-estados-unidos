@@ -7,11 +7,10 @@ import {
   resolverLinkOficialPreferido,
 } from "@/lib/pipeline-confiavel/fontes-oficiais";
 
-describe("pipeline-confiavel/fontes-oficiais", () => {
-  it("prioriza tribunal/Planalto sobre Jusbrasil", () => {
-    const oficial = "https://scon.stj.jus.br/SCON/sumstj/";
-    const agregador =
-      "https://www.jusbrasil.com.br/topicos/10601910/artigo-42-da-lei-n-8078";
+describe("pipeline-confiavel/fontes-oficiais (US)", () => {
+  it("priorizes .gov / uscourts over legal aggregators", () => {
+    const oficial = "https://www.ftc.gov/legal-library/browse/cases-proceedings";
+    const agregador = "https://law.justia.com/cases/federal/appellate-courts/example";
     expect(isAgregadorJurisprudencia(agregador)).toBe(true);
     expect(isFontePrimariaOficial(oficial)).toBe(true);
     expect(
@@ -26,10 +25,10 @@ describe("pipeline-confiavel/fontes-oficiais", () => {
     expect(r.link).toBe(oficial);
   });
 
-  it("mantém link já oficial", () => {
-    const oficial = "https://www.tjdft.jus.br/consultas/jurisprudencia/x";
+  it("keeps link that is already official", () => {
+    const oficial = "https://www.uscourts.gov/data-news/judiciary-news";
     const r = resolverLinkOficialPreferido(oficial, [
-      "https://www.jusbrasil.com.br/outro",
+      "https://law.justia.com/other",
     ]);
     expect(r.trocouPorOficial).toBe(false);
     expect(r.link).toBe(oficial);

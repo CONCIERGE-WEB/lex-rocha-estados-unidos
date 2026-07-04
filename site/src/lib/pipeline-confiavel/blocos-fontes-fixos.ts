@@ -1,18 +1,13 @@
 /**
- * Blocos fixos de sistema (não gerados por IA por relatório).
- * Parte 2 da spec de triagem + fontes.
+ * Fixed system blocks (not AI-generated per report).
  */
 
-/** Aparece logo abaixo da lista de links em todo relatório. */
-export const BLOCO_FONTES_CONFERENCIA_CURTO = `**Sobre as fontes acima:** os precedentes indicados foram selecionados por tratarem da mesma categoria e tipo de situação descritos neste relatório. Recomendamos a leitura do inteiro teor de cada decisão diretamente no link oficial antes de qualquer providência, pois o texto completo pode conter detalhes factuais e fundamentações que um resumo não reproduz integralmente. Este relatório tem natureza informativa e estatística sobre padrões de decisões judiciais; não individualiza aconselhamento jurídico nem garante resultado.`;
+/** Appears below the link list in every report. */
+export const BLOCO_FONTES_CONFERENCIA_CURTO = `**About the sources above:** the cited precedents were selected because they address the same category and type of situation described in this report. We encourage reading the full text of each decision at the official link before taking any step, because the complete opinion may contain factual details and reasoning that a summary cannot reproduce. This report is informational and statistical about patterns in court decisions; it does not constitute legal advice and does not guarantee outcomes.`;
 
-/**
- * Versão estendida para política/termos (Módulo 8).
- * Revisar com profissional habilitado antes de publicar no site.
- */
-export const BLOCO_FONTES_POLITICA_ESTENDIDO = `A Lex Rocha organiza e apresenta, de forma acessível, informações públicas sobre decisões judiciais e fundamentos legais associados a categorias recorrentes de casos de consumo. As decisões citadas são selecionadas com base em critérios de semelhança temática e situacional, e os links de acesso direcionam às fontes oficiais dos tribunais ou a repositórios públicos de jurisprudência.
+export const BLOCO_FONTES_POLITICA_ESTENDIDO = `Lex Rocha organizes and presents public information about court decisions and legal foundations associated with recurring consumer case categories. Cited decisions are selected based on thematic and situational similarity, and access links point to official court sources or public repositories.
 
-Por se tratar de conteúdo informativo — e não de consultoria jurídica individualizada —, recomendamos que o usuário consulte o inteiro teor de cada decisão antes de tomar qualquer decisão baseada neste relatório, já que apenas o texto integral de uma decisão judicial permite avaliar com precisão as circunstâncias específicas que levaram àquele resultado. A Lex Rocha se compromete a manter as fontes indicadas atualizadas e revisadas periodicamente, mas não garante que os precedentes apresentados se apliquem automaticamente a qualquer situação individual, tampouco assegura resultado judicial específico para o usuário.`;
+Because this is informational content — not legal advice — we recommend reading the full text of each decision before relying on this report. Lex Rocha commits to keeping cited sources updated and reviewed periodically, but does not guarantee that the precedents shown automatically apply to any individual situation or ensure a specific judicial outcome.`;
 
 export function anexarBlocoFontesConferencia(listaLinks: string): string {
   return `${listaLinks}\n\n${BLOCO_FONTES_CONFERENCIA_CURTO}\n`;
