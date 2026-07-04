@@ -1,78 +1,91 @@
-import { NextResponse } from "next/server";
-
-import { adminAutenticado } from "@/lib/admin-auth";
-import { gerarRelatorioPedido } from "@/lib/relatorio/gerar-us";
-import { getSupabase, type RelatorioPedidoRow } from "@/lib/supabase";
-
-export const runtime = "nodejs";
-
-type Params = { params: { id: string } };
-
-export async function GET(request: Request, { params }: Params) {
-  if (!(await adminAutenticado(request))) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  const supabase = getSupabase();
-  const { data, error } = await supabase
-    .from("relatorios_pedido")
-    .select("*")
-    .eq("id", params.id)
-    .single();
-
-  if (error || !data) {
-    return NextResponse.json({ error: "Report not found" }, { status: 404 });
-  }
-
-  return NextResponse.json({ relatorio: data as RelatorioPedidoRow });
-}
-
-type PatchBody = {
-  conteudoEditado?: string;
-  acao?: "regenerar";
-};
-
-export async function PATCH(request: Request, { params }: Params) {
-  if (!(await adminAutenticado(request))) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  const body = (await request.json()) as PatchBody;
-  const supabase = getSupabase();
-
-  if (body.acao === "regenerar") {
-    await supabase
-      .from("relatorios_pedido")
-      .update({ status: "a_gerar", erro_geracao: null, updated_at: new Date().toISOString() })
-      .eq("id", params.id);
-    try {
-      await gerarRelatorioPedido(params.id);
-    } catch (e) {
-      const msg = e instanceof Error ? e.message : "Regeneration failed";
-      return NextResponse.json({ error: msg }, { status: 500 });
-    }
-    const { data } = await supabase.from("relatorios_pedido").select("*").eq("id", params.id).single();
-    return NextResponse.json({ relatorio: data as RelatorioPedidoRow });
-  }
-
-  if (typeof body.conteudoEditado !== "string") {
-    return NextResponse.json({ error: "conteudoEditado is required" }, { status: 400 });
-  }
-
-  const { data, error } = await supabase
-    .from("relatorios_pedido")
-    .update({
-      conteudo_editado: body.conteudoEditado,
-      status: "revisao",
-      updated_at: new Date().toISOString(),
-    })
-    .eq("id", params.id)
-    .select("*")
-    .single();
-
-  if (error || !data) {
-    return NextResponse.json({ error: error?.message ?? "Failed to save" }, { status: 500 });
-  }
-
-  return NextResponse.json({ relatorio: data as RelatorioPedidoRow });
-}
+import { NextResponse } from "next/server";
+
+import { adminAutenticado } from "@/lib/security/admin-guard";
+import { createAdminClient } from "@/lib/supabase/admin";
+import type { Database } from "@/types/database";
+
+export const runtime = "nodejs";
+
+type Params = { params: { id: string } };
+type RelatorioUpdate = Database["public"]["Tables"]["relatorios_pesquisa"]["Update"];
+
+const FILA_STATUS_VALIDOS = new Set([
+  "rascunho",
+  "recebido",
+  "orcamento",
+  "aguardando_pagamento",
+  "na_fila",
+  "em_producao",
+  "pronto",
+  "entregue",
+]);
+
+export async function GET(request: Request, { params }: Params) {
+  if (!(await adminAutenticado(request))) {
+    return NextResponse.json({ erro: "Não autorizado." }, { status: 401 });
+  }
+
+  const supabase = createAdminClient();
+  const { data, error } = await supabase
+    .from("relatorios_pesquisa")
+    .select("*")
+    .eq("id", params.id)
+    .maybeSingle();
+
+  if (error) return NextResponse.json({ erro: error.message }, { status: 500 });
+  if (!data) return NextResponse.json({ erro: "Relatório não encontrado." }, { status: 404 });
+
+  return NextResponse.json({ relatorio: data });
+}
+
+export async function PATCH(request: Request, { params }: Params) {
+  if (!(await adminAutenticado(request))) {
+    return NextResponse.json({ erro: "Não autorizado." }, { status: 401 });
+  }
+
+  let body: { fila_status?: string; valor_cobrado?: number | null; status?: string };
+  try {
+    body = (await request.json()) as typeof body;
+  } catch {
+    return NextResponse.json({ erro: "JSON inválido." }, { status: 400 });
+  }
+
+  const update: RelatorioUpdate = {};
+
+  if (body.fila_status !== undefined) {
+    if (!FILA_STATUS_VALIDOS.has(body.fila_status)) {
+      return NextResponse.json({ erro: "Status de fila inválido." }, { status: 400 });
+    }
+    update.fila_status = body.fila_status;
+  }
+
+  if (body.valor_cobrado !== undefined) {
+    if (body.valor_cobrado !== null && (!Number.isFinite(body.valor_cobrado) || body.valor_cobrado < 0)) {
+      return NextResponse.json({ erro: "Valor inválido." }, { status: 400 });
+    }
+    update.valor_cobrado = body.valor_cobrado;
+  }
+
+  if (body.status !== undefined) {
+    update.status = body.status;
+  }
+
+  if (Object.keys(update).length === 0) {
+    return NextResponse.json({ erro: "Nada para atualizar." }, { status: 400 });
+  }
+
+  update.updated_at = new Date().toISOString();
+
+  const supabase = createAdminClient();
+  const { data, error } = await supabase
+    .from("relatorios_pesquisa")
+    .update(update)
+    .eq("id", params.id)
+    .select("*")
+    .maybeSingle();
+
+  if (error) return NextResponse.json({ erro: error.message }, { status: 500 });
+  if (!data) return NextResponse.json({ erro: "Relatório não encontrado." }, { status: 404 });
+
+  return NextResponse.json({ relatorio: data });
+}

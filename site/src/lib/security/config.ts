@@ -33,7 +33,7 @@ export function validarAdminSecret(secret: string): boolean {
 }
 
 export function baseUrlApp(): string {
-  const url = process.env.NEXT_PUBLIC_APP_URL?.trim() || "http://localhost:3010";
+  const url = process.env.NEXT_PUBLIC_APP_URL?.trim() || "http://localhost:3000";
   return url.replace(/\/$/, "");
 }
 
@@ -60,14 +60,20 @@ export function googleOAuthConfigurado(): boolean {
   );
 }
 
+export function adminSecret(): string | null {
+  return process.env.ADMIN_SECRET?.trim() || null;
+}
+
 /** Validação de ambiente — útil em arranque e testes. */
-export function auditarConfigSeguranca(env: NodeJS.ProcessEnv = process.env): SecurityConfigIssue[] {
+export function auditarConfigSeguranca(
+  env: Record<string, string | undefined> = process.env
+): SecurityConfigIssue[] {
   const issues: SecurityConfigIssue[] = [];
 
-  const adminSecret = env.ADMIN_SECRET?.trim();
-  if (!adminSecret) {
+  const secret = env.ADMIN_SECRET?.trim();
+  if (!secret) {
     issues.push({ campo: "ADMIN_SECRET", mensagem: "ausente" });
-  } else if (!validarAdminSecret(adminSecret)) {
+  } else if (!validarAdminSecret(secret)) {
     issues.push({ campo: "ADMIN_SECRET", mensagem: "mínimo 16 caracteres" });
   }
 

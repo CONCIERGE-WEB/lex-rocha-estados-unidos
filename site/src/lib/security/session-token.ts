@@ -1,4 +1,4 @@
-export const COOKIE_ADMIN = "admin_session";
+export const COOKIE_ADMIN = "lex_admin_session";
 export const SESSAO_MAX_MS = 12 * 60 * 60 * 1000;
 
 export type SessionPayload = {
@@ -9,7 +9,7 @@ export type SessionPayload = {
 
 function toBase64Url(bytes: Uint8Array): string {
   let binary = "";
-  for (const b of bytes) binary += String.fromCharCode(b);
+  for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
   return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
 }
 

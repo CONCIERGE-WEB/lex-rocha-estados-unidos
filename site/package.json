@@ -1,6 +1,6 @@
 {
   "name": "judicial-intelligence-us",
-  "version": "0.2.0",
+  "version": "1.2.0",
   "private": true,
   "scripts": {
     "clean": "node -e \"require('fs').rmSync('.next',{recursive:true,force:true})\"",
@@ -10,21 +10,41 @@
     "start": "next start -p 3010",
     "lint": "next lint",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:regressao-pipeline": "vitest run src/lib/pipeline-confiavel/regressao-massa.test.ts",
+    "test:pipeline": "vitest run src/lib/pipeline-confiavel",
+    "checklist:conferencia": "node ../scripts/checklist-conferencia-humana.mjs",
+    "test:integracao": "node ../scripts/test-integracao.mjs",
+    "test:copy": "node ../scripts/test-copy-audit.mjs",
+    "test:copy:estrutura": "node ../scripts/test-copy-estrutura.mjs",
+    "test:copy:all": "node ../scripts/test-copy-audit.mjs && node ../scripts/test-copy-estrutura.mjs",
+    "test:all": "node ../scripts/test-all.mjs"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.98.0",
+    "@radix-ui/react-slot": "^1.2.4",
     "@supabase/ssr": "^0.12.0",
     "@supabase/supabase-js": "^2.108.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "jspdf": "^4.2.1",
+    "lucide-react": "^1.16.0",
     "next": "14.2.35",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "stripe": "^22.2.0"
+    "server-only": "^0.0.1",
+    "stripe": "^22.2.0",
+    "tailwind-merge": "^3.6.0",
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/node": "^20.17.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "autoprefixer": "^10.4.20",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.35",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.15",
     "typescript": "^5.6.3",

@@ -1,60 +1,80 @@
-import { NextResponse } from "next/server";
-
-import { adminAutenticado } from "@/lib/admin-auth";
-import { getSupabase, type PagamentoRow } from "@/lib/supabase";
+import { gerarCsvIr, type LinhaIr } from "@/lib/admin/export-ir";
+import { adminAutenticado } from "@/lib/security/admin-guard";
+import { createAdminClient } from "@/lib/supabase/admin";
 
 export const runtime = "nodejs";
 
-function csvEscape(val: string): string {
-  if (val.includes(",") || val.includes('"') || val.includes("\n")) {
-    return `"${val.replace(/"/g, '""')}"`;
-  }
-  return val;
+function json(corpo: unknown, status: number): Response {
+  return new Response(JSON.stringify(corpo), {
+    status,
+    headers: { "Content-Type": "application/json" },
+  });
 }
 
 export async function GET(request: Request) {
   if (!(await adminAutenticado(request))) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return json({ erro: "Não autorizado." }, 401);
   }
 
-  const { searchParams } = new URL(request.url);
-  const ano = searchParams.get("ano") ?? String(new Date().getFullYear());
+  const url = new URL(request.url);
+  const ano = Number(url.searchParams.get("ano")) || new Date().getFullYear();
+  const mesParam = url.searchParams.get("mes");
+  const mes = mesParam ? Number(mesParam) : null;
 
-  const supabase = getSupabase();
-  const inicio = new Date(Number(ano), 0, 1).toISOString();
-  const fim = new Date(Number(ano) + 1, 0, 1).toISOString();
+  let supabase;
+  try {
+    supabase = createAdminClient();
+  } catch {
+    return json({ erro: "Supabase não configurado." }, 500);
+  }
+
+  const inicio =
+    mes != null ? new Date(Date.UTC(ano, mes - 1, 1)) : new Date(Date.UTC(ano, 0, 1));
+  const fim =
+    mes != null ? new Date(Date.UTC(ano, mes, 1)) : new Date(Date.UTC(ano + 1, 0, 1));
 
   const { data, error } = await supabase
-    .from("pagamentos")
-    .select("*")
-    .gte("created_at", inicio)
-    .lt("created_at", fim)
+    .from("pagamentos_pesquisa")
+    .select("id, relatorio_id, valor, forma_pagamento, status, created_at")
+    .gte("created_at", inicio.toISOString())
+    .lt("created_at", fim.toISOString())
     .order("created_at", { ascending: true });
 
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  if (error) return json({ erro: error.message }, 500);
+
+  const pagamentos = data ?? [];
+
+  const ids = Array.from(
+    new Set(pagamentos.map((p) => p.relatorio_id).filter(Boolean))
+  );
+  const nfsePorRelatorio = new Map<string, string | null>();
+  if (ids.length) {
+    const { data: rels } = await supabase
+      .from("relatorios_pesquisa")
+      .select("id, nfse_numero")
+      .in("id", ids);
+    for (const r of rels ?? []) {
+      nfsePorRelatorio.set(r.id, r.nfse_numero ?? null);
+    }
   }
 
-  const rows = (data ?? []) as PagamentoRow[];
-  const header = "date,client,zip,amount,currency,plan,email,stripe_id";
-  const linhas = rows.map((r) =>
-    [
-      r.created_at.slice(0, 10),
-      csvEscape(r.nome_cliente ?? ""),
-      csvEscape(r.nif_cliente ?? ""),
-      String(r.valor),
-      csvEscape(r.moeda ?? "usd"),
-      csvEscape(r.plano ?? ""),
-      csvEscape(r.email_cliente ?? ""),
-      csvEscape(r.stripe_payment_id ?? ""),
-    ].join(",")
-  );
+  const linhas: LinhaIr[] = pagamentos.map((p) => ({
+    data: p.created_at,
+    valor: Number(p.valor ?? 0),
+    forma: p.forma_pagamento,
+    status: p.status,
+    relatorioId: p.relatorio_id,
+    nfseNumero: nfsePorRelatorio.get(p.relatorio_id) ?? null,
+  }));
 
-  const csv = [header, ...linhas].join("\n");
-  return new NextResponse(csv, {
+  const csv = gerarCsvIr(linhas);
+  const sufixo = mes != null ? `${ano}-${String(mes).padStart(2, "0")}` : `${ano}`;
+
+  return new Response(csv, {
+    status: 200,
     headers: {
       "Content-Type": "text/csv; charset=utf-8",
-      "Content-Disposition": `attachment; filename="revenue-${ano}.csv"`,
+      "Content-Disposition": `attachment; filename="lex-rocha-ir-${sufixo}.csv"`,
     },
   });
 }

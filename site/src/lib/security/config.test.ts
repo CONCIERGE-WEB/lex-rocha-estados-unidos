@@ -28,8 +28,8 @@ describe("config segurança", () => {
   it("parseia lista de emails admin", () => {
     expect(emailsAdminPermitidos("A@x.com, b@y.com")).toEqual(["a@x.com", "b@y.com"]);
     expect(
-      emailsAdminPermitidos("contato.lexrocha@gmail.com,globemarket7@gmail.com")
-    ).toEqual(["contato.lexrocha@gmail.com", "globemarket7@gmail.com"]);
+      emailsAdminPermitidos("contato@lexrocha.com.br,tiago@lexrocha.com.br")
+    ).toEqual(["contato@lexrocha.com.br", "tiago@lexrocha.com.br"]);
     expect(emailsAdminPermitidos("")).toEqual([]);
   });
 
@@ -42,12 +42,22 @@ describe("config segurança", () => {
   it("auditoria aceita env mínimo válido", () => {
     const issues = auditarConfigSeguranca({
       ADMIN_SECRET: "palavra-passe-forte-ok",
-      ADMIN_EMAIL: "admin@example.com",
+      ADMIN_EMAIL: "admin@lexrocha.com.br",
       GOOGLE_OAUTH_CLIENT_ID: "908981096323-abc.apps.googleusercontent.com",
       GOOGLE_OAUTH_CLIENT_SECRET: "GOCSPX-teste123",
     });
     expect(issues).toHaveLength(0);
-    expect(validarFormatoClientId("908981096323-abc.apps.googleusercontent.com")).toBe(true);
     expect(googleOAuthConfigurado).toBeTypeOf("function");
+  });
+
+  it("auditoria sinaliza OAuth com formato inválido", () => {
+    const issues = auditarConfigSeguranca({
+      ADMIN_SECRET: "palavra-passe-forte-ok",
+      ADMIN_EMAIL: "admin@lexrocha.com.br",
+      GOOGLE_OAUTH_CLIENT_ID: "errado",
+      GOOGLE_OAUTH_CLIENT_SECRET: "tambem-errado",
+    });
+    expect(issues.some((i) => i.campo === "GOOGLE_OAUTH_CLIENT_ID")).toBe(true);
+    expect(issues.some((i) => i.campo === "GOOGLE_OAUTH_CLIENT_SECRET")).toBe(true);
   });
 });

@@ -1,220 +1,165 @@
-"use client";
-
 import Link from "next/link";
-import { useParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { notFound } from "next/navigation";
 
-import { AdminNav } from "@/components/admin-nav";
-import type { RelatorioPedidoRow } from "@/lib/supabase";
+import { RelatorioAcoes } from "@/components/admin/relatorio-acoes";
+import { formatarBRL, formatarData, formatarDataHora } from "@/lib/admin/format";
+import { infoFilaStatus, infoPagamentoStatus } from "@/lib/admin/status";
+import { createAdminClient } from "@/lib/supabase/admin";
 
-function apiError(data: { error?: string; erro?: string }, fallback: string): string {
-  return data.error ?? data.erro ?? fallback;
+export const dynamic = "force-dynamic";
+
+function Campo({ label, valor }: { label: string; valor: React.ReactNode }) {
+  return (
+    <div>
+      <p className="text-xs font-medium uppercase tracking-wide text-slate-500">{label}</p>
+      <p className="mt-0.5 text-sm text-slate-800">{valor || "—"}</p>
+    </div>
+  );
 }
 
-export default function AdminRelatorioDetalhePage() {
-  const params = useParams();
-  const id = typeof params.id === "string" ? params.id : "";
+export default async function AdminRelatorioDetalhe({
+  params,
+}: {
+  params: { id: string };
+}) {
+  let supabase;
+  try {
+    supabase = createAdminClient();
+  } catch {
+    return (
+      <main className="mx-auto max-w-6xl px-4 py-10">
+        <p className="text-sm text-red-700">Supabase não configurado.</p>
+      </main>
+    );
+  }
 
-  const [relatorio, setRelatorio] = useState<RelatorioPedidoRow | null>(null);
-  const [conteudo, setConteudo] = useState("");
-  const [erro, setErro] = useState("");
-  const [msg, setMsg] = useState("");
-  const [aCarregar, setACarregar] = useState(true);
-  const [aGuardar, setAGuardar] = useState(false);
-  const [aEnviar, setAEnviar] = useState(false);
-  const [aRegenerar, setARegenerar] = useState(false);
+  const { data: rel } = await supabase
+    .from("relatorios_pesquisa")
+    .select("*")
+    .eq("id", params.id)
+    .maybeSingle();
 
-  const carregar = useCallback(async () => {
-    if (!id) return;
-    setACarregar(true);
-    setErro("");
-    try {
-      const res = await fetch(`/api/admin/relatorios/${id}`);
-      if (!res.ok) {
-        const data = (await res.json()) as { error?: string; erro?: string };
-        setErro(apiError(data, "Failed to load."));
-        return;
-      }
-      const data = (await res.json()) as { relatorio: RelatorioPedidoRow };
-      setRelatorio(data.relatorio);
-      setConteudo(data.relatorio.conteudo_editado ?? data.relatorio.conteudo_rascunho ?? "");
-    } catch {
-      setErro("Network error.");
-    } finally {
-      setACarregar(false);
-    }
-  }, [id]);
+  if (!rel) notFound();
 
-  useEffect(() => {
-    void carregar();
-  }, [carregar]);
+  const [{ data: pagamentos }, solicitacao] = await Promise.all([
+    supabase
+      .from("pagamentos_pesquisa")
+      .select("*")
+      .eq("relatorio_id", rel.id)
+      .order("created_at", { ascending: false }),
+    rel.solicitacao_id
+      ? supabase
+          .from("solicitacoes_pesquisa")
+          .select("email, nome, telefone")
+          .eq("id", rel.solicitacao_id)
+          .maybeSingle()
+      : Promise.resolve({ data: null }),
+  ]);
 
-  const guardar = async () => {
-    setAGuardar(true);
-    setErro("");
-    setMsg("");
-    try {
-      const res = await fetch(`/api/admin/relatorios/${id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ conteudoEditado: conteudo }),
-      });
-      const data = (await res.json()) as { relatorio?: RelatorioPedidoRow; error?: string; erro?: string };
-      if (!res.ok) {
-        setErro(apiError(data, "Failed to save."));
-        return;
-      }
-      if (data.relatorio) setRelatorio(data.relatorio);
-      setMsg("Changes saved.");
-    } catch {
-      setErro("Network error.");
-    } finally {
-      setAGuardar(false);
-    }
-  };
-
-  const enviar = async () => {
-    if (!confirm("Send this report to the client by email?")) return;
-    setAEnviar(true);
-    setErro("");
-    setMsg("");
-    try {
-      const res = await fetch(`/api/admin/relatorios/${id}/enviar`, { method: "POST" });
-      const data = (await res.json()) as { relatorio?: RelatorioPedidoRow; error?: string; erro?: string };
-      if (!res.ok) {
-        setErro(apiError(data, "Failed to send."));
-        return;
-      }
-      if (data.relatorio) setRelatorio(data.relatorio);
-      setMsg("Report sent to the client by email.");
-    } catch {
-      setErro("Network error.");
-    } finally {
-      setAEnviar(false);
-    }
-  };
-
-  const regenerar = async () => {
-    if (!confirm("Regenerate the report with AI? Current text will be replaced.")) return;
-    setARegenerar(true);
-    setErro("");
-    setMsg("");
-    try {
-      const res = await fetch(`/api/admin/relatorios/${id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ acao: "regenerar" }),
-      });
-      const data = (await res.json()) as { relatorio?: RelatorioPedidoRow; error?: string; erro?: string };
-      if (!res.ok) {
-        setErro(apiError(data, "Failed to regenerate."));
-        return;
-      }
-      if (data.relatorio) {
-        setRelatorio(data.relatorio);
-        setConteudo(
-          data.relatorio.conteudo_editado ?? data.relatorio.conteudo_rascunho ?? ""
-        );
-      }
-      setMsg("Report regenerated.");
-    } catch {
-      setErro("Network error.");
-    } finally {
-      setARegenerar(false);
-    }
-  };
-
-  const enviado = relatorio?.status === "enviado";
+  const emailSugerido = solicitacao.data?.email ?? null;
+  const info = infoFilaStatus(rel.fila_status);
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-10">
-      <Link href="/admin/relatorios" className="text-trust underline underline-offset-4">
-        ← Back to list
+      <Link
+        href="/admin/relatorios"
+        className="text-sm text-slate-500 underline underline-offset-4"
+      >
+        ← Voltar
       </Link>
-      <h1 className="mt-4 text-3xl font-bold text-ink">Report review</h1>
-      <AdminNav actual="relatorios" />
 
-      {aCarregar ? <p className="mt-6 text-slate-600">Loading…</p> : null}
-      {erro ? <p className="mt-6 text-red-700">{erro}</p> : null}
-      {msg ? <p className="mt-6 text-emerald-800">{msg}</p> : null}
+      <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
+        <h1 className="text-xl font-semibold text-slate-900">
+          {rel.referencia_interna ?? `Relatório #${rel.numero_sequencial}`}
+        </h1>
+        <span
+          className={`inline-block rounded-full px-3 py-1 text-sm font-medium ${info.cls}`}
+        >
+          {info.label}
+        </span>
+      </div>
 
-      {relatorio ? (
-        <div className="mt-8 space-y-6">
-          <div className="rounded-xl border-2 border-slate-200 bg-white p-6">
-            <dl className="grid gap-3 text-base md:grid-cols-2">
-              <div>
-                <dt className="font-semibold text-slate-500">Client</dt>
-                <dd>{relatorio.nome_cliente ?? "—"}</dd>
-              </div>
-              <div>
-                <dt className="font-semibold text-slate-500">Email</dt>
-                <dd>{relatorio.email_cliente ?? "—"}</dd>
-              </div>
-              <div>
-                <dt className="font-semibold text-slate-500">Plan</dt>
-                <dd>{relatorio.plano ?? "—"}</dd>
-              </div>
-              <div>
-                <dt className="font-semibold text-slate-500">Status</dt>
-                <dd>{relatorio.status}</dd>
-              </div>
-            </dl>
-            {relatorio.erro_geracao ? (
-              <p className="mt-4 text-red-700">Generation error: {relatorio.erro_geracao}</p>
-            ) : null}
-            {relatorio.erro_envio ? (
-              <p className="mt-4 text-red-700">Send error: {relatorio.erro_envio}</p>
-            ) : null}
-          </div>
-
-          <div className="rounded-xl border-2 border-slate-200 bg-white p-6">
-            <h2 className="text-xl font-bold text-ink">Case description (client)</h2>
-            <p className="mt-3 whitespace-pre-wrap text-slate-700">{relatorio.descricao_caso}</p>
-          </div>
-
-          <div className="rounded-xl border-2 border-slate-200 bg-white p-6">
-            <h2 className="text-xl font-bold text-ink">Report — edit before sending</h2>
-            <textarea
-              value={conteudo}
-              onChange={(e) => setConteudo(e.target.value)}
-              disabled={enviado}
-              rows={24}
-              className="mt-4 w-full rounded-lg border-2 border-slate-300 p-4 font-mono text-sm leading-relaxed disabled:bg-slate-100"
-            />
-            <div className="mt-4 flex flex-wrap gap-3">
-              <button
-                type="button"
-                onClick={guardar}
-                disabled={enviado || aGuardar}
-                className="btn-secondary disabled:opacity-60"
-              >
-                {aGuardar ? "Saving…" : "Save changes"}
-              </button>
-              <button
-                type="button"
-                onClick={regenerar}
-                disabled={enviado || aRegenerar}
-                className="btn-secondary disabled:opacity-60"
-              >
-                {aRegenerar ? "Regenerating…" : "Regenerate with AI"}
-              </button>
-              <button
-                type="button"
-                onClick={enviar}
-                disabled={enviado || aEnviar || !conteudo.trim()}
-                className="btn-primary disabled:opacity-60"
-              >
-                {aEnviar ? "Sending…" : enviado ? "Already sent" : "Approve and send to client"}
-              </button>
+      <div className="mt-6 grid gap-6 lg:grid-cols-[2fr_1fr]">
+        <div className="space-y-6">
+          <section className="rounded-xl border border-slate-200 bg-white p-5">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Campo label="Cliente" valor={rel.nome_cliente} />
+              <Campo label="Área" valor={rel.area} />
+              <Campo label="Criado em" valor={formatarData(rel.created_at)} />
+              <Campo label="Código acompanhamento" valor={rel.codigo_acompanhamento} />
+              <Campo
+                label="Valor cobrado"
+                valor={formatarBRL(rel.valor_cobrado ?? rel.valor_estimado)}
+              />
+              <Campo
+                label="Previsão de entrega"
+                valor={formatarData(rel.previsao_entrega)}
+              />
+              <Campo label="Complexidade" valor={rel.complexidade} />
+              <Campo label="Urgente" valor={rel.urgente ? "Sim" : "Não"} />
             </div>
-            {relatorio.enviado_em ? (
-              <p className="mt-4 text-sm text-slate-500">
-                Sent on {new Date(relatorio.enviado_em).toLocaleString("en-US")}
+          </section>
+
+          <section className="rounded-xl border border-slate-200 bg-white p-5">
+            <h2 className="text-sm font-semibold text-slate-800">Fatos</h2>
+            <p className="mt-2 whitespace-pre-wrap text-sm text-slate-700">{rel.fatos}</p>
+          </section>
+
+          {rel.precedentes ? (
+            <section className="rounded-xl border border-slate-200 bg-white p-5">
+              <h2 className="text-sm font-semibold text-slate-800">Precedentes</h2>
+              <p className="mt-2 whitespace-pre-wrap text-sm text-slate-700">
+                {rel.precedentes}
               </p>
-            ) : null}
-          </div>
+            </section>
+          ) : null}
+
+          {rel.conteudo_gerado ? (
+            <section className="rounded-xl border border-slate-200 bg-white p-5">
+              <h2 className="text-sm font-semibold text-slate-800">Conteúdo gerado</h2>
+              <p className="mt-2 max-h-96 overflow-y-auto whitespace-pre-wrap text-sm text-slate-700">
+                {rel.conteudo_gerado}
+              </p>
+            </section>
+          ) : null}
+
+          <section className="rounded-xl border border-slate-200 bg-white p-5">
+            <h2 className="text-sm font-semibold text-slate-800">Pagamentos</h2>
+            <div className="mt-3 space-y-2">
+              {(pagamentos ?? []).map((p) => {
+                const ip = infoPagamentoStatus(p.status);
+                return (
+                  <div
+                    key={p.id}
+                    className="flex items-center justify-between rounded-lg border border-slate-100 px-3 py-2 text-sm"
+                  >
+                    <span className="text-slate-700">{formatarBRL(p.valor)}</span>
+                    <span className="text-slate-500">{p.forma_pagamento ?? "—"}</span>
+                    <span className="text-slate-400">{formatarDataHora(p.created_at)}</span>
+                    <span
+                      className={`rounded-full px-2.5 py-1 text-xs font-medium ${ip.cls}`}
+                    >
+                      {ip.label}
+                    </span>
+                  </div>
+                );
+              })}
+              {(pagamentos ?? []).length === 0 ? (
+                <p className="text-sm text-slate-500">Nenhum pagamento registrado.</p>
+              ) : null}
+            </div>
+          </section>
         </div>
-      ) : null}
+
+        <div className="space-y-6">
+          <RelatorioAcoes
+            relatorioId={rel.id}
+            filaStatusInicial={rel.fila_status}
+            valorCobradoInicial={rel.valor_cobrado ?? rel.valor_estimado}
+            emailSugerido={emailSugerido}
+          />
+        </div>
+      </div>
     </main>
   );
 }
