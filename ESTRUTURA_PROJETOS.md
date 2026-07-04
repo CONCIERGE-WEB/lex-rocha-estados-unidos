@@ -1,15 +1,19 @@
 # Project Structure — Judicial Intelligence (U.S.)
 
+**Path:** `E:\01_Projetos\04-judicial-intelligence`  
+**GitHub:** [TiagoIA-UX/lex-rocha-estados-unidos](https://github.com/TiagoIA-UX/lex-rocha-estados-unidos)  
+**Template:** `E:\01_Projetos\07-lex-rocha-template`
+
 ## Product
 
 **Judicial Intelligence** — consumer rights research platform for the United States market.
 
 | Folder | Role |
 |--------|------|
-| `Judicial Intelligence/site/` | **Canonical** — Next.js site, Vercel deploy |
-| `Judicial Intelligence/signalhub/` | Telegram bot + U.S. dorks + Groq |
+| `site/` | **Canonical** — Next.js site, Vercel deploy |
+| `signalhub/usa/` | Telegram bot + U.S. dorks + Groq |
 
-Adapted from `pt-consumidores` using the same architecture:
+Adapted from `08-lex-rocha-portugal` using the same architecture:
 
 - Public site with free triage + paid report
 - Signal Hub for Reddit/BBB dork scanning
@@ -23,7 +27,7 @@ Adapted from `pt-consumidores` using the same architecture:
 
 ```
 Production (Vercel)
-  └── Judicial Intelligence/site/  →  www.judicialintelligence.com
+  └── site/  →  www.judicialintelligence.com
 
 Local development
   └── .\INICIAR.ps1
@@ -35,8 +39,8 @@ Local development
 
 ## U.S. vs Portugal differences
 
-| Aspect | Portugal (`pt-consumidores`) | U.S. (`Judicial Intelligence`) |
-|--------|------------------------------|--------------------------------|
+| Aspect | Portugal (`08-lex-rocha-portugal`) | U.S. (`04-judicial-intelligence`) |
+|--------|------------------------------------|-----------------------------------|
 | Language | pt-PT | en-US |
 | Currency | EUR (€29/39/59) | USD ($29/39/59) |
 | Legal refs | Lei 24/96, RGPD, CNPD | FTC Act, CCPA, state UDAP |
@@ -62,7 +66,7 @@ See `site/.env.example` and `.env.local.example` for full list.
 
 ## Recommended workflow
 
-1. Develop / commit in **`Judicial Intelligence/`**
-2. Configure `.env.local` at root → `.\scripts\sincronizar-env.ps1`
+1. Develop / commit in **`04-judicial-intelligence/`**
+2. Configure `.env.local` at root
 3. Local: `.\INICIAR.ps1 -Instalar` then `.\INICIAR.ps1`
 4. Deploy site to Vercel (root directory: `site`)

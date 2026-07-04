@@ -86,7 +86,7 @@ $sshInstall = "ssh ${target} `"cd ${installDir} && sudo bash scripts/deploy-vps.
 $sshStatus = "ssh ${target} `"sudo systemctl status lexbot-us`""
 $sshLogs = "ssh ${target} `"tail -n 30 ${remoteBase}/logs/usa.log`""
 
-$bootstrapOneLine = "set -e; if [ ! -d '$installDir/.git' ]; then sudo mkdir -p '$installDir'; sudo git clone https://github.com/TiagoIA-UX/judicial-intelligence.git '$installDir'; fi; sudo mkdir -p '$remoteBase/usa' '$remoteBase/config/usa' '$remoteBase/logs'"
+$bootstrapOneLine = "set -e; if [ ! -d '$installDir/.git' ]; then sudo mkdir -p '$installDir'; sudo git clone https://github.com/TiagoIA-UX/lex-rocha-estados-unidos.git '$installDir'; fi; sudo mkdir -p '$remoteBase/usa' '$remoteBase/config/usa' '$remoteBase/logs'"
 
 $scriptContent = @"
 # Gerado por DEPLOY_VPS.ps1 - comandos para deploy do robo 24/7 (U.S.)
@@ -167,7 +167,7 @@ $bootstrap = @"
 set -e
 if [ ! -d '$installDir/.git' ]; then
   sudo mkdir -p '$installDir'
-  sudo git clone https://github.com/TiagoIA-UX/judicial-intelligence.git '$installDir'
+  sudo git clone https://github.com/TiagoIA-UX/lex-rocha-estados-unidos.git '$installDir'
 fi
 sudo mkdir -p '$remoteBase/usa' '$remoteBase/config/usa' '$remoteBase/logs'
 sudo chown -R `$(whoami):`$(whoami) '$installDir' 2>/dev/null || true

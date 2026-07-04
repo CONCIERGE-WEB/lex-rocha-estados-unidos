@@ -11,7 +11,7 @@
 
 set -euo pipefail
 
-REPO_URL="${REPO_URL:-https://github.com/TiagoIA-UX/judicial-intelligence.git}"
+REPO_URL="${REPO_URL:-https://github.com/TiagoIA-UX/lex-rocha-estados-unidos.git}"
 INSTALL_DIR="${INSTALL_DIR:-/opt/judicial-intelligence}"
 SERVICE_NAME="lexbot-us"
 SERVICE_USER="${SERVICE_USER:-lexbot}"
