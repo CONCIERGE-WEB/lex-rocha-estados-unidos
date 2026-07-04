@@ -1,0 +1,41 @@
+{
+  "categoria": "negativacao_indevida",
+  "titulo": "Negativação indevida de CPF/nome",
+  "versao": "2026-07-03",
+  "citacoes_conferidas": false,
+  "conferido_por": null,
+  "data_ultima_validacao": "2026-07-03",
+  "fundamentos_legais": [
+    {
+      "id": "fl_001",
+      "dispositivo": "Art. 42, parágrafo único, CDC (Lei 8.078/1990)",
+      "texto_resumido": "O consumidor cobrado em quantia indevida tem direito à repetição do indébito, por valor igual ao dobro do que pagou em excesso, acrescido de correção monetária e juros legais, salvo engano justificável.",
+      "link_oficial": "https://www.planalto.gov.br/ccivil_03/leis/l8078.htm"
+    },
+    {
+      "id": "fl_002",
+      "dispositivo": "Art. 43, CDC (Lei 8.078/1990)",
+      "texto_resumido": "O consumidor terá acesso às informações existentes em cadastros, fichas, registros e dados pessoais e de consumo arquivados sobre ele, bem como sobre as suas respectivas fontes. A abertura de cadastro, ficha, registro e dados pessoais e de consumo deverá ser comunicada por escrito ao consumidor.",
+      "link_oficial": "https://www.planalto.gov.br/ccivil_03/leis/l8078.htm"
+    }
+  ],
+  "jurisprudencia": [
+    {
+      "id": "jur_001",
+      "tribunal": "STJ",
+      "numero_processo": "Súmula 548/STJ",
+      "resultado_resumido": "Incumbe ao credor a exclusão do registro da dívida em nome do devedor no cadastro de inadimplentes no prazo de cinco dias úteis, a partir do integral e efetivo pagamento do débito.",
+      "link_oficial": "https://scon.stj.jus.br/SCON/sumstj/",
+      "data_verificacao_link": "2026-07-03",
+      "verificado_por": "PENDENTE_CONFERENCIA_HUMANA",
+      "status_verificacao": "PENDENTE_CONFERENCIA_HUMANA"
+    }
+  ],
+  "estatisticas": {
+    "fonte": "Amostragem curada Lex Rocha + referências públicas (STJ/CDC) — atualizar com DataJud quando disponível",
+    "percentual_procedencia_estimado": "não catalogado nesta versão do banco",
+    "faixa_indenizacao_observada": "não catalogada nesta versão do banco",
+    "ultima_atualizacao": "2026-07-03"
+  },
+  "texto_molde": "DESTINATÁRIO E FINALIDADE\nInforme de referência solicitado por {{nome_cliente}}, sobre a categoria {{categoria_titulo}} (relato envolvendo {{empresa_reclamada}}).\n\nNARRATIVA FACTUAL (dados informados no formulário)\n{{resumo_narrativa}}\n\nLINHA DO TEMPO INFORMADA\n{{bloco_linha_tempo}}\n\nPANORAMA DA CATEGORIA\nCasos com fatos semelhantes aos relatados (mesma categoria: {{categoria_titulo}}) costumam ser discutidos à luz dos fundamentos abaixo, conforme o banco de decisões consultado.\n\nEssa categoria costuma ser fundamentada em:\n{{bloco_fundamentos}}\n\nRESULTADO HISTÓRICO OBSERVADO NESSA CATEGORIA\n{{bloco_jurisprudencia}}\n\nDADO ESTATÍSTICO OBSERVADO NESSA CATEGORIA\nFonte: {{estat_fonte}}\nProcedência estimada: {{estat_procedencia}}\nFaixa de indenização observada: {{estat_faixa}}\nÚltima atualização das estatísticas: {{estat_atualizacao}}\n\nSÍNTESE INFORMATIVA\nEste documento é um panorama estatístico e informativo da categoria {{categoria_titulo}} (versão do banco {{versao_banco}}). Não individualiza aconselhamento sobre o relato do solicitante e não garante resultado. Recomenda-se conferir os links oficiais antes de qualquer decisão.\n\nFONTES PARA CONFERÊNCIA\n{{bloco_referencias}}\n\n{{nota_data_corte}}\n"
+}
