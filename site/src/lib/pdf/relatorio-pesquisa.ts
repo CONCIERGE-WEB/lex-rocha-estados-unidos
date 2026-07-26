@@ -166,10 +166,10 @@ export function gerarPdfRelatorioPesquisa(dados: DadosPdfPesquisa): Blob {
   const secoesParseadas = parseSecoesRelatorio(dados.conteudoGerado);
   const destinatario = textoDestinatarioFinalidade(dados.referenciaInterna);
 
-  y = desenharSecao(doc, "DESTINATÁRIO E FINALIDADE", destinatario, y);
+  y = desenharSecao(doc, "RECIPIENT AND PURPOSE", destinatario, y);
 
   for (const tituloPadrao of SECOES_RELATORIO_ORDEM) {
-    if (tituloPadrao === "DESTINATÁRIO E FINALIDADE") continue;
+    if (tituloPadrao === "RECIPIENT AND PURPOSE") continue;
     const corpo = secoesParseadas.get(tituloPadrao);
     if (corpo) {
       y = desenharSecao(doc, tituloPadrao, corpo, y);
@@ -186,7 +186,12 @@ export function gerarPdfRelatorioPesquisa(dados: DadosPdfPesquisa): Blob {
   }
 
   y = novaPaginaSePreciso(doc, y, 60);
-  y = desenharSecao(doc, "FONTES PÚBLICAS CONSULTADAS (REFERÊNCIA)", NOTA_FONTES_RELATORIO, y);
+  y = desenharSecao(
+    doc,
+    "PUBLIC SOURCES CONSULTED (REFERENCE)",
+    NOTA_FONTES_RELATORIO,
+    y
+  );
 
   doc.setFontSize(8);
   for (const fonte of FONTES_PESQUISA_PUBLICA) {

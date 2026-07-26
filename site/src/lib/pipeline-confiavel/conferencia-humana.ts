@@ -111,17 +111,47 @@ export const VARIAVEIS_ESTRUTURADAS_POR_CATEGORIA: Record<
   CategoriaComBancoMvp,
   { campo: string; motivo: string }[]
 > = {
-  negativacao_indevida: [
+  fcra_credit_reporting: [
     {
       campo: "possui_comprovante_quitacao",
       motivo: "Proof of payment changes the dispute/block timeline under FCRA (e.g., 30-day reinvestigation).",
     },
   ],
-  cobranca_indevida: [
+  fdcpa_debt_collection: [
     {
       campo: "pagou_valor_cobrado",
       motivo:
         "Without actual payment, courts often focus on billing-error rights rather than multiplied restitution.",
+    },
+  ],
+  tcpa_robocalls: [
+    {
+      campo: "tipo_contato",
+      motivo: "Call vs SMS vs autodialer changes TCPA statutory damages framing ($500–$1,500 per violation).",
+    },
+  ],
+  lemon_law_warranty: [
+    {
+      campo: "problema",
+      motivo: "Defect vs non-delivery vs lemon vehicle changes Magnuson-Moss / state lemon-law remedies.",
+    },
+  ],
+  udap_deceptive_practices: [
+    {
+      campo: "tipo_pratica",
+      motivo: "Junk fees vs false advertising vs e-commerce fraud map to different UDAP / FTC Act §5 patterns.",
+    },
+  ],
+  dot_flights_baggage: [
+    {
+      campo: "problema",
+      motivo: "Delay vs cancellation vs baggage loss maps to different DOT consumer rules.",
+    },
+  ],
+  health_plan_denial: [
+    {
+      campo: "tipo",
+      motivo: "Health plan vs insurance product changes ERISA vs state bad-faith frameworks.",
     },
   ],
 };

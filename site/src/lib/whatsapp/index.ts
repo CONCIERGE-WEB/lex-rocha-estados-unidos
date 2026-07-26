@@ -1,22 +1,53 @@
+import { EMPRESA } from "@/lib/constants/empresa";
 import { SITE } from "@/lib/constants/site";
 
-/** Número no formato internacional sem + (ex.: 5512996887993) */
+/** International number without + (e.g. 15551234567) */
 export function getWhatsAppNumber(): string {
   const raw =
     process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, "") ||
-    SITE.whatsapp.replace(/\D/g, "");
+    SITE.whatsapp.replace(/\D/g, "") ||
+    "";
   return raw;
 }
 
+export function numeroWhatsApp(): string | null {
+  const n = getWhatsAppNumber();
+  return n && n.length >= 9 ? n : null;
+}
+
 export function whatsappConfigurado(): boolean {
-  return getWhatsAppNumber().length >= 12;
+  return getWhatsAppNumber().length >= 10;
 }
 
 export function montarLinkWhatsApp(mensagem: string): string {
   const numero = getWhatsAppNumber();
   if (!numero) return "#";
-  const texto = encodeURIComponent(mensagem);
-  return `https://wa.me/${numero}?text=${texto}`;
+  return `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+}
+
+export function linkWhatsApp(mensagem?: string): string | null {
+  const n = numeroWhatsApp();
+  if (!n) return null;
+  const base = `https://wa.me/${n}`;
+  if (!mensagem?.trim()) return base;
+  return `${base}?text=${encodeURIComponent(mensagem.trim())}`;
+}
+
+export function mensagemDuvidas(plano?: string): string {
+  const marca = EMPRESA.marca;
+  const site = EMPRESA.dominio;
+  if (plano?.trim()) {
+    return `Hi! I came from ${marca} (${site}). I have a question about the ${plano.trim()} plan before ordering my report. Can you help?`;
+  }
+  return `Hi! I came from ${marca} (${site}). I have a question before proceeding with a consumer-rights research report. Thanks!`;
+}
+
+export function mensagemInicial(plano?: string): string {
+  return mensagemDuvidas(plano);
+}
+
+export function linkWhatsAppDuvidas(plano?: string): string | null {
+  return linkWhatsApp(mensagemDuvidas(plano));
 }
 
 export function mensagemNovaSolicitacao(dados: {
@@ -26,14 +57,12 @@ export function mensagemNovaSolicitacao(dados: {
   email?: string;
 }): string {
   return [
-    `Olá, ${SITE.founder.split(" ")[0]}! Nova solicitação Lex-Rocha.`,
+    `New request — ${EMPRESA.marca}`,
     "",
-    `Nome: ${dados.nome}`,
-    dados.email ? `E-mail: ${dados.email}` : null,
-    `Área: ${dados.area}`,
-    `Código: ${dados.codigo}`,
-    "",
-    "Enviado pelo site — favor confirmar orçamento e prazo.",
+    `Name: ${dados.nome}`,
+    dados.email ? `Email: ${dados.email}` : null,
+    `Area: ${dados.area}`,
+    `Code: ${dados.codigo}`,
   ]
     .filter(Boolean)
     .join("\n");
@@ -45,12 +74,10 @@ export function mensagemPagamentoConfirmado(dados: {
   codigo?: string;
 }): string {
   return [
-    `Pagamento confirmado — Lex-Rocha`,
+    `Payment confirmed — ${EMPRESA.marca}`,
     `Ref.: ${dados.referencia}`,
-    `Valor: R$ ${dados.valor.toFixed(2)}`,
-    dados.codigo ? `Código: ${dados.codigo}` : null,
-    "",
-    `Verificar e-mail ${SITE.email} para detalhes e próximas ações.`,
+    `Amount: $${dados.valor.toFixed(2)}`,
+    dados.codigo ? `Code: ${dados.codigo}` : null,
   ]
     .filter(Boolean)
     .join("\n");
@@ -58,9 +85,9 @@ export function mensagemPagamentoConfirmado(dados: {
 
 export function mensagemClienteAcompanhar(codigo: string): string {
   return [
-    `Olá! Acompanho meu pedido na Lex-Rocha.`,
-    `Código: ${codigo}`,
+    `Hi! I'm tracking my ${EMPRESA.marca} request.`,
+    `Code: ${codigo}`,
     "",
-    "Gostaria de um retorno sobre prazo e orçamento.",
+    "Could you update me on timing?",
   ].join("\n");
 }

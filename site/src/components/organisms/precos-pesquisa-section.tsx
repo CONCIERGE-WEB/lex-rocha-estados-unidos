@@ -14,7 +14,6 @@ import {
   PRECIFICACAO,
   PRECIFICACAO_TEXTO_COMPARATIVO,
 } from "@/lib/constants/pesquisa-documental";
-import { SITE } from "@/lib/constants/site";
 
 export function PrecosPesquisaSection() {
   const { precos } = COPY_SITE;
@@ -45,12 +44,12 @@ export function PrecosPesquisaSection() {
               <CardHeader>
                 <CardTitle className="font-serif text-xl">{plano.label}</CardTitle>
                 <p className="font-serif text-3xl font-bold text-primary">
-                  R$ {plano.valor}
+                  ${plano.valor}
                 </p>
                 <CardDescription>{plano.descricao}</CardDescription>
               </CardHeader>
               <CardContent className="mt-auto text-xs text-muted-foreground">
-                Pagamento via PIX (CNPJ {SITE.cnpj}) ou combinação acordada.
+                Pagamento via Stripe (USD). See Terms for receipt details.
               </CardContent>
             </Card>
           ))}

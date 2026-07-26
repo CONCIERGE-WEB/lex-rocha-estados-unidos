@@ -1,4 +1,4 @@
-# Site PT — executar em local
+﻿# Site PT — executar em local
 
 ## Forma mais simples
 
@@ -6,14 +6,14 @@ Na **raiz do monorepo**:
 
 ```powershell
 cd "e:\.projetos\000Inteligência_Resolutiva"
-.\INICIAR.ps1
+.\lexrocha-us.ps1
 ```
 
-Ou duplo clique em **`INICIAR_SITE_PT.bat`** (nesta pasta).
+Ou duplo clique em **`lexrocha-us.bat`** (nesta pasta).
 
 Abre o browser em http://localhost:3010 e mantém o servidor a correr.
 
-Menu com outros subprojetos: `.\INICIAR.ps1 -Modo menu`
+Menu com outros subprojetos: `.\lexrocha-us.ps1 -Modo menu`
 
 ## PowerShell (caminho directo)
 

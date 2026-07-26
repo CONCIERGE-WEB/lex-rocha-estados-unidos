@@ -10,17 +10,26 @@ export function rotaPublicaSemAuth(pathname: string): boolean {
   const publicExact = new Set([
     "/",
     "/solicitar",
+    "/request",
     "/modelo-relatorio",
     "/parceiro",
     "/privacidade",
+    "/privacy",
     "/termos",
+    "/terms",
     "/cookies",
+    "/contact",
+    "/report-sample",
+    "/track",
+    "/thank-you",
     "/robots.txt",
     "/sitemap.xml",
   ]);
   if (publicExact.has(pathname)) return true;
   if (pathname.startsWith("/acompanhar")) return true;
+  if (pathname.startsWith("/track")) return true;
   if (pathname === "/api/pesquisa-documental/solicitar") return true;
+  if (pathname === "/api/request") return true;
   if (pathname === "/api/lgpd/consent") return true;
   if (pathname.startsWith("/api/pedidos/acompanhar")) return true;
   if (pathname === "/api/stripe/webhook") return true;

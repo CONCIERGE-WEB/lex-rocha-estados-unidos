@@ -1,12 +1,12 @@
-# Erros comuns na instalação
+﻿# Erros comuns na instalação
 
-## Arranque com um script (`INICIAR.ps1`)
+## Arranque com um script (`lexrocha-us.ps1`)
 
 ```powershell
 cd e:\.projetos\pt-consumidores
-.\INICIAR.ps1 -Instalar   # primeira vez
-.\INICIAR.ps1             # site + robô
-.\INICIAR.ps1 -Parar      # parar tudo
+.\lexrocha-us.ps1 -Instalar   # primeira vez
+.\lexrocha-us.ps1             # site + robô
+.\lexrocha-us.ps1 -Parar      # parar tudo
 ```
 
 ## Deploy 24/7 no VPS

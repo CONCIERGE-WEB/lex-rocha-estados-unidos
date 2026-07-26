@@ -106,18 +106,18 @@ export const COPY_SITE = {
     ],
   },
   modelo: {
-    eyebrow: "O relatório",
-    title: "Modelo ilustrativo do relatório",
+    eyebrow: "The report",
+    title: "Illustrative research report model",
     description:
-      "Estrutura apenas ilustrativa — o seu relatório é feito para o seu caso, com base em registros públicos reais brasileiros.",
-    cta: "Abrir modelo completo",
-    pageTitle: "Modelo de relatório",
+      "Same anatomy as the paid U.S. deliverable — public records only, never invented cases. Adapted for American consumer statutes and CourtListener-sourced opinions.",
+    cta: "Open full sample",
+    pageTitle: "Sample report model",
     pageIntro:
-      "Veja como o relatório explica o seu caso: o que aconteceu, o que a lei diz, casos semelhantes já decididos (com o que o juiz entendeu e o que foi concedido) e as fontes para conferência.",
-    ctaSolicitar: "Solicitar pesquisa",
-    ctaWhatsapp: "Dúvidas no WhatsApp",
+      "See how the report explains a case: practical results observed, your facts, timeline, what U.S. law says, similar decided cases, a Premium requirements matrix, and transparent sources.",
+    ctaSolicitar: "Start analysis",
+    ctaWhatsapp: "WhatsApp questions",
     whatsappMensagem:
-      "Olá! Vi o modelo de relatório em {domain} e gostaria de solicitar uma pesquisa.",
+      "Hi! I saw the sample report on {domain} and would like to request research.",
   },
   trust: {
     eyebrow: "Transparência",

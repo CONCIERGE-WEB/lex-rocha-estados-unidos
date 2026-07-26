@@ -4,10 +4,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const ITENS = [
-  { href: "/admin", label: "Painel" },
-  { href: "/admin/relatorios", label: "Relatórios" },
-  { href: "/admin/solicitacoes", label: "Solicitações" },
-  { href: "/admin/financeiro", label: "Financeiro" },
+  { href: "/admin", label: "Dashboard" },
+  { href: "/admin/corpus", label: "Corpus / States" },
+  { href: "/admin/relatorios", label: "Reports" },
+  { href: "/admin/solicitacoes", label: "Requests" },
+  { href: "/admin/financeiro", label: "Revenue" },
 ] as const;
 
 export function AdminNav() {

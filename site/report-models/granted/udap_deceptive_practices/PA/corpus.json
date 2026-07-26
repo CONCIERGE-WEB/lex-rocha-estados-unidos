@@ -1,0 +1,81 @@
+{
+  "categoria": "udap_deceptive_practices",
+  "state": "PA",
+  "geradoEm": "2026-07-25T15:52:18.939Z",
+  "total": 5,
+  "status": "pronto",
+  "origem": "federal_seed",
+  "nota": "Seeded from Federal (US) CourtListener hits already synced — not invented. Covers 50 states, DC, and U.S. territories until jurisdiction-scoped API sync is available.",
+  "itens": [
+    {
+      "state": "PA",
+      "court_id": "ca7",
+      "case_name": "FTC v. Credit Bureau Center, LLC",
+      "cluster_id": 9423735,
+      "absolute_url": "https://www.courtlistener.com/opinion/9423735/ftc-v-credit-bureau-center-llc/",
+      "date_filed": "2023-08-30",
+      "snippet": null,
+      "citation": "81 F.4th 710",
+      "fonte": "courtlistener",
+      "relevance_score": 0.5071,
+      "relevance_method": "minilm",
+      "seed_from": "US"
+    },
+    {
+      "state": "PA",
+      "court_id": "ca7",
+      "case_name": "FTC v. Credit Bureau Center, LLC",
+      "cluster_id": 4654621,
+      "absolute_url": "https://www.courtlistener.com/opinion/4654621/ftc-v-credit-bureau-center-llc/",
+      "date_filed": "2019-08-21",
+      "snippet": null,
+      "citation": null,
+      "fonte": "courtlistener",
+      "relevance_score": 0.5041,
+      "relevance_method": "minilm",
+      "seed_from": "US"
+    },
+    {
+      "state": "PA",
+      "court_id": "ca7",
+      "case_name": "FTC v. Credit Bureau Center, LLC",
+      "cluster_id": 4654634,
+      "absolute_url": "https://www.courtlistener.com/opinion/4654634/ftc-v-credit-bureau-center-llc/",
+      "date_filed": "2019-08-21",
+      "snippet": null,
+      "citation": null,
+      "fonte": "courtlistener",
+      "relevance_score": 0.5041,
+      "relevance_method": "minilm",
+      "seed_from": "US"
+    },
+    {
+      "state": "PA",
+      "court_id": "ca7",
+      "case_name": "FTC v. Credit Bureau Center, LLC",
+      "cluster_id": 4654668,
+      "absolute_url": "https://www.courtlistener.com/opinion/4654668/ftc-v-credit-bureau-center-llc/",
+      "date_filed": "2019-08-21",
+      "snippet": null,
+      "citation": null,
+      "fonte": "courtlistener",
+      "relevance_score": 0.5041,
+      "relevance_method": "minilm",
+      "seed_from": "US"
+    },
+    {
+      "state": "PA",
+      "court_id": "ca7",
+      "case_name": "CFPB v. Consumer First Legal Group, LL",
+      "cluster_id": 4902327,
+      "absolute_url": "https://www.courtlistener.com/opinion/4902327/cfpb-v-consumer-first-legal-group-ll/",
+      "date_filed": "2021-07-23",
+      "snippet": null,
+      "citation": "6 F.4th 694",
+      "fonte": "courtlistener",
+      "relevance_score": 0.5271,
+      "relevance_method": "minilm",
+      "seed_from": "US"
+    }
+  ]
+}

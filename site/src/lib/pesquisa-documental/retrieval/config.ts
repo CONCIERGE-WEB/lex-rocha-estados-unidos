@@ -8,6 +8,10 @@ export const DOMINIOS_RETRIEVAL_PERMITIDOS = [
   "naag.org",
   "gov",
   "uscourts.gov",
+  "courtlistener.com",
+  "storage.courtlistener.com",
+  "transportation.gov",
+  "ecfr.gov",
 ] as const;
 
 export const RETRIEVAL_FETCH_TIMEOUT_MS = 15_000;
@@ -17,6 +21,26 @@ export const LEGISLACAO_POR_FUNDAMENTO: Record<
   FundamentoId,
   { titulo: string; url: string; artigoRef: string }
 > = {
+  fcra: {
+    titulo: "Fair Credit Reporting Act",
+    url: "https://www.ftc.gov/legal-library/browse/statutes/fair-credit-reporting-act",
+    artigoRef: "Credit reporting",
+  },
+  fdcpa: {
+    titulo: "Fair Debt Collection Practices Act",
+    url: "https://www.consumerfinance.gov/",
+    artigoRef: "Debt collection",
+  },
+  dot: {
+    titulo: "DOT airline consumer rules",
+    url: "https://www.transportation.gov/airconsumer",
+    artigoRef: "Flights & baggage",
+  },
+  magnuson_moss: {
+    titulo: "Magnuson-Moss Warranty Act",
+    url: "https://www.ftc.gov/legal-library/browse/rules/magnuson-moss-warranty-federal-trade-commission-improvements-act",
+    artigoRef: "Consumer warranties",
+  },
   ftc_5: {
     titulo: "FTC Act",
     url: "https://www.ftc.gov/",
@@ -36,10 +60,5 @@ export const LEGISLACAO_POR_FUNDAMENTO: Record<
     titulo: "Fair Credit Billing Act",
     url: "https://www.consumerfinance.gov/",
     artigoRef: "Billing errors",
-  },
-  fdcpa: {
-    titulo: "Fair Debt Collection Practices Act",
-    url: "https://www.consumerfinance.gov/",
-    artigoRef: "Debt collection",
   },
 };

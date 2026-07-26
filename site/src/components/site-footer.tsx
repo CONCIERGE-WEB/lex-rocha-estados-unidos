@@ -1,4 +1,4 @@
-import { BrandLogo } from "@/components/brand-logo";
+﻿import { BrandLogo } from "@/components/brand-logo";
 import { ManageCookiesButton } from "@/components/manage-cookies-button";
 import { COPY } from "@/lib/constants/copy-en";
 import { EMPRESA } from "@/lib/constants/empresa";
@@ -21,13 +21,18 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <p className="font-mono text-xs font-bold uppercase tracking-widest text-onDarkMuted">
+            <p className="font-mono text-xs font-bold uppercase tracking-widest text-[#1D4ED8]">
               {F.columns.product}
             </p>
             <ul className="mt-4 space-y-2.5 text-sm font-medium">
               <li>
-                <a href="/#como-funciona" className="text-onDark transition hover:underline">
+                <a href="/#how-it-works" className="text-onDark transition hover:underline">
                   {F.links.howItWorks}
+                </a>
+              </li>
+              <li>
+                <a href="/#categories" className="text-onDark transition hover:underline">
+                  {COPY.nav.categories}
                 </a>
               </li>
               <li>
@@ -36,17 +41,22 @@ export function SiteFooter() {
                 </a>
               </li>
               <li>
-                <a href="/#sources" className="text-onDark transition hover:underline">
-                  {COPY.nav.sources}
+                <a href="/credits" className="text-onDark transition hover:underline">
+                  {F.links.credits}
                 </a>
               </li>
               <li>
-                <a href="/#planos" className="text-onDark transition hover:underline">
+                <a href="/#pricing" className="text-onDark transition hover:underline">
                   {F.links.plans}
                 </a>
               </li>
               <li>
-                <a href="/#pedir-relatorio" className="text-onDark transition hover:underline">
+                <a href="/login" className="text-onDark transition hover:underline">
+                  {COPY.nav.login}
+                </a>
+              </li>
+              <li>
+                <a href="/request" className="text-onDark transition hover:underline">
                   {F.links.start}
                 </a>
               </li>
@@ -59,7 +69,7 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <p className="font-mono text-xs font-bold uppercase tracking-widest text-onDarkMuted">
+            <p className="font-mono text-xs font-bold uppercase tracking-widest text-[#1D4ED8]">
               {F.columns.company}
             </p>
             <ul className="mt-4 space-y-2.5 text-sm font-medium">
@@ -94,7 +104,7 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <p className="font-mono text-xs font-bold uppercase tracking-widest text-onDarkMuted">
+            <p className="font-mono text-xs font-bold uppercase tracking-widest text-[#1D4ED8]">
               {F.columns.legal}
             </p>
             <ul className="mt-4 space-y-2.5 text-sm font-medium">
@@ -113,6 +123,11 @@ export function SiteFooter() {
                   {F.links.cookies}
                 </a>
               </li>
+              <li>
+                <a href="/credits" className="text-onDark transition hover:underline">
+                  {F.links.credits}
+                </a>
+              </li>
             </ul>
             <ManageCookiesButton />
           </div>
@@ -125,7 +140,7 @@ export function SiteFooter() {
               © {ano} {EMPRESA.marca}. All rights reserved.
             </p>
             <p>
-              {EMPRESA.forma} · {EMPRESA.paisSede}
+              {EMPRESA.forma} Â· {EMPRESA.paisSede}
             </p>
           </div>
         </div>

@@ -1,3 +1,4 @@
+import { Reveal } from "@/components/reveal";
 import { COPY } from "@/lib/constants/copy-en";
 import {
   PUBLIC_SOURCES,
@@ -11,16 +12,18 @@ export function PublicSourcesSection() {
   return (
     <section id="sources" className="scroll-mt-24 border-b border-ink/8 bg-folio py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-4 md:px-6">
-        <p className="section-eyebrow">{S.eyebrow}</p>
-        <h2 className="mt-3 max-w-2xl font-display text-3xl font-semibold text-ink md:text-4xl">
-          {S.title}
-        </h2>
-        <p className="mt-5 max-w-3xl text-lead text-muted">{S.description}</p>
-        <p className="mt-4 max-w-3xl text-sm text-muted">{PUBLIC_SOURCES_NOTE}</p>
+        <Reveal>
+          <p className="section-eyebrow">{S.eyebrow}</p>
+          <h2 className="mt-3 max-w-2xl font-display text-3xl font-semibold text-ink md:text-4xl">
+            {S.title}
+          </h2>
+          <p className="mt-5 max-w-3xl text-lead text-muted">{S.description}</p>
+          <p className="mt-4 max-w-3xl text-sm text-muted">{PUBLIC_SOURCES_NOTE}</p>
+        </Reveal>
 
         <ul className="mt-12 grid gap-5 md:grid-cols-2">
-          {PUBLIC_SOURCES.map((source) => (
-            <li key={source.url}>
+          {PUBLIC_SOURCES.map((source, i) => (
+            <Reveal key={source.url} as="li" delay={i * 70}>
               <article className="feature-card h-full">
                 <span className="inline-block rounded-full bg-cite px-3 py-1 text-xs font-semibold uppercase tracking-wide text-trust">
                   {SOURCE_TYPE_LABEL[source.type]}
@@ -36,7 +39,7 @@ export function PublicSourcesSection() {
                   Visit portal →
                 </a>
               </article>
-            </li>
+            </Reveal>
           ))}
         </ul>
       </div>

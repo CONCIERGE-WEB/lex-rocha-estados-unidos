@@ -1,10 +1,15 @@
-export function formatarBRL(valor: number | null | undefined): string {
+/** USD formatting for U.S. admin (legacy alias: formatarBRL). */
+
+export function formatarUSD(valor: number | null | undefined): string {
   if (valor == null) return "—";
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
   }).format(valor);
 }
+
+/** @deprecated Prefer formatarUSD */
+export const formatarBRL = formatarUSD;
 
 export function formatarData(iso: string | null | undefined): string {
   if (!iso) return "—";

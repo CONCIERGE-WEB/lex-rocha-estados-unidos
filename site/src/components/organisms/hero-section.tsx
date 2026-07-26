@@ -36,7 +36,7 @@ export function HeroSection() {
           <p className="max-w-xl text-base text-muted-foreground">{hero.scope}</p>
           <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Button asChild size="lg" className="h-12 gap-2 px-8 shadow-md">
-              <Link href="/solicitar">
+              <Link href="/request">
                 {hero.ctaPrimary}
                 <ArrowRight className="size-4" />
               </Link>

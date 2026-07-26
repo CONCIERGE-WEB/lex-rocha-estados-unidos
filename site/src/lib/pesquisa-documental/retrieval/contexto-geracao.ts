@@ -9,10 +9,10 @@ export function montarBlocoPacoteParaClaude(pacote: PacotePesquisaDocumental): s
   ];
 
   if (pacote.plano.tipo === "sem_cobranca") {
-    linhas.push("Sem precedente comparável documentado → sem cobrança (R$ 0).");
+    linhas.push("No comparable documented precedent → no charge ($0).");
   } else {
     linhas.push(
-      `Faixa: ${pacote.plano.label} (R$ ${pacote.plano.valor}) · ${pacote.plano.qtdPrecedentes} precedente(s) · ${pacote.plano.qtdFundamentos} fundamento(s).`
+      `Plan: ${pacote.plano.label} ($${pacote.plano.valor}) · ${pacote.plano.qtdPrecedentes} precedent(s) · ${pacote.plano.qtdFundamentos} foundation(s).`
     );
   }
 

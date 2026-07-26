@@ -48,7 +48,7 @@ export function assertUrlPermitidaParaRetrieval(url: string): void {
   if (!hostPermitidoParaRetrieval(host)) {
     throw new RetrievalError(
       "URL_NAO_PERMITIDA",
-      `Domínio não permitido para retrieval: ${host}. Use apenas fontes públicas cadastradas (tribunais, Planalto, CNJ, Jusbrasil, gov.br).`
+      `Domain not allowed for retrieval: ${host}. Use only registered public U.S. sources (FTC, CFPB, CourtListener, .gov, etc.).`
     );
   }
 }

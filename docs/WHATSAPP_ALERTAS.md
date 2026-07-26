@@ -1,4 +1,4 @@
-# WhatsApp + alertas Telegram + agenda
+﻿# WhatsApp + alertas Telegram + agenda
 
 ## Canal WhatsApp em Portugal
 
@@ -93,7 +93,7 @@ Executar `site/supabase/schema.sql` no SQL Editor do Supabase.
 ## Testar localmente
 
 ```powershell
-.\INICIAR.ps1
+.\lexrocha-us.ps1
 # Site: http://localhost:3010/contacto
 # Bot: janela Robo Dorking (dorking + comandos /status)
 ```

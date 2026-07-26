@@ -1,0 +1,81 @@
+{
+  "categoria": "lemon_law_warranty",
+  "state": "FL",
+  "geradoEm": "2026-07-25T15:52:18.876Z",
+  "total": 5,
+  "status": "pronto",
+  "origem": "federal_seed",
+  "nota": "Seeded from Federal (US) CourtListener hits already synced — not invented. Covers 50 states, DC, and U.S. territories until jurisdiction-scoped API sync is available.",
+  "itens": [
+    {
+      "state": "FL",
+      "court_id": "cal",
+      "case_name": "Ford Motor Warranty Cases",
+      "cluster_id": 10622839,
+      "absolute_url": "https://www.courtlistener.com/opinion/10622839/ford-motor-warranty-cases/",
+      "date_filed": "2025-07-03",
+      "snippet": null,
+      "citation": null,
+      "fonte": "courtlistener",
+      "relevance_score": 0.5651,
+      "relevance_method": "minilm",
+      "seed_from": "US"
+    },
+    {
+      "state": "FL",
+      "court_id": "orctapp",
+      "case_name": "TruNorth Warranty Plans of North America v. DCBS",
+      "cluster_id": 10143775,
+      "absolute_url": "https://www.courtlistener.com/opinion/10143775/trunorth-warranty-plans-of-north-america-v-dcbs/",
+      "date_filed": "2023-08-23",
+      "snippet": null,
+      "citation": "327 Or. App. 603",
+      "fonte": "courtlistener",
+      "relevance_score": 0.55,
+      "relevance_method": "lexical",
+      "seed_from": "US"
+    },
+    {
+      "state": "FL",
+      "court_id": "calctapp",
+      "case_name": "Ford Motor Warranty Cases",
+      "cluster_id": 9389291,
+      "absolute_url": "https://www.courtlistener.com/opinion/9389291/ford-motor-warranty-cases/",
+      "date_filed": "2023-04-04",
+      "snippet": null,
+      "citation": null,
+      "fonte": "courtlistener",
+      "relevance_score": 0.5651,
+      "relevance_method": "minilm",
+      "seed_from": "US"
+    },
+    {
+      "state": "FL",
+      "court_id": "scd",
+      "case_name": "Chavis v. Fidelity Warranty Services, Inc.",
+      "cluster_id": 2340569,
+      "absolute_url": "https://www.courtlistener.com/opinion/2340569/chavis-v-fidelity-warranty-services-inc/",
+      "date_filed": "2006-02-13",
+      "snippet": null,
+      "citation": "415 F. Supp. 2d 620",
+      "fonte": "courtlistener",
+      "relevance_score": 0.55,
+      "relevance_method": "lexical",
+      "seed_from": "US"
+    },
+    {
+      "state": "FL",
+      "court_id": "txctapp1",
+      "case_name": "AN Luxury Imports, Ltd. D/B/A BMW of Dallas, Inc., AN Luxury Imports GP, LLC, and United States Warranty Corp. v. D. Scott Southall",
+      "cluster_id": 4278156,
+      "absolute_url": "https://www.courtlistener.com/opinion/4278156/an-luxury-imports-ltd-dba-bmw-of-dallas-inc-an-luxury-imports-gp/",
+      "date_filed": "2015-05-18",
+      "snippet": null,
+      "citation": null,
+      "fonte": "courtlistener",
+      "relevance_score": 0.55,
+      "relevance_method": "lexical",
+      "seed_from": "US"
+    }
+  ]
+}

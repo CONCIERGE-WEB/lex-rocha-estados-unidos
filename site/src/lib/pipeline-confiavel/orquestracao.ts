@@ -51,7 +51,7 @@ export function gerarRascunhoVerificadoNegativacao(params: {
 }): ResultadoPipelineRotaA {
   return gerarRascunhoVerificadoCategoria({
     id: params.id,
-    categoria: "negativacao_indevida",
+    categoria: "fcra_credit_reporting",
     dados: params.dados,
   });
 }
@@ -64,7 +64,7 @@ export function gerarRascunhoVerificadoCategoria(params: {
   const entradaBanco = carregarBancoPrecedentes(params.categoria);
 
   let rascunho: string;
-  if (params.categoria === "negativacao_indevida") {
+  if (params.categoria === "fcra_credit_reporting") {
     rascunho = interpolarRelatorioNegativacao({
       entradaBanco,
       dados: params.dados as unknown as DadosNegativacaoInterpolacao,

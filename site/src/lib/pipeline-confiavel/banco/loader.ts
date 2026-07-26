@@ -3,6 +3,10 @@ import { join } from "path";
 
 import type { CategoriaPipeline } from "@/lib/pipeline-confiavel/categorias";
 import {
+  normalizarCategoriaPipeline,
+  stemBancoCategoria,
+} from "@/lib/pipeline-confiavel/categorias";
+import {
   entradaBancoPrecedentesSchema,
   type EntradaBancoPrecedentes,
 } from "@/lib/pipeline-confiavel/banco/schemas";
@@ -14,18 +18,23 @@ const CACHE = new Map<CategoriaPipeline, EntradaBancoPrecedentes>();
  * Nunca escrito por IA em tempo de execução.
  */
 export function carregarBancoPrecedentes(
-  categoria: CategoriaPipeline
+  categoria: CategoriaPipeline | string
 ): EntradaBancoPrecedentes {
-  const cached = CACHE.get(categoria);
+  const cat = normalizarCategoriaPipeline(categoria);
+  if (!cat) {
+    throw new Error(`Categoria de banco desconhecida: "${categoria}"`);
+  }
+  const cached = CACHE.get(cat);
   if (cached) return cached;
 
+  const stem = stemBancoCategoria(cat);
   const path = join(
     process.cwd(),
     "src",
     "lib",
     "pipeline-confiavel",
     "banco",
-    `${categoria}.json`
+    `${stem}.json`
   );
 
   let bruto: unknown;
@@ -33,18 +42,18 @@ export function carregarBancoPrecedentes(
     bruto = JSON.parse(readFileSync(path, "utf-8")) as unknown;
   } catch {
     throw new Error(
-      `Banco de precedentes ausente para categoria "${categoria}". Arquivo esperado: ${path}`
+      `Banco de precedentes ausente para categoria "${cat}". Arquivo esperado: ${path}`
     );
   }
 
   const parsed = entradaBancoPrecedentesSchema.safeParse(bruto);
   if (!parsed.success) {
     throw new Error(
-      `Banco de precedentes inválido para "${categoria}": ${parsed.error.message}`
+      `Banco de precedentes inválido para "${cat}": ${parsed.error.message}`
     );
   }
 
-  CACHE.set(categoria, parsed.data);
+  CACHE.set(cat, parsed.data);
   return parsed.data;
 }
 

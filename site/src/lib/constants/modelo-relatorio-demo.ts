@@ -1,41 +1,202 @@
 /**
- * Modelo ilustrativo — dados 100% fictícios / anonimizados (LGPD).
- * Mesma estrutura de seções do PDF entregue ao cliente.
+ * Public sample report — FCRA credit-reporting vignette (illustrative / anonymized).
+ * Section order mirrors the paid U.S. deliverable + BR anatomy
+ * (header · panorama · facts · timeline · law · precedents · matrix · transparency).
  */
 
+import { ATRIBUICAO_COURTLISTENER, DISCLAIMER_NAO_ENDORSO } from "@/lib/constants/credits";
 import { TITULO_RELATORIO_PDF } from "@/lib/constants/estrutura-relatorio";
 
+export const MODELO_CATEGORIA_ID = "fcra_credit_reporting" as const;
+
 export const MODELO_RELATORIO_META = {
-  referencia: "REL-2026-042",
-  dataEmissao: "maio de 2026",
-  area: "Prestação de serviços digitais — suspensão de conta",
+  referencia: "REL-2026-042-PREMIUM",
+  dataEmissao: "July 22, 2026",
+  area: "FCRA — inaccurate credit reporting / dispute",
   titulo: TITULO_RELATORIO_PDF,
-  aviso: "Modelo ilustrativo com dados fictícios — não representa um caso real.",
+  planoBadge: "PREMIUM",
+  planoDescricao: "Expanded analysis · auditable public sources",
+  aviso:
+    "Illustrative public sample with anonymized facts — not a real client file and not a prediction of your outcome.",
 } as const;
 
-export const MODELO_RELATORIO_SECOES = [
+export const MODELO_CABECALHO_CLIENTE = {
+  solicitante: "Jordan M. (J.M.)",
+  contato: "j.***@email.com",
+  state: "California / CA",
+  protocolo: MODELO_RELATORIO_META.referencia,
+  dataPesquisa: MODELO_RELATORIO_META.dataEmissao,
+  categoria: MODELO_RELATORIO_META.area,
+  plano: MODELO_RELATORIO_META.planoBadge,
+  notaModelo:
+    "Public sample only — on a paid report these fields come from your real request (name, email, state).",
+} as const;
+
+export type SecaoModeloRelatorio = {
+  titulo: string;
+  corpo: string;
+};
+
+/** Landing vignettes — one per product category (outside the report body). */
+export const MODELO_EXEMPLOS_POR_CATEGORIA = [
   {
-    titulo: "Destinatário e finalidade",
-    corpo: `Relatório de pesquisa documental sobre o caso descrito pelo solicitante (neste modelo: referência interna **Cliente A.P.**, dados fictícios).\n\nOrganizamos o que foi narrado, o que a legislação costuma envolver em situações parecidas e o que tribunais já decidiram em casos semelhantes — para leitura e entendimento. Não indicamos se deve contratar advogado(a), ajuizar ação ou qualquer outro passo; essa decisão é exclusivamente sua.`,
+    id: "fcra",
+    label: "FCRA — credit reporting",
+    resumoFicticio:
+      "Consumer disputed a fraudulent account; the bureau left the inaccurate entry on the file after the reinvestigation window.",
+    padraoIlustrativo:
+      "FCRA requires reasonable reinvestigation. Public opinions discuss statutory damages, actual damages, and bureau liability — outcomes always turn on the record.",
   },
   {
-    titulo: "Resumo executivo dos fatos (narrativa do cliente)",
-    corpo: `Profissional autônomo relata suspensão reiterada de conta em plataforma digital de comunicação, após uso de funcionalidades oficiais do próprio serviço (incluindo vinculação a perfil corporativo).\n\nApós recurso interno, o fornecedor teria reconhecido ausência de irregularidade e restabelecido o acesso, com nova suspensão em seguida. Cliente alega prejuízo à atividade profissional. **Dados pessoais, capturas e identificadores permanecem apenas no dossiê contratual — não reproduzidos neste modelo público.**`,
+    id: "fdcpa",
+    label: "FDCPA — debt collection",
+    resumoFicticio:
+      "Collector called family members and kept contacting after a written cease request.",
+    padraoIlustrativo:
+      "FDCPA cases often address harassment, third-party contacts, and statutory damages for abusive practices.",
   },
   {
-    titulo: "Linha do tempo (organização cronológica)",
-    corpo: `1. Bloqueio inicial após tentativa de pareamento de dispositivo.\n2. Análise interna da plataforma com resultado favorável ao usuário.\n3. Reativação seguida de novo bloqueio automático.\n4. Migração entre modalidades do aplicativo sem cessação do problema.\n5. Início de registro de provas (capturas) para eventual instrução — armazenadas sob sigilo contratual.`,
+    id: "tcpa",
+    label: "TCPA — robocalls / texts",
+    resumoFicticio:
+      "Autodialed marketing texts continued after the consumer opted out.",
+    padraoIlustrativo:
+      "TCPA opinions discuss prior express consent, autodialers, and per-violation statutory damages.",
   },
   {
-    titulo: "Fundamentos jurídicos frequentes em casos similares (referência bibliográfica)",
-    corpo: `• Art. 14 do CDC — falha na prestação de serviço.\n• Princípio do *venire contra factum proprium* (comportamento contraditório).\n• Art. 20 do Marco Civil da Internet — responsabilização e defesa do usuário.\n• Art. 20 da LGPD — explicação de decisões automatizadas, quando aplicável.\n• Tutela de urgência e astreintes (arts. 300 e 537 do CPC) — citados em jurisprudência, não avaliados neste relatório.`,
+    id: "lemon",
+    label: "Lemon law / warranty",
+    resumoFicticio:
+      "New vehicle returned repeatedly for the same defect; dealer could not repair within a reasonable number of attempts.",
+    padraoIlustrativo:
+      "State lemon statutes and Magnuson-Moss warranty claims appear in public refund/replacement decisions.",
   },
   {
-    titulo: "Casos semelhantes já decididos (amostra)",
-    corpo: `**TJMT (2026) — bloqueio de WhatsApp Business**\nO que aconteceu: profissional teve a conta comercial bloqueada sem explicação clara.\nO que o juiz decidiu: suspender o serviço sem motivo adequado é falha na prestação e viola a boa-fé do consumidor.\nResultado: indenização de R$ 10 mil por danos morais.\nFonte: tjmt.jus.br (notícia institucional, mar/2026)\n\n**TJPR (2025) — plataforma digital**\nO que aconteceu: usuário contestou restrição de acesso em serviço contratado.\nO que o juiz decidiu: o fornecedor deve manter o serviço disponível; interrupção abusiva não é permitida.\nResultado: obrigação de fazer — restabelecer o acesso.\nFonte: jurisprudência pública TJPR\n\n**TJMA (2024) — conta em rede social**\nO que aconteceu: perfil bloqueado sem aviso prévio eficaz.\nO que o juiz decidiu: bloqueio sem contraditório fere direitos do consumidor digital.\nResultado: restabelecimento da conta e danos morais.\nFonte: tjma.jus.br\n\nNo relatório contratado, selecionamos os casos mais próximos dos seus fatos — com data, tribunal e link para conferência.`,
+    id: "udap",
+    label: "UDAP — deceptive practices",
+    resumoFicticio:
+      "Advertised price did not match checkout; hidden junk fees appeared after signup.",
+    padraoIlustrativo:
+      "State UDAP / unfair-deceptive statutes and FTC Act §5 concepts frame many consumer restitution cases.",
   },
   {
-    titulo: "Síntese do que a pesquisa mostrou",
-    corpo: `Nos casos documentados com fatos parecidos com os que você narrou, decisões públicas mostram que juízes e juízas costumam determinar o **restabelecimento do serviço**, com fundamento na legislação aplicável (CDC, Marco Civil e correlatos), e, em parte dos julgamentos, **indenização** pelos danos relatados.\n\nEssa síntese descreve o que a pesquisa encontrou em tribunais — não uma conclusão sobre o seu caso específico. Saber se esses precedentes se aplicam a você e se faz sentido **ingressar com uma ação na Justiça** é análise de um(a) **advogado(a) inscrito(a) na OAB**. A Lex Rocha não indica esse passo nem substitui essa avaliação; você pode levar este relatório a um profissional de sua escolha, se quiser.`,
+    id: "dot",
+    label: "DOT — flights / baggage",
+    resumoFicticio:
+      "Airline cancelled a flight and refused a refund; baggage was delayed overnight.",
+    padraoIlustrativo:
+      "DOT passenger-protection rules and carrier contracts of carriage are common reference points in public materials.",
+  },
+  {
+    id: "health",
+    label: "Health plan denial",
+    resumoFicticio:
+      "Insurer denied prior authorization for treatment the treating physician ordered.",
+    padraoIlustrativo:
+      "ERISA benefit-denial and bad-faith coverage opinions discuss medical necessity and appeal rights.",
   },
 ] as const;
+
+export const MODELO_TIMELINE = [
+  {
+    titulo: "Fraudulent account appears",
+    detalhe: "Unknown revolving account posts to the consumer credit file.",
+  },
+  {
+    titulo: "Formal bureau dispute",
+    detalhe: "Consumer files a written FCRA dispute with supporting identity-theft materials.",
+  },
+  {
+    titulo: "Reinvestigation window",
+    detalhe: "Bureau acknowledges the dispute; consumer awaits completion of reinvestigation.",
+  },
+  {
+    titulo: "Inaccuracy remains",
+    detalhe: "Entry remains on the file after the usual reinvestigation period; consumer seeks organized research.",
+  },
+] as const;
+
+export const MODELO_MATRIZ_TENDENCIA = [
+  {
+    requisito: "Written dispute to the CRA",
+    oQueTribunaisExigem: "Proof the consumer disputed inaccurate information with the bureau.",
+    situacaoModelo: "Present in the illustrated facts",
+  },
+  {
+    requisito: "Reasonable reinvestigation",
+    oQueTribunaisExigem: "Whether the CRA conducted a reasonable investigation under FCRA.",
+    situacaoModelo: "Contested in the illustrated narrative",
+  },
+  {
+    requisito: "Willfulness / actual damages (as pled)",
+    oQueTribunaisExigem: "Public opinions discuss statutory vs. actual damages depending on proof.",
+    situacaoModelo: "To be evaluated on the real record — not predicted here",
+  },
+] as const;
+
+export const MODELO_RELATORIO_SECOES: readonly SecaoModeloRelatorio[] = [
+  {
+    titulo: "1. Recipient and purpose",
+    corpo:
+      `Documentary research report for the requester internally identified as **${MODELO_CABECALHO_CLIENTE.solicitante}** (${MODELO_CABECALHO_CLIENTE.state}).\n\n` +
+      "We organize the narrated facts, legal foundations often seen in similar U.S. disputes, and public precedents with sources for verification. " +
+      "This document is informational only: we do not advise whether to hire an attorney, file a claim, or take any other step — that decision is exclusively yours.",
+  },
+  {
+    titulo: "2. Practical results & statutory damages (observed in similar cases)",
+    corpo:
+      "In curated public opinions involving FCRA reinvestigation failures and inaccurate credit-file entries, courts have discussed:\n\n" +
+      "• **Statutory damages** for willful noncompliance (where proven)\n" +
+      "• **Actual damages** tied to documented harm from inaccurate reporting\n" +
+      "• **Injunctive / corrective** relief directing investigation or correction of the file\n\n" +
+      "These are **observed patterns in public cases** — not a forecast of what any court would grant on your facts.",
+  },
+  {
+    titulo: "3. Your case in plain language",
+    corpo:
+      "A California consumer reports that a fraudulent revolving account remained on their credit file after a formal dispute with a nationwide consumer reporting agency. " +
+      "The bureau acknowledged the dispute; the inaccurate entry allegedly remained after the reinvestigation window. " +
+      "**Personal identifiers and screenshots stay in the contractual dossier — they are not reproduced in this public sample.**",
+  },
+  {
+    titulo: "4. Timeline of facts",
+    corpo: MODELO_TIMELINE.map((t, i) => `${i + 1}. **${t.titulo}** — ${t.detalhe}`).join("\n"),
+  },
+  {
+    titulo: "5. What U.S. law says (reference framing)",
+    corpo:
+      "• **FCRA (15 U.S.C. § 1681 et seq.)** — duties of consumer reporting agencies, including reasonable reinvestigation after a consumer dispute.\n" +
+      "• **Bureau procedures** — dispute channels and investigation timelines commonly discussed in public guidance and opinions.\n" +
+      "• **Remedies discussed in case law** — statutory damages, actual damages, and related relief where the statutory elements are met.\n\n" +
+      "This section is a research map, not a legal opinion on your specific claim.",
+  },
+  {
+    titulo: "6. Similar cases already decided (sample format of the paid report)",
+    corpo:
+      "**Illustrative cluster — FCRA reinvestigation / inaccurate file (public sources)**\n\n" +
+      "• Opinion discussing **willful FCRA noncompliance** and statutory damages where a CRA failed a reasonable reinvestigation after dispute.\n" +
+      "• Opinion addressing **inaccurate tradelines remaining after dispute**, with analysis of bureau procedures.\n" +
+      "• Opinion involving **identity-theft / fraudulent account** entries and consumer dispute rights under FCRA.\n\n" +
+      `_${ATRIBUICAO_COURTLISTENER}_\n` +
+      "On a paid report we select the closest public matches to your facts — with court, date, and a verification path. " +
+      "We do not invent cases.",
+  },
+  {
+    titulo: "7. Comparative requirements matrix (Premium sample)",
+    corpo: MODELO_MATRIZ_TENDENCIA.map(
+      (m) =>
+        `• **${m.requisito}**\n  Courts often examine: ${m.oQueTribunaisExigem}\n  In this sample: ${m.situacaoModelo}`
+    ).join("\n\n"),
+  },
+  {
+    titulo: "8. Sources consulted & transparency",
+    corpo:
+      "Public U.S. case law and statutory text consulted for this sample structure (court / body and date on the paid deliverable).\n\n" +
+      `${DISCLAIMER_NAO_ENDORSO}\n\n` +
+      "**Informational research only.** Judicial Intelligence is not a law firm and does not provide legal advice or representation. " +
+      "Every case turns on its own facts; only a licensed attorney can advise on strategy, and only a court decides outcomes.",
+  },
+] as const;
+
+/** @deprecated alias — prefer MODELO_RELATORIO_SECOES */
+export const MODELO_RELATORIO_SECOES_LEGACY = MODELO_RELATORIO_SECOES;

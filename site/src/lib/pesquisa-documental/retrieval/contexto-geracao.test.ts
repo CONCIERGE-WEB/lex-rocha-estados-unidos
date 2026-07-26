@@ -7,7 +7,7 @@ describe("retrieval/contexto-geracao", () => {
   it("inclui URLs autorizadas e plano no bloco Claude", () => {
     const pacote = montarPacotePesquisaDocumentalBasico({
       precedentesTexto: "https://www.tjmt.jus.br/noticias/2026/x",
-      fundamentosIds: ["cdc_14"],
+      fundamentosIds: ["ftc_5"],
     });
     const bloco = montarBlocoPacoteParaClaude(pacote);
     expect(bloco).toContain("PACOTE DE PESQUISA VALIDADO");

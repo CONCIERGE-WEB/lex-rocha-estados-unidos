@@ -1,0 +1,23 @@
+{
+  "categoria": "tcpa_robocalls",
+  "state": "US",
+  "geradoEm": "2026-07-25T15:46:02.760Z",
+  "total": 1,
+  "status": "parcial",
+  "nota": "Written by motor_courtlistener_local.py — deterministic CourtListener hits only. No invented cases.",
+  "itens": [
+    {
+      "state": "US",
+      "court_id": "jpml",
+      "case_name": "In re Convergent Telephone Consumer Protection Act Litigation",
+      "cluster_id": 8729453,
+      "absolute_url": "https://www.courtlistener.com/opinion/8729453/in-re-convergent-telephone-consumer-protection-act-litigation/",
+      "date_filed": "2013-10-08",
+      "snippet": null,
+      "citation": "981 F. Supp. 2d 1385",
+      "fonte": "courtlistener",
+      "relevance_score": 0.651,
+      "relevance_method": "minilm"
+    }
+  ]
+}

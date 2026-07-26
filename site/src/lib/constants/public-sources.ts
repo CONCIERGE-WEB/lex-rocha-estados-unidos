@@ -27,6 +27,13 @@ export const PUBLIC_SOURCES: PublicSource[] = [
     type: "consumer",
   },
   {
+    name: "CourtListener (Free Law Project)",
+    description:
+      "Searchable U.S. court opinions and RECAP dockets via public API — primary corpus source for Etapa 2.",
+    url: "https://www.courtlistener.com/",
+    type: "case_law",
+  },
+  {
     name: "PACER — Federal Court Records",
     description: "Public access to U.S. federal court dockets and filings (fee-based portal).",
     url: "https://pacer.uscourts.gov/",

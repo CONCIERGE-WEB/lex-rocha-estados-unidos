@@ -25,7 +25,7 @@ export default function ReportSamplePage() {
           <h1 className="mt-4 font-display text-3xl font-semibold text-ink md:text-4xl">{R.title}</h1>
           <p className="mt-4 max-w-2xl text-lead text-muted">{R.intro}</p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <a href="/#pedir-relatorio" className="btn-primary">
+            <a href="/request" className="btn-primary">
               {R.ctaStart}
             </a>
             <WhatsAppCta className="btn-secondary">{R.ctaWhatsapp}</WhatsAppCta>

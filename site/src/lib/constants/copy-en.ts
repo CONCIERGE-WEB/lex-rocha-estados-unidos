@@ -133,14 +133,49 @@ export const COPY = {
   planos: {
     eyebrow: "Plans",
     title: "The exact price appears before you pay.",
-    intro: "The free analysis indicates what makes the most sense.",
+    intro: "Essential $49 · Standard $79 · Premium $119 — fixed USD amounts.",
     notaFiscal:
       "Payment in USD · Stripe receipt · informational service (see Terms).",
     avisoTransparencia:
       "This report is informational — it does not replace legal advice. For complex cases or high amounts, consider also speaking with an attorney.",
-    cta: "Start free analysis →",
-    ctaCard: "Start free analysis →",
+    cta: "Request report →",
+    ctaCard: "Request report →",
     destaque: "Most popular",
+  },
+
+  request: {
+    title: "Request a consumer-rights research report",
+    intro:
+      "Tell us what happened. We register your request, confirm the plan, and research similar public U.S. cases — no SSN required.",
+    submit: "Submit request",
+    submitting: "Submitting…",
+    successTitle: "Request received",
+    successLead:
+      "Save your tracking code. We'll email next steps. Typical delivery after payment depends on current queue availability.",
+    trackCta: "Track my request",
+    privacyConsent:
+      "I agree to the processing of my contact and case details to prepare this research report, as described in the Privacy Policy.",
+    fields: {
+      name: "Full name",
+      email: "Email",
+      phone: "Phone (optional)",
+      state: "State (or Federal)",
+      category: "What is the dispute about?",
+      company: "Company involved",
+      eventDate: "Date of the main event",
+      amount: "Amount involved (USD)",
+      triedResolve: "I already tried to resolve this directly",
+      channel: "How did you try?",
+      details: "Anything else we should know? (optional)",
+    },
+    channels: {
+      company: "Company customer service",
+      cfpb: "CFPB / federal complaint portal",
+      state_ag: "State Attorney General / consumer office",
+      nenhum: "None yet",
+    },
+    categoriesHint: "Choose the closest match — we map statutes (FCRA, FDCPA, DOT, warranty, health).",
+    pricingNote: "Plans: Essential $49 · Standard $79 · Premium $119 (confirmed before payment).",
   },
 
   triagem: {
@@ -175,6 +210,7 @@ export const COPY = {
       ctaPagar: "Proceed to secure payment",
       ctaAvancar: "Proceed anyway",
       ctaHonestidade: "I appreciate the honesty",
+      ctaRequest: "Open full request form",
       avisoFraco: "Precedents found are limited — the report will include that caveat.",
       novoCaso: "New case",
       contactoAntes: "Prefer to talk first?",
@@ -249,7 +285,7 @@ export const COPY = {
   reportSample: {
     title: "Sample research report",
     intro:
-      "Illustrative structure only — your report is tailored to your case and based on real U.S. public records.",
+      "Same anatomy as the paid deliverable: purpose, practical results observed, your facts, timeline, U.S. law framing, similar decided cases, Premium matrix, and transparent sources — including CourtListener / Free Law Project attribution. Illustrative FCRA vignette only.",
     ctaStart: "Start free analysis",
     ctaWhatsapp: "Question via WhatsApp",
   },
@@ -258,22 +294,23 @@ export const COPY = {
     eyebrow: "Transparency",
     title: "Public sources we consult",
     description:
-      "We research documented U.S. consumer rights information — not opinions from forums.",
+      "We research documented U.S. consumer rights information — not opinions from forums. Case law search via CourtListener / Free Law Project.",
   },
 
   partners: {
-    eyebrow: "Partner program",
-    title: "Attorneys & consumer advocates",
+    eyebrow: "For attorneys",
+    title: "Same research promise — built for counsel",
     description:
-      "Structured case summaries and research reports — so your team spends less time on initial triage.",
-    badge: "Waitlist — limited regions",
+      "Consumers get clarity before they pay. Attorneys get the same public-source methodology: plain-language facts, comparable U.S. outcomes, human review — ready to accelerate triage without replacing your judgment.",
+    badge: "Partner waitlist — limited regions",
     cta: "Join the waitlist",
     pageTitle: "Partner waitlist — law firms",
     pageIntro:
-      "We're building a referral program for U.S. attorneys who want pre-researched consumer cases.",
+      "Referral and screening program for U.S. attorneys who want pre-researched consumer matters grounded in public records.",
     benefits: [
-      "Leads with documentary research and plain-language case summaries",
-      "Less time on initial fact-gathering",
+      "Same seven U.S. consumer categories consumers see on the site",
+      "Documentary research + plain-English case summaries for faster triage",
+      "Human-reviewed reports — not automated legal advice",
       "Commercial terms in development — limited spots by region",
     ],
     mailtoSubject: "Partner waitlist — Judicial Intelligence",
@@ -282,16 +319,16 @@ export const COPY = {
       "Automated partner signup comes in a later phase. For now, email us with your firm name and state.",
     cards: [
       {
-        title: "Pre-screened cases",
-        text: "Clients arrive with structured facts and similar-case research already done.",
+        title: "Pre-screened consumer matters",
+        text: "Structured summaries of what happened and what similar public cases decided — so intake starts warmer.",
       },
       {
-        title: "Regional focus",
-        text: "We prioritize states where our research pipeline is strongest.",
+        title: "Shared methodology",
+        text: "Identical research stack consumers trust: CourtListener-backed pools, statutory framing, human review.",
       },
       {
-        title: "Clear scope",
-        text: "Informational reports only — you retain representation and strategy.",
+        title: "You keep representation",
+        text: "Informational reports only — you retain strategy, privilege, and the attorney-client relationship.",
       },
     ],
   },
@@ -308,14 +345,56 @@ export const COPY = {
     planos: "Pricing",
     contacto: "Contact",
     login: "Sign in",
+    signup: "Create account",
     cta: "Describe case",
     support: "Support",
     sampleReport: "Sample report",
     sources: "Public sources",
+    categories: "Categories",
     partners: "Partners",
     track: "Track order",
     forAttorneys: "For attorneys",
     request: "Start analysis",
+  },
+
+  login: {
+    eyebrow: "Access",
+    title: "Sign in to your area",
+    lead: "Consumers track orders with a code. Attorneys and firms continue through the partner path.",
+    errorGeneric: "Sign-in error. Please try again.",
+    consumerTitle: "Consumer",
+    consumerText:
+      "Track your research order with the code from your confirmation email — or create an account to keep contact details handy.",
+    consumerTrack: "Track order",
+    consumerSignup: "Create consumer account",
+    consumerRequest: "Start a new analysis",
+    attorneyTitle: "Attorney / firm",
+    attorneyText:
+      "Same promise as consumers: documented public research, plain English, human review — packaged for counsel who want pre-screened consumer matters.",
+    emailLabel: "Google account email (required for admin)",
+    emailPlaceholder: "you@firm.com",
+    emailHint: "Use the same Google email you will authorize.",
+    adminHint:
+      "Administrator email: the button opens the authorized admin Google login.",
+    googleAdmin: "Continue with Google (admin)",
+    attorneyCta: "Attorney / partner info",
+    contact: "Contact us first",
+  },
+
+  signup: {
+    eyebrow: "Create account",
+    title: "Choose how you want to start",
+    lead: "Same research product for both audiences — adapted to how you use it.",
+    consumerTitle: "I'm a consumer",
+    consumerText:
+      "Describe your case, see if similar U.S. decisions exist, and only pay if you want the full report. Exact price before checkout.",
+    consumerCta: "Start free analysis",
+    consumerTrack: "I already have a tracking code",
+    attorneyTitle: "I'm an attorney or firm",
+    attorneyText:
+      "Refer or screen consumer matters with the same public-source methodology — informational research you can take into counsel strategy.",
+    attorneyCta: "Partner with us",
+    haveAccount: "Already have access? Sign in",
   },
 
   topBar: {
@@ -324,36 +403,58 @@ export const COPY = {
 
   stats: [
     { value: "24h", label: "Typical delivery after payment (business hours)" },
-    { value: "$29–59", label: "Fixed plans — exact price before checkout" },
+    { value: "$49–119", label: "Fixed plans — exact price before checkout" },
     { value: "Human", label: "Specialist review before every report" },
     { value: "Free", label: "Initial case screening (~2 min)" },
   ],
 
   solutions: {
     eyebrow: "What we research",
-    title: "Consumer situations we clarify every day",
+    title: "Seven U.S. consumer categories we cover",
     lead:
-      "From billing disputes to warranty denials — we map your case against real U.S. outcomes.",
+      "Every paid report maps your facts to one of these seven conversion statutes — the same set consumers and attorneys see in screening.",
     items: [
       {
-        title: "Billing & subscriptions",
-        text: "Unauthorized charges, auto-renewals, refund delays, and recurring billing disputes.",
+        id: "fcra_credit_reporting",
+        title: "FCRA — credit reporting",
+        text: "Inaccurate credit files, fraudulent accounts, and bureau dispute / reinvestigation outcomes.",
+        icon: "bank",
+      },
+      {
+        id: "fdcpa_debt_collection",
+        title: "FDCPA — debt collection",
+        text: "Harassing collectors, third-party contacts, and abusive collection practices.",
         icon: "billing",
       },
       {
-        title: "Online shopping & retail",
-        text: "Defective products, delivery failures, return refusals, and misleading listings.",
+        id: "tcpa_robocalls",
+        title: "TCPA — robocalls & texts",
+        text: "Autodialed calls, spam texts, and consent / Do-Not-Call disputes.",
+        icon: "phone",
+      },
+      {
+        id: "lemon_law_warranty",
+        title: "Lemon law / warranty",
+        text: "Defective vehicles and products, Magnuson-Moss warranty, and failed repair attempts.",
         icon: "retail",
       },
       {
-        title: "Telecom & utilities",
-        text: "Wireless, internet, cable, electric, and water service complaints.",
-        icon: "telecom",
+        id: "udap_deceptive_practices",
+        title: "UDAP — deceptive practices",
+        text: "Junk fees, bait-and-switch, false advertising, and unfair trade practices.",
+        icon: "shield",
       },
       {
-        title: "Banking & credit",
-        text: "Credit card errors, loan servicing, debt collection, and account disputes.",
-        icon: "bank",
+        id: "dot_flights_baggage",
+        title: "DOT — flights & baggage",
+        text: "Cancellations, delays, denied boarding, and lost or delayed baggage.",
+        icon: "plane",
+      },
+      {
+        id: "health_plan_denial",
+        title: "Health plan denial",
+        text: "Coverage denials, prior-authorization refusals, and ERISA / bad-faith benefit disputes.",
+        icon: "health",
       },
     ],
   },
@@ -435,6 +536,7 @@ export const COPY = {
       privacy: "Privacy Policy",
       cookies: "Cookie policy",
       manageCookies: "Manage cookies",
+      credits: "Data Sources & Credits",
     },
   },
 } as const;

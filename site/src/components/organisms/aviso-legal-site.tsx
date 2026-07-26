@@ -9,7 +9,7 @@ export function AvisoLegalSite() {
   return (
     <aside
       aria-label="Aviso legal"
-      className="border-t border-border/60 bg-muted/30 py-6"
+      className="border-t border-border/60 bg-muted-surface/80 py-6"
     >
       <div className="mx-auto max-w-4xl px-4 text-center text-sm leading-relaxed text-muted-foreground md:px-6">
         <p>

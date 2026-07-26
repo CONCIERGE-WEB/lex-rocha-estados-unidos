@@ -1,49 +1,60 @@
-/** Estrutura padrão do relatório entregue (site + PDF) */
+/** Standard report structure delivered (site + PDF) — U.S. EN */
 
-export const TITULO_RELATORIO_PDF = "Relatório de Pesquisa de Jurisprudência";
+export const TITULO_RELATORIO_PDF = "Consumer Rights Research Report";
 
 export const AVISO_DESTAQUE_PDF =
-  "Pesquisa documental de jurisprudência pública. Não constitui consultoria jurídica, parecer ou petição. Decisões processuais cabem exclusivamente a advogado(a) habilitado(a) na OAB.";
+  "Public-source documentary research. Not legal advice, an opinion, or a petition. " +
+  "Process decisions belong exclusively to a licensed attorney.";
 
 export const SECOES_RELATORIO_ORDEM = [
-  "DESTINATÁRIO E FINALIDADE",
-  "RESUMO EXECUTIVO DOS FATOS",
-  "LINHA DO TEMPO",
-  "FUNDAMENTOS JURÍDICOS APLICÁVEIS",
-  "PRECEDENTES JURISPRUDENCIAIS IDENTIFICADOS",
-  "SÍNTESE FINAL",
+  "RECIPIENT AND PURPOSE",
+  "YOUR CASE IN PLAIN LANGUAGE",
+  "PRACTICAL RESULTS & STATUTORY DAMAGES",
+  "WHAT U.S. LAW SAYS",
+  "SIMILAR CASES ALREADY DECIDED",
+  "SOURCES CONSULTED",
 ] as const;
 
-/** Aliases de seções antigas (relatórios já gerados) */
+/** Aliases for older section titles (already-generated reports) */
 export const ALIASES_SECAO: Record<string, (typeof SECOES_RELATORIO_ORDEM)[number]> = {
-  "RESUMO DOS FATOS": "RESUMO EXECUTIVO DOS FATOS",
-  "PRECEDENTES JURISPRUDENCIAIS IDENTIFICADOS": "PRECEDENTES JURISPRUDENCIAIS IDENTIFICADOS",
-  "FUNDAMENTOS JURÍDICOS APLICÁVEIS": "FUNDAMENTOS JURÍDICOS APLICÁVEIS",
-  "CONSIDERAÇÕES FINAIS": "SÍNTESE FINAL",
-  "SÍNTESE PARA REUNIÃO COM ADVOGADO(A)": "SÍNTESE FINAL",
+  "RESUMO DOS FATOS": "YOUR CASE IN PLAIN LANGUAGE",
+  "RESUMO EXECUTIVO DOS FATOS": "YOUR CASE IN PLAIN LANGUAGE",
+  "FUNDAMENTOS JURÍDICOS APLICÁVEIS": "WHAT U.S. LAW SAYS",
+  "PRECEDENTES JURISPRUDENCIAIS IDENTIFICADOS": "SIMILAR CASES ALREADY DECIDED",
+  "CONSIDERAÇÕES FINAIS": "SOURCES CONSULTED",
+  "SÍNTESE FINAL": "SOURCES CONSULTED",
+  "SÍNTESE PARA REUNIÃO COM ADVOGADO(A)": "SOURCES CONSULTED",
+  "DESTINATÁRIO E FINALIDADE": "RECIPIENT AND PURPOSE",
 };
 
-/** Parágrafo padrão sobre OAB — síntese e relatórios (neutro, sem recomendar ação). */
-export const PARAGRAFO_LIMITE_OAB_SINTESE =
-  "Cada situação é diferente. Saber se esses precedentes se aplicam ao seu caso e se faz sentido ingressar com uma ação na Justiça é análise de um(a) advogado(a) inscrito(a) na OAB. A Lex Rocha entrega apenas a pesquisa documental organizada neste relatório — não indica esse passo nem substitui essa avaliação.";
+/** Closing limit — research only, no representation. */
+export const PARAGRAFO_LIMITE_PESQUISA =
+  "Every situation is different. Whether these precedents apply to your facts, " +
+  "and whether any legal step makes sense, is a question for a licensed attorney. " +
+  "This service delivers organized documentary research only — it does not recommend that step or replace that evaluation.";
 
-/** Instruções para a seção final em prompts de geração. */
+/** @deprecated Use PARAGRAFO_LIMITE_PESQUISA */
+export const PARAGRAFO_LIMITE_OAB_SINTESE = PARAGRAFO_LIMITE_PESQUISA;
+
 export function instrucoesPromptSinteseFinal(): string {
-  return `4. SÍNTESE FINAL (título alternativo aceito: CONSIDERAÇÕES FINAIS)
-(Resumo claro do que a pesquisa documentou em casos semelhantes aos fatos narrados: o que tribunais costumaram decidir, com quais fundamentos legais e quais resultados nas decisões públicas consultadas — ex.: restabelecimento de serviço, indenização quando constar nas decisões.
-Linguagem descritiva da pesquisa, em português acessível. Não concluir sobre o mérito do caso do solicitante, não prever resultado nem recomendar contratar advogado(a) ou ajuizar ação.
-Encerrar informando, em linguagem natural, que avaliar se os precedentes se aplicam ao caso específico e se cabe ingressar com uma ação na Justiça é atribuição de advogado(a) inscrito(a) na OAB, sem pressionar esse passo.)`;
+  return `5. PRACTICAL RESULTS & STATUTORY DAMAGES
+(Report only catalogued practical relief phrases and statutory/normative ranges from the platform reference. 
+Do not invent averages or predict the requester's outcome. Language: clear American English.)
+
+6. SOURCES CONSULTED
+(Court/body and date only — no URLs. End here; the platform appends the official footer.)`;
 }
 
 export function textoDestinatarioFinalidade(referenciaInterna?: string): string {
   const ref = referenciaInterna?.trim()
-    ? `identificado internamente como "${referenciaInterna.trim()}".`
-    : "identificado pela referência deste relatório.";
+    ? `internally identified as "${referenciaInterna.trim()}".`
+    : "identified by this report's reference.";
 
   return (
-    `Relatório de pesquisa documental sobre o caso do solicitante ${ref}\n\n` +
-    "Organizamos, em linguagem clara, os fatos narrados, fundamentos legais frequentes em demandas similares e precedentes públicos com fonte para conferência. " +
-    "O documento é apenas informativo: não indicamos se deve contratar advogado(a), ajuizar ação ou qualquer outro passo — essa decisão é exclusivamente sua."
+    `Documentary research report for the requester ${ref}\n\n` +
+    "We organize, in plain language, the narrated facts, legal foundations often seen in similar disputes, " +
+    "and public precedents with sources for verification. " +
+    "This document is informational only: we do not advise whether to hire an attorney, file a claim, or take any other step — that decision is exclusively yours."
   );
 }
 
@@ -61,7 +72,7 @@ export function parseSecoesRelatorio(conteudo: string): Map<string, string> {
   const texto = conteudo.replace(/^---[\s\S]*?---\s*/m, "").trim();
 
   const regex =
-    /(?:^|\n)(?:\d+\.\s*)?([A-ZÁÉÍÓÚÃÕÂÊÔÇ][A-ZÁÉÍÓÚÃÕÂÊÔÇ0-9\s()\/\-–—]+?)\s*\n([\s\S]*?)(?=(?:\n(?:\d+\.\s*)?[A-ZÁÉÍÓÚÃÕÂÊÔÇ][A-ZÁÉÍÓÚÃÕÂÊÔÇ0-9\s()\/\-–—]{8,}\s*\n)|$)/g;
+    /(?:^|\n)(?:\d+\.\s*)?([A-ZÁÉÍÓÚÃÕÂÊÔÇ][A-ZÁÉÍÓÚÃÕÂÊÔÇ0-9\s()\/\-–—&]+?)\s*\n([\s\S]*?)(?=(?:\n(?:\d+\.\s*)?[A-ZÁÉÍÓÚÃÕÂÊÔÇ][A-ZÁÉÍÓÚÃÕÂÊÔÇ0-9\s()\/\-–—&]{8,}\s*\n)|$)/g;
 
   let match: RegExpExecArray | null;
   while ((match = regex.exec(texto)) !== null) {
@@ -73,7 +84,7 @@ export function parseSecoesRelatorio(conteudo: string): Map<string, string> {
   }
 
   if (mapa.size === 0) {
-    mapa.set("CONTEÚDO DA PESQUISA", texto);
+    mapa.set("RESEARCH CONTENT", texto);
   }
 
   return mapa;

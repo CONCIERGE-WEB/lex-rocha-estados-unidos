@@ -1,4 +1,4 @@
-> **© 2026 Tiago Aureliano da Rocha — Lex Rocha, prestação de serviços (CNPJ 61.699.939/0001-80).**  
+﻿> **© 2026 Tiago Aureliano da Rocha — Lex Rocha, prestação de serviços (CNPJ 61.699.939/0001-80).**  
 > Todos os direitos reservados. Software proprietário — ver [LICENSE](./LICENSE).  
 > Produto: **Judicial Intelligence** · Repositório: `TiagoIA-UX`
 
@@ -26,21 +26,21 @@ Dedicated repository for the **United States** market: public site + Signal Hub 
 cd "E:\01_Projetos\04-judicial-intelligence"
 
 # First time: install + start site + bot
-.\INICIAR.ps1 -Instalar
+.\lexrocha-us.ps1 -Instalar
 
 # Daily use
-.\INICIAR.ps1
+.\lexrocha-us.ps1
 
 # Stop site + bot
-.\INICIAR.ps1 -Parar
+.\lexrocha-us.ps1 -Parar
 ```
 
 | Command | What it does |
 |---------|--------------|
-| `.\INICIAR.ps1` | Site at http://localhost:3010 + dorking bot |
-| `.\INICIAR.ps1 -ApenasSite` | Site only |
-| `.\INICIAR.ps1 -ApenasBot` | Bot only |
-| `.\INICIAR.ps1 -Producao` | Site with build + start (local) |
+| `.\lexrocha-us.ps1` | Site at http://localhost:3010 + dorking bot |
+| `.\lexrocha-us.ps1 -ApenasSite` | Site only |
+| `.\lexrocha-us.ps1 -ApenasBot` | Bot only |
+| `.\lexrocha-us.ps1 -Producao` | Site with build + start (local) |
 
 ## Credentials (`.env.local`)
 

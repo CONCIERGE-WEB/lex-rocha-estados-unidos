@@ -116,7 +116,7 @@ export function TrackOrderForm({ initialCode = "" }: Props) {
       ) : null}
 
       <p className="text-center text-sm text-muted">
-        <Link href="/#pedir-relatorio" className="font-semibold text-trust underline underline-offset-4">
+        <Link href="/request" className="font-semibold text-trust underline underline-offset-4">
           {T.newRequest}
         </Link>
       </p>

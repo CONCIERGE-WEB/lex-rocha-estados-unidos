@@ -26,7 +26,7 @@ export function CtaBanner() {
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button asChild size="lg" variant="accent" className="h-12 gap-2 px-8 shadow-md">
-              <Link href="/solicitar">
+              <Link href="/request">
                 {cta.primary}
                 <ArrowRight className="size-4" />
               </Link>

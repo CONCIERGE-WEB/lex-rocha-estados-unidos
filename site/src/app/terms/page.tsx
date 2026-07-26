@@ -12,7 +12,7 @@ export default function TermsPage() {
       <ContentSummary>
         <ul className="list-none space-y-2 pl-0 text-sm">
           <li>· Informational documentary research — not legal representation</li>
-          <li>· Prices $29 / $39 / $59 — confirmed during triage and at checkout</li>
+          <li>· Prices $49 / $79 / $119 — confirmed during triage and at checkout</li>
           <li>· Personalized service: refund rights may be limited after work begins</li>
           <li>· Receipt: Stripe receipt in USD — informational digital service</li>
         </ul>

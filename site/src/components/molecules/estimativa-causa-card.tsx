@@ -16,21 +16,21 @@ export function EstimativaCausaCard({ area, agravantes }: Props) {
   return (
     <Card className="border-dashed">
       <CardHeader>
-        <CardTitle className="text-base">Referência interna — porte da causa</CardTitle>
+        <CardTitle className="text-base">Internal reference — dispute size</CardTitle>
       </CardHeader>
       <CardContent className="space-y-2 text-sm text-muted-foreground">
         <p>
-          Faixa estimada:{" "}
+          Estimated range:{" "}
           <strong className="text-foreground">
-            R$ {est.min.toLocaleString("pt-BR")} a R$ {est.max.toLocaleString("pt-BR")}
+            ${est.min.toLocaleString("en-US")} to ${est.max.toLocaleString("en-US")}
           </strong>
         </p>
         {agravantes.length > 0 && (
-          <p>Multiplicador aplicado: ×{est.multiplicador.toFixed(2)}</p>
+          <p>Applied multiplier: ×{est.multiplicador.toFixed(2)}</p>
         )}
         <p className="text-xs">
-          Baseada em precedentes verificados. Não confundir com o preço do relatório
-          (R$ 49 / R$ 79 / R$ 119).
+          Based on verified precedents. Do not confuse with report pricing
+          ($49 / $79 / $119).
         </p>
       </CardContent>
     </Card>

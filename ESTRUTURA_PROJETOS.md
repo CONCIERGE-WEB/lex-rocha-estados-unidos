@@ -1,4 +1,4 @@
-# Project Structure — Judicial Intelligence (U.S.)
+﻿# Project Structure — Judicial Intelligence (U.S.)
 
 **Path:** `E:\01_Projetos\04-judicial-intelligence`  
 **GitHub:** [TiagoIA-UX/lex-rocha-estados-unidos](https://github.com/TiagoIA-UX/lex-rocha-estados-unidos)  
@@ -30,7 +30,7 @@ Production (Vercel)
   └── site/  →  www.judicialintelligence.com
 
 Local development
-  └── .\INICIAR.ps1
+  └── .\lexrocha-us.ps1
         ├── npm run dev :3010     ← site
         └── signalhub/usa/bot.py  ← Telegram bot + dork scan
 ```
@@ -68,5 +68,5 @@ See `site/.env.example` and `.env.local.example` for full list.
 
 1. Develop / commit in **`04-judicial-intelligence/`**
 2. Configure `.env.local` at root
-3. Local: `.\INICIAR.ps1 -Instalar` then `.\INICIAR.ps1`
+3. Local: `.\lexrocha-us.ps1 -Instalar` then `.\lexrocha-us.ps1`
 4. Deploy site to Vercel (root directory: `site`)

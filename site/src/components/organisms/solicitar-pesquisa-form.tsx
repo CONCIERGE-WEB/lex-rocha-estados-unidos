@@ -44,7 +44,7 @@ const estadoInicial: FormState = {
   cpf_cliente: "",
   email_cliente: "",
   telefone_cliente: "",
-  categoria: "negativacao_indevida",
+  categoria: "fcra_credit_reporting",
   empresa_reclamada: "",
   data_evento: "",
   valor: "",
@@ -75,7 +75,7 @@ function montarPayload(form: FormState): Record<string, unknown> {
     outro_detalhe: form.outro_detalhe || undefined,
   };
 
-  if (form.categoria === "negativacao_indevida") {
+  if (form.categoria === "fcra_credit_reporting") {
     return {
       ...base,
       data_negativacao: form.data_evento,
@@ -103,7 +103,7 @@ export function SolicitarPesquisaForm() {
   );
   const [previsaoEntrega, setPrevisaoEntrega] = useState<string | null>(null);
 
-  const isNegativacao = form.categoria === "negativacao_indevida";
+  const isNegativacao = form.categoria === "fcra_credit_reporting";
 
   const tituloCategoria = useMemo(
     () => CATEGORIA_LABELS[form.categoria],

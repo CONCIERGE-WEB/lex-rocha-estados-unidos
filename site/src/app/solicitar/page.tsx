@@ -1,32 +1,45 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { redirect } from "next/navigation";
 
-import { SolicitarPesquisaForm } from "@/components/organisms/solicitar-pesquisa-form";
-import { SiteFooter } from "@/components/organisms/site-footer";
-import { SiteHeader } from "@/components/organisms/site-header";
-import { COPY_SITE } from "@/lib/constants/copy-site";
-import { NOME_SERVICO_PUBLICO } from "@/lib/constants/pesquisa-documental";
 import { SITE } from "@/lib/constants/site";
 
-const { solicitar } = COPY_SITE;
-
 export const metadata: Metadata = {
-  title: `Solicitar ${NOME_SERVICO_PUBLICO}`,
-  description: solicitar.intro,
-  alternates: { canonical: `${SITE.url}/solicitar` },
+  title: "Deprecated — use /request",
+  description: "This Portuguese route is deprecated. Use /request.",
+  alternates: { canonical: `${SITE.url}/request` },
+  robots: { index: false, follow: false },
 };
 
-export default function SolicitarPage() {
+/**
+ * Legacy BR path. Etapa 1: redirect to canonical EN `/request`.
+ * Set `?stay=1` only for local inspection of the deprecation banner (no form).
+ */
+export default async function SolicitarLegacyPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ stay?: string }>;
+}) {
+  const sp = await searchParams;
+  if (sp.stay !== "1") {
+    redirect("/request");
+  }
+
   return (
-    <>
-      <SiteHeader />
-      <main className="mx-auto max-w-2xl px-4 py-12 md:px-6">
-        <div className="mb-8 space-y-2">
-          <h1 className="font-serif text-3xl font-bold text-primary">{solicitar.title}</h1>
-          <p className="text-muted-foreground">{solicitar.intro}</p>
-        </div>
-        <SolicitarPesquisaForm />
-      </main>
-      <SiteFooter />
-    </>
+    <main className="mx-auto max-w-xl px-4 py-16 text-center">
+      <p className="text-sm font-semibold uppercase tracking-wide text-amber-700">
+        Deprecated
+      </p>
+      <h1 className="mt-2 font-serif text-2xl font-bold">
+        /solicitar is legacy
+      </h1>
+      <p className="mt-3 text-muted-foreground">
+        The canonical request form is{" "}
+        <Link href="/request" className="font-medium text-primary underline">
+          /request
+        </Link>
+        .
+      </p>
+    </main>
   );
 }

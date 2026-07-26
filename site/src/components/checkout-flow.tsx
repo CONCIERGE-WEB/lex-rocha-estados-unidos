@@ -4,6 +4,10 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
 import { PLANOS } from "@/lib/constants/empresa";
+import {
+  CATEGORIA_LABELS,
+  normalizarCategoriaPipeline,
+} from "@/lib/pipeline-confiavel/categorias";
 
 export const CHECKOUT_CASO_KEY = "ji_checkout_caso";
 
@@ -19,24 +23,32 @@ type TriagemGuardada = {
 type CasoGuardado = {
   descricao?: string;
   area?: string;
+  categoria?: string;
+  categoryId?: string;
   triagem?: TriagemGuardada;
 };
 
 type Props = {
   planoId: string;
+  categoryId?: string | null;
 };
 
-export function CheckoutFlow({ planoId }: Props) {
+export function CheckoutFlow({ planoId, categoryId: categoryFromUrl }: Props) {
   const plano = PLANOS.find((p) => p.id === planoId);
 
   const [clientType, setClientType] = useState<ClientType>(null);
   const [descricao, setDescricao] = useState("");
   const [area, setArea] = useState("");
+  const [categoryId, setCategoryId] = useState(categoryFromUrl?.trim() || "");
   const [triagem, setTriagem] = useState<TriagemGuardada | undefined>(undefined);
   const [veioDaTriagem, setVeioDaTriagem] = useState(false);
   const [terms, setTerms] = useState(false);
   const [erro, setErro] = useState("");
   const [aCarregar, setACarregar] = useState(false);
+
+  useEffect(() => {
+    if (categoryFromUrl?.trim()) setCategoryId(categoryFromUrl.trim());
+  }, [categoryFromUrl]);
 
   useEffect(() => {
     try {
@@ -46,12 +58,14 @@ export function CheckoutFlow({ planoId }: Props) {
       const desc = guardado.descricao?.trim() ?? "";
       if (desc) setDescricao(desc);
       if (guardado.area) setArea(guardado.area);
+      const cat = guardado.categoryId || guardado.categoria || guardado.area;
+      if (cat && !categoryFromUrl) setCategoryId(cat);
       if (guardado.triagem) setTriagem(guardado.triagem);
       setVeioDaTriagem(desc.length >= 80);
     } catch {
       // ignore malformed session data
     }
-  }, []);
+  }, [categoryFromUrl]);
 
   const step = useMemo(() => (clientType === "individual" ? 2 : 1), [clientType]);
   const progress = clientType === "individual" ? 100 : 50;
@@ -72,7 +86,8 @@ export function CheckoutFlow({ planoId }: Props) {
           planoId,
           aceiteContrato: true,
           descricaoCaso: descricao.trim(),
-          areaCaso: area || undefined,
+          areaCaso: area || categoryId || undefined,
+          categoryId: categoryId || undefined,
           triagem: triagem
             ? {
                 planoId: triagem.planoId,
@@ -103,6 +118,9 @@ export function CheckoutFlow({ planoId }: Props) {
 
   if (!plano) return null;
 
+  const categoryCanon = normalizarCategoriaPipeline(categoryId);
+  const categoryLabel = categoryCanon ? CATEGORIA_LABELS[categoryCanon] : null;
+
   return (
     <div className="mx-auto max-w-2xl">
       <div className="cite-block mb-8">
@@ -110,6 +128,9 @@ export function CheckoutFlow({ planoId }: Props) {
         <p className="mt-2 font-display text-2xl font-semibold text-ink">{plano.nome}</p>
         <p className="mt-1 font-display text-3xl font-semibold text-verify">${plano.preco}</p>
         <p className="mt-2 text-sm text-muted">{plano.descricao}</p>
+        {categoryLabel ? (
+          <p className="mt-3 text-sm font-semibold text-trust">Category: {categoryLabel}</p>
+        ) : null}
       </div>
 
       {clientType !== "business" ? (
@@ -173,7 +194,7 @@ export function CheckoutFlow({ planoId }: Props) {
               provide legal representation or formal business invoicing. For those needs, please
               consult a licensed attorney in your state.
             </p>
-            <Link href="/#planos" className="btn-secondary mt-6 inline-block">
+            <Link href="/#pricing" className="btn-secondary mt-6 inline-block">
               Back to plans
             </Link>
           </div>

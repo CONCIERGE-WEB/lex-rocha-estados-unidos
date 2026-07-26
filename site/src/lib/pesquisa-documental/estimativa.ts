@@ -7,22 +7,22 @@ import {
 export const AGRAVANTES_OPCOES = [
   {
     id: "reiterado",
-    label: "Comportamento reiterado da empresa",
+    label: "Repeated company conduct",
     multiplicador: 1.2,
   },
   {
     id: "prejuizo_profissional",
-    label: "Prejuízo profissional comprovado",
+    label: "Documented professional harm",
     multiplicador: 1.25,
   },
   {
     id: "empresa_reconheceu",
-    label: "Empresa reconheceu o erro",
+    label: "Company acknowledged the error",
     multiplicador: 1.15,
   },
   {
     id: "big_tech",
-    label: "Big Tech / plataforma digital",
+    label: "Large platform / Big Tech",
     multiplicador: 1.1,
   },
 ] as const;
@@ -30,22 +30,24 @@ export const AGRAVANTES_OPCOES = [
 export type AgravanteId = (typeof AGRAVANTES_OPCOES)[number]["id"];
 
 const BASE_CAUSA_POR_AREA: Record<AreaProblema, { min: number; max: number }> = {
-  "Bloqueio/suspensão de conta digital": { min: 2000, max: 10000 },
-  "Cancelamento indevido de serviço": { min: 2000, max: 8000 },
-  "Cobrança indevida/cartão/banco": { min: 1500, max: 8000 },
-  "Negativação indevida (SPC/Serasa)": { min: 3000, max: 15000 },
-  "Falha em produto ou entrega": { min: 1500, max: 8000 },
-  "Plano de saúde negando cobertura": { min: 5000, max: 20000 },
-  "Demissão / direitos trabalhistas": { min: 3000, max: 15000 },
-  "INSS / benefício negado": { min: 3000, max: 10000 },
-  Outro: { min: 1000, max: 5000 },
+  "FCRA — credit reporting / inaccurate file": { min: 3000, max: 15000 },
+  "FDCPA — debt collection / abusive practices": { min: 1500, max: 8000 },
+  "TCPA — robocalls, spam texts & autodialers": { min: 500, max: 1500 },
+  "Lemon Law / Magnuson-Moss — vehicle & product warranty": {
+    min: 1500,
+    max: 8000,
+  },
+  "UDAP — unfair & deceptive acts / junk fees": { min: 1000, max: 10000 },
+  "DOT — flights, delays, baggage": { min: 500, max: 5000 },
+  "Health insurance denial / bad faith coverage": { min: 5000, max: 20000 },
+  Other: { min: 1000, max: 5000 },
 };
 
 export function calcularEstimativaCausa(
   area: AreaProblema,
   agravantes: AgravanteId[]
 ): { min: number; max: number; multiplicador: number } {
-  const base = BASE_CAUSA_POR_AREA[area] ?? BASE_CAUSA_POR_AREA.Outro;
+  const base = BASE_CAUSA_POR_AREA[area] ?? BASE_CAUSA_POR_AREA.Other;
   const multiplicador = agravantes.reduce((acc, id) => {
     const item = AGRAVANTES_OPCOES.find((a) => a.id === id);
     return item ? acc * item.multiplicador : acc;

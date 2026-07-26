@@ -7,6 +7,12 @@ export type FontePublica = {
 
 export const FONTES_PESQUISA_PUBLICA: FontePublica[] = [
   {
+    nome: "CourtListener / Free Law Project",
+    descricao: "Case law search, opinions, and court docket metadata.",
+    url: "https://www.courtlistener.com/",
+    tipo: "jurisprudencia",
+  },
+  {
     nome: "FTC — Consumer Protection",
     descricao: "Federal Trade Commission guidance and enforcement actions.",
     url: "https://www.ftc.gov/",
@@ -39,8 +45,10 @@ export const FONTES_PESQUISA_PUBLICA: FontePublica[] = [
 ];
 
 export const NOTA_FONTES_RELATORIO =
+  "Case law data sourced via CourtListener / Free Law Project. " +
   "The references below were consulted from public sources at the time of research. " +
-  "Verify on official portals before making any decision.";
+  "Verify on official portals before making any decision. " +
+  "Citation does not imply endorsement by Free Law Project or any government agency.";
 
 export const REFERENCIA_CONSULTA_ADVOCATICIA = {
   faixaMinima: 150,

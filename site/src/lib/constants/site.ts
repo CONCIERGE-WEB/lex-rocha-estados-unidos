@@ -6,6 +6,8 @@ export const SITE = {
   domain: "judicialintelligence.com",
   url: process.env.NEXT_PUBLIC_APP_URL ?? "https://www.judicialintelligence.com",
   ein: "61-699-939/0001-80",
+  /** @deprecated Prefer `ein` — legacy BR field name still referenced in some UI. */
+  cnpj: "61-699-939/0001-80",
   founder: "Tiago Aureliano da Rocha",
   founderTitle: "Founder",
   city: "United States",
@@ -22,6 +24,7 @@ export const HOME_SECTION_IDS = [
   "precos",
   "precedentes",
   "parceiros",
+  "pedir-relatorio",
 ] as const;
 
 export const NAV_LINKS = [
@@ -29,5 +32,6 @@ export const NAV_LINKS = [
   { href: "/modelo-relatorio", label: "Sample report" },
   { href: "/#fontes", label: "Public sources" },
   { href: "/#precos", label: "Pricing" },
+  { href: "/request", label: "Request report" },
   { href: "/#parceiros", label: "Partners" },
 ] as const;

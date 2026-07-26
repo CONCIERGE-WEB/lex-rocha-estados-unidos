@@ -32,7 +32,7 @@ describe("pipeline-confiavel/regressao-massa", () => {
       const categoria = categoriasComBanco[i % categoriasComBanco.length];
       const entrada = carregarBancoPrecedentes(categoria);
       const rascunho =
-        categoria === "negativacao_indevida"
+        categoria === "fcra_credit_reporting"
           ? interpolarRelatorioNegativacao({
               entradaBanco: entrada,
               dados: {
@@ -41,7 +41,7 @@ describe("pipeline-confiavel/regressao-massa", () => {
                 data_negativacao: `2025-${String((i % 9) + 1).padStart(2, "0")}-${String((i % 27) + 1).padStart(2, "0")}`,
                 valor_negativado_centavos: 1000 + i * 37,
                 ja_tentou_resolver_diretamente: i % 2 === 0,
-                canal_tentativa: i % 2 === 0 ? "procon" : undefined,
+                canal_tentativa: i % 2 === 0 ? "cfpb" : undefined,
                 possui_comprovante_quitacao: i % 3 === 0,
               },
               ambiente: "teste",
@@ -56,7 +56,7 @@ describe("pipeline-confiavel/regressao-massa", () => {
                 tipo_cobranca: "cartao",
                 pagou_valor_cobrado: i % 2 === 0,
                 ja_tentou_resolver_diretamente: i % 2 === 0,
-                canal_tentativa: i % 2 === 0 ? "procon" : undefined,
+                canal_tentativa: i % 2 === 0 ? "cfpb" : undefined,
               },
               ambiente: "teste",
             });

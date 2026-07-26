@@ -23,7 +23,7 @@ export const PLANOS = [
   {
     id: "essencial",
     nome: "Essential",
-    preco: 29,
+    preco: 49,
     descricao:
       "For straightforward situations, without long history or multiple parties.",
     ideal: "One problem, one company",
@@ -31,12 +31,13 @@ export const PLANOS = [
       "Case explained in plain language",
       "Up to 2 public decisions in similar cases",
       "What was granted in each cited case",
+      "Practical results & statutory damages reference (where catalogued)",
     ],
   },
   {
     id: "padrao",
     nome: "Standard",
-    preco: 39,
+    preco: 79,
     destaque: true,
     descricao:
       "When there are multiple related issues or the amount at stake warrants more detail.",
@@ -46,12 +47,13 @@ export const PLANOS = [
       "3 to 5 public decisions in similar cases",
       "What was granted in each cited case",
       "What U.S. consumer law says about your situation",
+      "Practical results & statutory damages reference (where catalogued)",
     ],
   },
   {
     id: "completo",
-    nome: "Complete",
-    preco: 59,
+    nome: "Premium",
+    preco: 119,
     descricao:
       "For disputes that drag on, have a timeline, or involve more than one party.",
     ideal: "Case with history or multiple phases",
@@ -59,6 +61,8 @@ export const PLANOS = [
       "Detailed report with a factual timeline of the cited cases",
       "Extended set of public decisions in similar cases",
       "What was granted across the cited cases",
+      "What U.S. consumer law says about your situation",
+      "Practical results & statutory damages reference (where catalogued)",
     ],
   },
 ] as const;

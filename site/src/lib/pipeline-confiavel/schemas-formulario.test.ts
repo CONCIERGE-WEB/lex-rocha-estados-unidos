@@ -4,37 +4,38 @@ import { parseWizardSolicitacao } from "@/lib/pipeline-confiavel/schemas-formula
 
 const baseContato = {
   nome_cliente: "Maria Silva",
-  cpf_cliente: "529.982.247-25",
   email_cliente: "maria@example.com",
-  consentimento_lgpd: true as const,
+  state_us: "CA",
+  consentimento_privacidade: true as const,
 };
 
 describe("pipeline-confiavel/schemas-formulario", () => {
-  it("aceita negativacao_indevida válida", () => {
+  it("aceita fcra_credit_reporting válido (e alias legado)", () => {
     const r = parseWizardSolicitacao({
       categoria: "negativacao_indevida",
       ...baseContato,
       empresa_reclamada: "Empresa X",
       data_negativacao: "2025-03-10",
-      valor_negativado_centavos: "200,00",
+      valor_negativado_centavos: "200.00",
       ja_tentou_resolver_diretamente: true,
-      canal_tentativa: "consumidor.gov",
+      canal_tentativa: "cfpb",
       possui_comprovante_quitacao: true,
     });
     expect(r.success).toBe(true);
     if (r.success) {
+      expect(r.data.categoria).toBe("fcra_credit_reporting");
       expect(r.data.valor_negativado_centavos).toBe(20000);
     }
   });
 
-  it("rejeita CPF inválido", () => {
+  it("rejeita state inválido", () => {
     const r = parseWizardSolicitacao({
-      categoria: "negativacao_indevida",
+      categoria: "fcra_credit_reporting",
       ...baseContato,
-      cpf_cliente: "111.111.111-11",
+      state_us: "XX",
       empresa_reclamada: "Empresa X",
       data_negativacao: "2025-03-10",
-      valor_negativado_centavos: "50,00",
+      valor_negativado_centavos: "50.00",
       ja_tentou_resolver_diretamente: false,
       possui_comprovante_quitacao: false,
     });
@@ -43,7 +44,7 @@ describe("pipeline-confiavel/schemas-formulario", () => {
 
   it("rejeita valor negativo e data futura", () => {
     const rValor = parseWizardSolicitacao({
-      categoria: "negativacao_indevida",
+      categoria: "fcra_credit_reporting",
       ...baseContato,
       empresa_reclamada: "Empresa X",
       data_negativacao: "2025-03-10",
@@ -54,11 +55,11 @@ describe("pipeline-confiavel/schemas-formulario", () => {
     expect(rValor.success).toBe(false);
 
     const rData = parseWizardSolicitacao({
-      categoria: "negativacao_indevida",
+      categoria: "fcra_credit_reporting",
       ...baseContato,
       empresa_reclamada: "Empresa X",
       data_negativacao: "2099-01-01",
-      valor_negativado_centavos: "10,00",
+      valor_negativado_centavos: "10.00",
       ja_tentou_resolver_diretamente: false,
       possui_comprovante_quitacao: false,
     });
@@ -67,11 +68,11 @@ describe("pipeline-confiavel/schemas-formulario", () => {
 
   it("exige canal quando tentou resolver", () => {
     const r = parseWizardSolicitacao({
-      categoria: "negativacao_indevida",
+      categoria: "fcra_credit_reporting",
       ...baseContato,
       empresa_reclamada: "Empresa X",
       data_negativacao: "2025-03-10",
-      valor_negativado_centavos: "50,00",
+      valor_negativado_centavos: "50.00",
       ja_tentou_resolver_diretamente: true,
       possui_comprovante_quitacao: false,
     });

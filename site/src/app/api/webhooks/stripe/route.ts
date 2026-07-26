@@ -56,6 +56,7 @@ export async function POST(request: Request) {
   const nomeCliente = session.customer_details?.name || null;
   const zipCliente = meta.zip?.trim() || meta.nif?.trim() || null;
   const mercadoUs = isUsMarket(meta, moeda);
+  const categoryLabel = meta.category_label?.trim() || meta.category_id?.trim() || null;
 
   const supabase = getSupabase();
 
@@ -113,7 +114,9 @@ export async function POST(request: Request) {
       nome_cliente: nomeCliente,
       email_cliente: email,
       plano,
-      descricao_caso: descricaoCaso,
+      descricao_caso: categoryLabel
+        ? `[Category: ${categoryLabel}]\n${descricaoCaso ?? ""}`.trim()
+        : descricaoCaso,
       tracking_code: codeForReport,
       status: "a_gerar",
     })

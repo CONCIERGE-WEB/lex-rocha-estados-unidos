@@ -1,4 +1,4 @@
-# Deploy 24/7 do robo dorking num VPS Linux (systemd) — Judicial Intelligence (U.S.)
+﻿# Deploy 24/7 do robo dorking num VPS Linux (systemd) — Judicial Intelligence (U.S.)
 #
 # Uso:
 #   .\scripts\DEPLOY_VPS.ps1
@@ -60,7 +60,7 @@ function Ensure-Prereqs {
 
     foreach ($f in @("keywords.yaml", "dorks.yaml", "prompts.yaml")) {
         if (-not (Test-Path (Join-Path $cfgDir $f))) {
-            Write-Host "Falta config\usa\$f - corra .\INICIAR.ps1 -Instalar" -ForegroundColor Yellow
+            Write-Host "Falta config\usa\$f - corra .\lexrocha-us.ps1 -Instalar" -ForegroundColor Yellow
             exit 1
         }
     }

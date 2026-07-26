@@ -16,7 +16,7 @@ export function HowItWorksSection() {
   const { howItWorks } = COPY_SITE;
 
   return (
-    <section id="como-funciona" className="scroll-mt-20 bg-background py-20 md:py-24">
+    <section id="how-it-works" className="scroll-mt-20 bg-background py-20 md:py-24">
       <div className="mx-auto max-w-6xl space-y-12 px-4 md:px-6">
         <SectionHeading
           eyebrow={howItWorks.eyebrow}

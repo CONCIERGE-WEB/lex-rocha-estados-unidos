@@ -460,6 +460,23 @@ class SignalHubEngine:
             self.marcar_visto(post["link"])
             return False
 
+        # Optional Etapa 5 gate (U.S.): MiniLM / lexical pain anchors
+        gate_fn = getattr(self, "lead_gate", None)
+        if callable(gate_fn):
+            gate = gate_fn(post["texto"])
+            if not gate.get("quente", True):
+                self.log.info(
+                    f"MiniLM gate cold score={gate.get('score')} "
+                    f"method={gate.get('method')} | {post['texto'][:60]}"
+                )
+                self.marcar_visto(post["link"])
+                return False
+            if gate.get("categoria"):
+                self.log.info(
+                    f"MiniLM gate hot cat={gate.get('categoria')} "
+                    f"score={gate.get('score')} method={gate.get('method')}"
+                )
+
         if not self.rl.pode():
             self.log.warning("Rate limit — alerta suprimido")
             return False

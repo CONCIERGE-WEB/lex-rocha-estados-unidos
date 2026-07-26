@@ -9,7 +9,7 @@ describe("pipeline-confiavel/confirmacao (Módulo 7)", () => {
   it("registra aceite com timestamp", () => {
     const reg = registrarAceiteDados({
       solicitacaoId: "sol-1",
-      categoria: "negativacao_indevida",
+      categoria: "fcra_credit_reporting",
       resumoCampos: { empresa_reclamada: "X" },
       confirmado: true,
     });

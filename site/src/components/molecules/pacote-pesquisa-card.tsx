@@ -9,7 +9,7 @@ export function PacotePesquisaCard({ pacote }: Props) {
   const plano =
     pacote.plano.tipo === "sem_cobranca"
       ? `Sem cobrança — ${pacote.plano.label}`
-      : `${pacote.plano.label} · R$ ${pacote.plano.valor}`;
+      : `${pacote.plano.label} · $${pacote.plano.valor}`;
 
   return (
     <Card className="border-emerald-200 bg-emerald-50/50">

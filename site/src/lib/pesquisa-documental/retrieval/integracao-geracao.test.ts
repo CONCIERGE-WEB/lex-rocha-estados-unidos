@@ -12,7 +12,7 @@ describe("retrieval integração geração", () => {
   it("fluxo pacote → contexto Claude → validação de citações", () => {
     const pacote = montarPacotePesquisaDocumentalBasico({
       precedentesTexto: `Caso TJPR\n${URL}`,
-      fundamentosIds: ["cdc_14"],
+      fundamentosIds: ["ftc_5"],
     });
 
     const bloco = montarBlocoPacoteParaClaude(pacote);

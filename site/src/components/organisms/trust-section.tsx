@@ -14,7 +14,7 @@ export function TrustSection() {
   const pillars = trust.pillars.map((pillar, i) => {
     let text: string = pillar.text;
     if (i === 0) {
-      text = `Faixas a partir de R$ ${PRECIFICACAO.essencial.valor}. ${pillar.text}`;
+      text = `Plans from $${PRECIFICACAO.essencial.valor}. ${pillar.text}`;
     }
     if (i === 1) {
       text = `Até ${CAPACIDADE_OPERACIONAL.maxRelatoriosPorDia} relatórios por dia útil na operação atual. ${pillar.text}`;

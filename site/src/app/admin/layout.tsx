@@ -17,7 +17,7 @@ export default async function AdminLayout({
         <div className="mx-auto max-w-6xl px-4 py-4">
           <div className="flex items-center justify-between gap-4">
             <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-              {SITE.name} · Administração
+              {SITE.name} · Admin
             </p>
             {email ? (
               <div className="flex items-center gap-3">
@@ -27,7 +27,7 @@ export default async function AdminLayout({
                     type="submit"
                     className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
                   >
-                    Sair
+                    Sign out
                   </button>
                 </form>
               </div>

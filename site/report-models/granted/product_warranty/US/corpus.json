@@ -1,0 +1,9 @@
+{
+  "categoria": "product_warranty",
+  "state": "US",
+  "geradoEm": "2026-07-25T01:43:44.765Z",
+  "total": 0,
+  "status": "aguardando_corpus",
+  "nota": "Etapa 2 cell — structure only. No invented cases. Populate via CourtListener sync when COURTLISTENER_API_TOKEN is set.",
+  "itens": []
+}

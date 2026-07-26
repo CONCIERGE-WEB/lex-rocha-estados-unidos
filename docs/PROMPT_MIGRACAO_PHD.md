@@ -1,4 +1,4 @@
-# Prompt PhD — Migração selectiva Inteligência Resolutiva → PT Consumidores
+﻿# Prompt PhD — Migração selectiva Inteligência Resolutiva → PT Consumidores
 
 ## Papel do agente
 
@@ -65,7 +65,7 @@ FASE 5 — Relatório
 
 ```powershell
 .\scripts\sincronizar-env.ps1
-.\INICIAR.ps1 -Parar
+.\lexrocha-us.ps1 -Parar
 python signalhub\.venv\Scripts\python.exe signalhub\portugal\bot.py teste-live
 curl http://localhost:3010/api/agenda
 ```

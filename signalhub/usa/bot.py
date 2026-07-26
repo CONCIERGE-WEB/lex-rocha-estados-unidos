@@ -45,6 +45,14 @@ log = logging.getLogger("lexusbot")
 env = {**os.environ, **dotenv_values(ENV_PATH)}
 engine = SignalHubEngine(CONFIG_PATH, env, log)
 
+try:
+    from usa.gate_minilm import lead_quente
+
+    engine.lead_gate = lead_quente  # type: ignore[attr-defined]
+    log.info("MiniLM / lexical lead gate attached (Etapa 5)")
+except Exception as exc:  # noqa: BLE001
+    log.warning(f"Lead gate not attached: {exc}")
+
 POSTS_MOCK = [
     {
         "autor": "Mike R.",

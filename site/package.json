@@ -13,6 +13,8 @@
     "test:watch": "vitest",
     "test:regressao-pipeline": "vitest run src/lib/pipeline-confiavel/regressao-massa.test.ts",
     "test:pipeline": "vitest run src/lib/pipeline-confiavel",
+    "corpus:seed": "node scripts/seed-report-models-granted.mjs",
+    "corpus:sync": "node scripts/sync-courtlistener-corpus.mjs",
     "checklist:conferencia": "node ../scripts/checklist-conferencia-humana.mjs",
     "test:integracao": "node ../scripts/test-integracao.mjs",
     "test:copy": "node ../scripts/test-copy-audit.mjs",

@@ -29,7 +29,7 @@ describe("pipeline-confiavel/fila-revisao (Módulo 6)", () => {
   it("fail nunca entra na fila rápida", () => {
     const item = montarItemFilaRevisao({
       id: "1",
-      categoria: "negativacao_indevida",
+      categoria: "fcra_credit_reporting",
       verificacao: fail,
       rascunho: "x",
       camposCliente: {},
@@ -42,7 +42,7 @@ describe("pipeline-confiavel/fila-revisao (Módulo 6)", () => {
   it("aprovação sem checklist completo é bloqueada", () => {
     const item = montarItemFilaRevisao({
       id: "2",
-      categoria: "negativacao_indevida",
+      categoria: "fcra_credit_reporting",
       verificacao: pass,
       rascunho: "ok",
       camposCliente: { nome_cliente: "Maria" },

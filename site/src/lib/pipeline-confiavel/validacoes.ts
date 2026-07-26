@@ -64,6 +64,27 @@ export function centavosParaReais(centavos: number): string {
   return (centavos / 100).toFixed(2).replace(".", ",");
 }
 
+/** USD display — e.g. 12345 → "123.45". */
+export function centavosParaUsd(centavos: number): string {
+  return (centavos / 100).toFixed(2);
+}
+
+/**
+ * U.S. dollar amount → cents.
+ * Accepts number or string "123.45" / "123" (no BR thousand-separator stripping).
+ */
+export function moedaUsdParaCentavos(valor: string | number): number | null {
+  if (typeof valor === "number") {
+    if (!Number.isFinite(valor) || valor <= 0) return null;
+    return Math.round(valor * 100);
+  }
+  const limpo = valor.trim().replace(/\s/g, "").replace(/\$/g, "").replace(/,/g, "");
+  if (!/^\d+(\.\d{1,2})?$/.test(limpo)) return null;
+  const n = Number(limpo);
+  if (!Number.isFinite(n) || n <= 0) return null;
+  return Math.round(n * 100);
+}
+
 /**
  * Sinaliza (não bloqueia) se o intervalo desde a data informada
  * ultrapassa prazo prescricional típico de consumo (5 anos — art. 27 CDC).

@@ -14,6 +14,7 @@ type Props = {
   onClose: () => void;
   descricaoCaso?: string;
   areaCaso?: string;
+  categoryId?: string;
   triagem?: ResultadoTriagem;
 };
 
@@ -22,6 +23,7 @@ export function CheckoutPlanoModal({
   onClose,
   descricaoCaso: descricaoInicial = "",
   areaCaso = "",
+  categoryId,
   triagem,
 }: Props) {
   const [zip, setZip] = useState("");
@@ -60,6 +62,7 @@ export function CheckoutPlanoModal({
           aceiteContrato: true,
           descricaoCaso: descricao,
           areaCaso: areaCaso || undefined,
+          categoryId: categoryId || undefined,
           triagem: triagem
             ? {
                 planoId: triagem.planoId,

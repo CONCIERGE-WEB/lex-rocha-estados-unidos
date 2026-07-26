@@ -15,7 +15,7 @@ import {
 } from "@/lib/pipeline-confiavel/categorias";
 
 export const R3_DIVULGACAO_COMERCIAL =
-  "Judicial Intelligence is a paid legal research service for cases like this. If you want, https://www.judicialintelligence.com/solicitar";
+  "Judicial Intelligence is a paid legal research service for cases like this. If you want, https://www.judicialintelligence.com/request";
 
 export type ConfigSignalHubAlerta = {
   recenciaMaxDias: number;
@@ -64,32 +64,48 @@ export function classificarCategoriaPost(
   const t = texto.toLowerCase();
   const regras: { categoria: CategoriaPipeline; termos: string[] }[] = [
     {
-      categoria: "negativacao_indevida",
-      termos: ["negativ", "spc", "serasa", "nome sujo", "cadastro de inadimpl"],
+      categoria: "fcra_credit_reporting",
+      termos: [
+        "credit report",
+        "credit bureau",
+        "fcra",
+        "inaccurate reporting",
+        "negativ",
+        "spc",
+        "serasa",
+      ],
     },
     {
-      categoria: "cobranca_indevida",
-      termos: ["cobrança indevida", "cobranca indevida", "cobrado indevid"],
+      categoria: "fdcpa_debt_collection",
+      termos: [
+        "debt collect",
+        "fdcpa",
+        "unauthorized charge",
+        "cobrança indevida",
+        "cobranca indevida",
+        "cobrado indevid",
+      ],
     },
     {
-      categoria: "cancelamento_nao_efetivado",
-      termos: ["cancelei", "cancelamento", "continua cobrando", "após cancel"],
+      categoria: "lemon_law_warranty",
+      termos: ["defeito", "warranty", "não entreg", "nao entreg", "atraso na entrega", "produto veio"],
     },
     {
-      categoria: "produto_defeito_atraso",
-      termos: ["defeito", "não entreg", "nao entreg", "atraso na entrega", "produto veio"],
+      categoria: "dot_flights_baggage",
+      termos: ["flight delay", "baggage", "airline", "dot ", "voo", "bagagem"],
     },
     {
-      categoria: "fraude_conta_digital",
-      termos: ["golpe", "fraude", "conta hackeada", "bloqueou minha conta"],
-    },
-    {
-      categoria: "plano_seguro_negativa",
-      termos: ["plano de saúde", "plano de saude", "negou cobertura", "seguro negou"],
-    },
-    {
-      categoria: "score_credito",
-      termos: ["score", "score de crédito", "score de credito"],
+      categoria: "health_plan_denial",
+      termos: [
+        "insurance denial",
+        "claim denied",
+        "health plan",
+        "plano de saúde",
+        "plano de saude",
+        "negou cobertura",
+        "seguro negou",
+        "negativa",
+      ],
     },
   ];
 

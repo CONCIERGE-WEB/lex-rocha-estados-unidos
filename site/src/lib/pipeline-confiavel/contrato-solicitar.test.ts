@@ -5,53 +5,55 @@ import { gerarRascunhoVerificadoCategoria } from "@/lib/pipeline-confiavel/orque
 
 const contato = {
   nome_cliente: "Maria Silva",
-  cpf_cliente: "529.982.247-25",
   email_cliente: "maria@example.com",
-  consentimento_lgpd: true as const,
+  state_us: "NY",
+  consentimento_privacidade: true as const,
 };
 
 describe("pipeline-confiavel/contrato-solicitar", () => {
-  it("processa negativacao e produz narrativa estruturada", () => {
+  it("processa FCRA (alias legado) e produz narrativa estruturada", () => {
     const r = processarPayloadSolicitarPipeline({
       categoria: "negativacao_indevida",
       ...contato,
       empresa_reclamada: "Empresa X",
       data_negativacao: "2025-03-10",
-      valor_negativado_centavos: "200,00",
+      valor_negativado_centavos: "200.00",
       ja_tentou_resolver_diretamente: false,
       possui_comprovante_quitacao: true,
     });
     expect(r.ok).toBe(true);
     if (r.ok) {
-      expect(r.categoria_id).toBe("negativacao_indevida");
-      expect(r.descricao).toContain("Categoria:");
+      expect(r.categoria_id).toBe("fcra_credit_reporting");
+      expect(r.descricao).toContain("Category:");
+      expect(r.state_us).toBe("NY");
       expect(r.descricao).not.toMatch(/texto livre longo/i);
     }
   });
 
-  it("processa cobranca_indevida (categoria 2)", () => {
+  it("processa fdcpa_debt_collection (categoria 2)", () => {
     const r = processarPayloadSolicitarPipeline({
       categoria: "cobranca_indevida",
       ...contato,
       empresa_reclamada: "Banco Y",
       data_cobranca: "2025-04-01",
-      valor_cobrado_centavos: "99,90",
+      valor_cobrado_centavos: "99.90",
       tipo_cobranca: "cartao",
       pagou_valor_cobrado: true,
       ja_tentou_resolver_diretamente: true,
-      canal_tentativa: "consumidor.gov",
+      canal_tentativa: "cfpb",
     });
     expect(r.ok).toBe(true);
     if (r.ok) {
-      expect(r.area).toContain("Cobrança");
-      expect(r.estruturado.flags.pagou_valor_cobrado).toBe("sim");
+      expect(r.categoria_id).toBe("fdcpa_debt_collection");
+      expect(r.area).toContain("FDCPA");
+      expect(r.estruturado.flags.pagou_valor_cobrado).toBe("yes");
     }
   });
 
-  it("gera rascunho Rota A para cobranca sem individualização", () => {
+  it("gera rascunho Rota A para cobrança sem individualização", () => {
     const r = gerarRascunhoVerificadoCategoria({
       id: "rel-cob-1",
-      categoria: "cobranca_indevida",
+      categoria: "fdcpa_debt_collection",
       dados: {
         nome_cliente: "Maria Silva",
         empresa_reclamada: "Banco Y",

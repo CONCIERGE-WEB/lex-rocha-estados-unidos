@@ -8,7 +8,7 @@ import {
 
 describe("pipeline-confiavel/retencao", () => {
   it("usa defaults configuráveis e seleciona registros expirados", () => {
-    const politica = carregarPoliticaRetencao({});
+    const politica = carregarPoliticaRetencao({} as NodeJS.ProcessEnv);
     expect(politica.diasDadosFormulario).toBeGreaterThan(0);
 
     const agora = new Date("2026-07-03T00:00:00.000Z");

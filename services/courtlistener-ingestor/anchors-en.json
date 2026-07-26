@@ -1,0 +1,142 @@
+{
+  "schema": "judicial-intelligence.anchors-en.v1",
+  "model_default": "all-MiniLM-L6-v2",
+  "limiar_padrao": 0.5,
+  "updated_at": "2026-07-25T15:40:12Z",
+  "source_module": "ancoras_en.py",
+  "precedente": {
+    "fcra_credit_reporting": [
+      "Court awarded statutory damages under FCRA for willful noncompliance without proof of actual harm",
+      "Credit reporting agency failed to conduct reasonable reinvestigation after consumer dispute",
+      "Inaccurate credit report entry after dispute Equifax Experian TransUnion FCRA liability",
+      "Identity theft fraudulent account remained on credit file after dispute FCRA"
+    ],
+    "fdcpa_debt_collection": [
+      "Debt collector violated FDCPA by harassing calls threats or contacting third parties",
+      "Fair Debt Collection Practices Act statutory damages for abusive collection practices",
+      "Unauthorized debt collection communication after cease and desist FDCPA",
+      "False representation of amount owed or legal status of debt under FDCPA"
+    ],
+    "tcpa_robocalls": [
+      "Telephone Consumer Protection Act statutory damages for autodialed calls or robocalls",
+      "Automated text messages sent without prior express consent TCPA",
+      "Unsolicited robocalls to cellular telephone TCPA per-call damages",
+      "Do Not Call registry violation automated telemarketing TCPA"
+    ],
+    "lemon_law_warranty": [
+      "Lemon law refund or replacement for defective vehicle after failed repair attempts",
+      "Magnuson-Moss Warranty Act breach of written warranty consumer product",
+      "Manufacturer failed to repair substantial defect within a reasonable number of attempts",
+      "Breach of implied warranty of merchantability under UCC for defective goods"
+    ],
+    "udap_deceptive_practices": [
+      "Unfair or deceptive acts or practices consumer protection UDAP statutory claim",
+      "False advertising or hidden junk fees deceptive trade practices",
+      "FTC Act section 5 unfair deceptive practice consumer restitution",
+      "E-commerce misrepresentation material terms or bait and switch UDAP"
+    ],
+    "dot_flights_baggage": [
+      "Airline denied boarding delay cancellation passenger compensation Department of Transportation",
+      "Lost delayed damaged baggage liability air carrier DOT consumer rules",
+      "Flight cancellation refund rights under airline passenger protection rules",
+      "Tarmac delay or significant flight delay compensation aviation consumer"
+    ],
+    "health_plan_denial": [
+      "Health insurance claim denial reversed or bad faith coverage denial benefits",
+      "ERISA wrongful denial of health plan benefits claim for coverage",
+      "Insurer denied medically necessary treatment coverage bad faith",
+      "Health plan appeal denial of prior authorization or claim payment"
+    ]
+  },
+  "dor_lead": {
+    "fcra_credit_reporting": [
+      "TransUnion won't remove fraudulent account from my credit report after dispute",
+      "Equifax Experian still showing wrong debt I already paid",
+      "Identity theft on my credit report and bureau ignores my dispute"
+    ],
+    "fdcpa_debt_collection": [
+      "Debt collector calling my family members and threatening me",
+      "Collection agency harassing me about a debt that is not mine",
+      "Collector calling before 8am after I told them to stop"
+    ],
+    "tcpa_robocalls": [
+      "Received 10 automated robocalls this week from same company",
+      "Spam autodialer texts every day without my consent",
+      "Company keeps robocalling my cell after I opted out"
+    ],
+    "lemon_law_warranty": [
+      "New car keeps breaking down dealer cannot fix lemon law",
+      "Warranty claim denied for defective product manufacturer refuses repair",
+      "Vehicle in the shop repeatedly still not fixed lemon"
+    ],
+    "udap_deceptive_practices": [
+      "Hidden junk fees and bait and switch after I signed up",
+      "Company advertised one price then charged something else",
+      "False advertising online store never delivered what was promised"
+    ],
+    "dot_flights_baggage": [
+      "Airline cancelled my flight and refuses refund",
+      "Airline lost my baggage and will not compensate",
+      "Long delay overnight stranded no airline compensation"
+    ],
+    "health_plan_denial": [
+      "Health insurance denied coverage for treatment my doctor ordered",
+      "Insurance company keeps denying my claim bad faith",
+      "Prior authorization denied for necessary surgery"
+    ]
+  },
+  "keywords_boost": {
+    "fcra_credit_reporting": [
+      "fcra",
+      "fair credit reporting",
+      "credit report",
+      "consumer reporting"
+    ],
+    "fdcpa_debt_collection": [
+      "fdcpa",
+      "debt collection",
+      "debt collector",
+      "fair debt",
+      "collection practices"
+    ],
+    "tcpa_robocalls": [
+      "tcpa",
+      "robocall",
+      "autodial",
+      "telephone consumer",
+      "text message",
+      "unsolicited"
+    ],
+    "lemon_law_warranty": [
+      "lemon",
+      "magnuson",
+      "warranty",
+      "merchantability"
+    ],
+    "udap_deceptive_practices": [
+      "udap",
+      "deceptive",
+      "unfair",
+      "unfair trade",
+      "junk fee",
+      "false advertising",
+      "consumer protection",
+      "trade practice"
+    ],
+    "dot_flights_baggage": [
+      "department of transportation",
+      "denied boarding",
+      "baggage",
+      "air carrier",
+      "passenger protection",
+      "tarmac delay"
+    ],
+    "health_plan_denial": [
+      "erisa",
+      "health insurance",
+      "claim denial",
+      "bad faith",
+      "coverage denial"
+    ]
+  }
+}

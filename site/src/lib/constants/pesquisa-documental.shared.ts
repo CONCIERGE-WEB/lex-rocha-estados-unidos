@@ -17,23 +17,27 @@ export const NOTA_APROVACAO_CLIENTE =
   "Pricing and scope are shown so you can choose the option that fits your case.";
 
 export const AREAS_PROBLEMA = [
-  "Unauthorized charges / billing errors",
-  "Defective product or non-delivery",
-  "Cancellation not honored",
-  "Unfair contract terms",
-  "Privacy / data misuse",
-  "Telecom or subscription dispute",
+  "FCRA — credit reporting / inaccurate file",
+  "FDCPA — debt collection / abusive practices",
+  "TCPA — robocalls, spam texts & autodialers",
+  "Lemon Law / Magnuson-Moss — vehicle & product warranty",
+  "UDAP — unfair & deceptive acts / junk fees",
+  "DOT — flights, delays, baggage",
+  "Health insurance denial / bad faith coverage",
   "Other",
 ] as const;
 
 export type AreaProblema = (typeof AREAS_PROBLEMA)[number];
 
 export const FUNDAMENTOS_OPCOES = [
+  { id: "fcra", label: "FCRA — credit reporting accuracy & disputes" },
+  { id: "fdcpa", label: "FDCPA — debt collection practices" },
+  { id: "dot", label: "DOT / airline consumer rules — flights & baggage" },
+  { id: "magnuson_moss", label: "Magnuson-Moss Warranty Act / UCC — products" },
   { id: "ftc_5", label: "FTC Act §5 — unfair or deceptive practices" },
   { id: "ccpa", label: "CCPA — consumer privacy rights (California)" },
   { id: "udap", label: "State UDAP statutes — unfair trade practices" },
   { id: "fcba", label: "FCBA — billing error disputes" },
-  { id: "fdcpa", label: "FDCPA — debt collection (where applicable)" },
 ] as const;
 
 export type FundamentoId = (typeof FUNDAMENTOS_OPCOES)[number]["id"];
@@ -43,10 +47,14 @@ export function labelFundamento(id: FundamentoId): string {
 }
 
 export const PRECIFICACAO = {
-  essencial: { label: "Essential", valor: 29, descricao: "Up to 2 precedents", maxPrecedentes: 2 },
-  padrao: { label: "Standard", valor: 39, descricao: "3 to 5 precedents", maxPrecedentes: 5 },
-  completo: { label: "Complete", valor: 59, descricao: "6+ references", maxPrecedentes: 99 },
+  essencial: { label: "Essential", valor: 49, descricao: "Up to 2 precedents", maxPrecedentes: 2 },
+  padrao: { label: "Standard", valor: 79, descricao: "3 to 5 precedents", maxPrecedentes: 5 },
+  completo: { label: "Premium", valor: 119, descricao: "6+ references", maxPrecedentes: 99 },
 } as const;
+
+/** @deprecated U.S. billing is Stripe/card — kept so legacy workspace UI compiles. */
+export const CHAVE_PIX_CNPJ = "Stripe Checkout (USD)";
+
 
 export const PRECIFICACAO_TEXTO_COMPARATIVO =
   `Typical attorney consultation: $${REFERENCIA_CONSULTA_ADVOCATICIA.faixaMinima}–${REFERENCIA_CONSULTA_ADVOCATICIA.faixaMaximaComum}. ` +

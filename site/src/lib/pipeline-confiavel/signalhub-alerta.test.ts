@@ -40,7 +40,7 @@ describe("pipeline-confiavel/signalhub-alerta (Módulo 9)", () => {
       },
       historico: [],
       entradaBanco: entrada,
-      categoriaForcada: "negativacao_indevida",
+      categoriaForcada: "fcra_credit_reporting",
       agora,
     });
     expect(r.status).toBe("suprimido");
@@ -60,7 +60,7 @@ describe("pipeline-confiavel/signalhub-alerta (Módulo 9)", () => {
       post,
       historico: [],
       entradaBanco: entrada,
-      categoriaForcada: "negativacao_indevida",
+      categoriaForcada: "fcra_credit_reporting",
       agora,
     });
     expect(primeiro.status).toBe("ok");
@@ -69,7 +69,7 @@ describe("pipeline-confiavel/signalhub-alerta (Módulo 9)", () => {
       post,
       historico: [{ url: post.url, alertadoEm: "2026-07-01T00:00:00.000Z" }],
       entradaBanco: entrada,
-      categoriaForcada: "negativacao_indevida",
+      categoriaForcada: "fcra_credit_reporting",
       agora,
     });
     expect(segundo.status).toBe("suprimido");
@@ -96,7 +96,7 @@ describe("pipeline-confiavel/signalhub-alerta (Módulo 9)", () => {
       },
       historico: [],
       entradaBanco: entradaValidada(),
-      categoriaForcada: "negativacao_indevida",
+      categoriaForcada: "fcra_credit_reporting",
       agora,
       config: { recenciaMaxDias: 21, dedupJanelaDias: 30 },
     });
@@ -113,7 +113,7 @@ describe("pipeline-confiavel/signalhub-alerta (Módulo 9)", () => {
       },
       historico: [],
       entradaBanco: entradaValidada(),
-      categoriaForcada: "negativacao_indevida",
+      categoriaForcada: "fcra_credit_reporting",
       agora,
     });
     expect(r.status).toBe("ok");

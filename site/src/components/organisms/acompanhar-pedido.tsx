@@ -96,7 +96,7 @@ export function AcompanharPedido({ codigoInicial = "" }: { codigoInicial?: strin
       )}
 
       <p className="text-center text-sm text-muted-foreground">
-        <Link href="/solicitar" className="text-primary underline">
+        <Link href="/request" className="text-primary underline">
           Fazer nova solicitação
         </Link>
       </p>

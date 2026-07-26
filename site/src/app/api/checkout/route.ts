@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 
 import { EMPRESA, PLANOS } from "@/lib/constants/empresa";
+import {
+  CATEGORIA_LABELS,
+  normalizarCategoriaPipeline,
+} from "@/lib/pipeline-confiavel/categorias";
 import { getStripe } from "@/lib/stripe";
 import { getSupabase } from "@/lib/supabase";
 import { generateTrackingCode } from "@/lib/tracking-code";
@@ -14,6 +18,9 @@ type Body = {
   aceiteContrato?: boolean;
   descricaoCaso?: string;
   areaCaso?: string;
+  /** Canonical US category id (e.g. fcra_credit_reporting) or short alias */
+  categoryId?: string;
+  categoria?: string;
   triagem?: {
     planoId?: string;
     confianca?: string;
@@ -58,6 +65,12 @@ export async function POST(request: Request) {
     const supabase = getSupabase();
     const tri = body.triagem;
     const trackingCode = generateTrackingCode();
+    const categoryRaw = body.categoryId?.trim() || body.categoria?.trim() || body.areaCaso?.trim() || "";
+    const categoryId = normalizarCategoriaPipeline(categoryRaw);
+    const categoryLabel = categoryId ? CATEGORIA_LABELS[categoryId] : null;
+    const areaCaso =
+      categoryLabel || body.areaCaso?.trim() || null;
+
     const { data: pedido, error: pedidoErr } = await supabase
       .from("pedidos_pendentes")
       .insert({
@@ -65,7 +78,7 @@ export async function POST(request: Request) {
         plano_nome: plano.nome,
         nif: zip || null,
         descricao_caso: descricao,
-        area_caso: body.areaCaso?.trim() || null,
+        area_caso: areaCaso,
         plano_recomendado: tri?.planoId || plano.id,
         triagem_confianca: tri?.confianca || null,
         triagem_favoravel: tri?.casoFavoravel ?? null,
@@ -85,7 +98,6 @@ export async function POST(request: Request) {
 
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
-      payment_method_types: ["card"],
       line_items: [
         {
           price_data: {
@@ -93,14 +105,18 @@ export async function POST(request: Request) {
             unit_amount: plano.preco * 100,
             product_data: {
               name: `${plano.nome} — Consumer rights research report`,
-              description: plano.descricao,
+              description: categoryLabel
+                ? `${plano.descricao} · Category: ${categoryLabel}`
+                : plano.descricao,
             },
           },
           quantity: 1,
         },
       ],
       success_url: `${baseUrl}/thank-you?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${baseUrl}/#planos`,
+      cancel_url: `${baseUrl}/checkout?plano=${encodeURIComponent(plano.id)}${
+        categoryId ? `&categoria=${encodeURIComponent(categoryId)}` : ""
+      }`,
       metadata: {
         plano_id: plano.id,
         plano_nome: plano.nome,
@@ -109,6 +125,12 @@ export async function POST(request: Request) {
         tracking_code: trackingCode,
         aceite_contrato: "true",
         mercado: "us",
+        ...(categoryId
+          ? {
+              category_id: categoryId,
+              category_label: categoryLabel ?? categoryId,
+            }
+          : {}),
       },
     });
 

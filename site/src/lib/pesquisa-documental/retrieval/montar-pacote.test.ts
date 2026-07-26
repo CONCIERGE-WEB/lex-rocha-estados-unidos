@@ -6,19 +6,19 @@ import {
   montarPacotePesquisaDocumentalBasico,
 } from "@/lib/pesquisa-documental/retrieval/montar-pacote";
 
-const URL_TJ = "https://www.tjmt.jus.br/noticias/2026/caso-teste";
+const URL_FTC = "https://www.ftc.gov/legal-library/browse/statutes/fair-credit-reporting-act";
 
 describe("retrieval/montar-pacote", () => {
   it("monta pacote com precedente e legislação", () => {
     const pacote = montarPacotePesquisaDocumentalBasico({
-      precedentesTexto: `TJMT — bloqueio WhatsApp\n${URL_TJ}`,
-      fundamentosIds: ["cdc_14", "marco_20"],
+      precedentesTexto: `FCRA — credit reporting\n${URL_FTC}`,
+      fundamentosIds: ["ftc_5", "fdcpa"],
     });
 
     expect(pacote.precedentes).toHaveLength(1);
     expect(pacote.legislacao.length).toBeGreaterThanOrEqual(2);
     expect(pacote.plano.tipo).toBe("cobranca");
-    expect(pacote.urlsAutorizadas).toContain(URL_TJ);
+    expect(pacote.urlsAutorizadas).toContain(URL_FTC);
   });
 
   it("sem URL válida lança PACOTE_INVALIDO", () => {
@@ -32,8 +32,8 @@ describe("retrieval/montar-pacote", () => {
 
   it("enriquecerComFetch anexa trecho e data", async () => {
     const basico = montarPacotePesquisaDocumentalBasico({
-      precedentesTexto: URL_TJ,
-      fundamentosIds: ["cdc_14"],
+      precedentesTexto: URL_FTC,
+      fundamentosIds: ["ftc_5"],
     });
 
     const fetchMock = vi.fn().mockImplementation(

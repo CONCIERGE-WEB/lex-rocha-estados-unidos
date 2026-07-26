@@ -34,7 +34,7 @@ describe("groq/triagem", () => {
 
     const r = await classificarTriagemGroq(
       {
-        area: "Bloqueio/suspensão de conta digital",
+        area: "FDCPA — debt collection / abusive practices",
         fatos: "Conta bloqueada sem motivo claro após uso normal do serviço contratado.",
       },
       PROMPT_MIN,
@@ -59,7 +59,7 @@ describe("groq/triagem", () => {
 
     await expect(
       classificarTriagemGroq(
-        { area: "Outro", fatos: "x".repeat(25) },
+        { area: "Other", fatos: "x".repeat(25) },
         PROMPT_MIN,
         { fetchImpl: fetchMock }
       )

@@ -1,0 +1,53 @@
+{
+  "categoria": "fcra_credit_reporting",
+  "state": "IA",
+  "geradoEm": "2026-07-25T15:52:18.767Z",
+  "total": 3,
+  "status": "parcial",
+  "origem": "federal_seed",
+  "nota": "Seeded from Federal (US) CourtListener hits already synced — not invented. Covers 50 states, DC, and U.S. territories until jurisdiction-scoped API sync is available.",
+  "itens": [
+    {
+      "state": "IA",
+      "court_id": "olc",
+      "case_name": "The Department of Justice Inspector General's Access to Information Protected by the Federal Wiretap Act, Rule 6(e) of the Federal Rules of Criminal Procedure, and Section 626 of the Fair Credit Reporting Act",
+      "cluster_id": 4342043,
+      "absolute_url": "https://www.courtlistener.com/opinion/4342043/the-department-of-justice-inspector-generals-access-to-information/",
+      "date_filed": "2015-07-20",
+      "snippet": null,
+      "citation": null,
+      "fonte": "courtlistener",
+      "relevance_score": 0.55,
+      "relevance_method": "lexical",
+      "seed_from": "US"
+    },
+    {
+      "state": "IA",
+      "court_id": "ctd",
+      "case_name": "Collins v. Experian Credit Reporting Service",
+      "cluster_id": 2329157,
+      "absolute_url": "https://www.courtlistener.com/opinion/2329157/collins-v-experian-credit-reporting-service/",
+      "date_filed": "2007-07-06",
+      "snippet": null,
+      "citation": "494 F. Supp. 2d 127",
+      "fonte": "courtlistener",
+      "relevance_score": 0.55,
+      "relevance_method": "lexical",
+      "seed_from": "US"
+    },
+    {
+      "state": "IA",
+      "court_id": "nyed",
+      "case_name": "Whelan v. Trans Union Credit Reporting Agency",
+      "cluster_id": 2082007,
+      "absolute_url": "https://www.courtlistener.com/opinion/2082007/whelan-v-trans-union-credit-reporting-agency/",
+      "date_filed": "1994-09-08",
+      "snippet": null,
+      "citation": "862 F. Supp. 824",
+      "fonte": "courtlistener",
+      "relevance_score": 0.55,
+      "relevance_method": "lexical",
+      "seed_from": "US"
+    }
+  ]
+}

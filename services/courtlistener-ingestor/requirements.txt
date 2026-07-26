@@ -1,0 +1,6 @@
+# Deterministic CourtListener ingest — no generative LLM packages required.
+requests>=2.31.0,<3
+# Etapa 5 — MiniLM cosine filter (falls back to lexical if missing):
+sentence-transformers>=2.2.0,<4
+transformers>=4.36.0,<5
+accelerate>=0.26.0

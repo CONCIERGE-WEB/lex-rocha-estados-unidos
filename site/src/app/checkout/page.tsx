@@ -1,8 +1,10 @@
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
 import { CheckoutFlow } from "@/components/checkout-flow";
 import { SiteHeader } from "@/components/site-header";
 import { EMPRESA, PLANOS } from "@/lib/constants/empresa";
+import { normalizarCategoriaPipeline } from "@/lib/pipeline-confiavel/categorias";
 
 export const metadata = {
   title: `Checkout — ${EMPRESA.marca}`,
@@ -10,15 +12,20 @@ export const metadata = {
 
 const PLANOS_VALIDOS = new Set<string>(PLANOS.map((p) => p.id));
 
-export default function CheckoutPage({
+export default async function CheckoutPage({
   searchParams,
 }: {
-  searchParams: { plano?: string };
+  searchParams: Promise<{ plano?: string; categoria?: string; category?: string }>;
 }) {
-  const id = searchParams.plano?.trim().toLowerCase() ?? "";
+  const sp = await searchParams;
+  const id = sp.plano?.trim().toLowerCase() ?? "";
   if (!PLANOS_VALIDOS.has(id)) {
-    redirect("/#planos");
+    redirect("/#pricing");
   }
+
+  const categoryId =
+    normalizarCategoriaPipeline(sp.categoria?.trim() || sp.category?.trim() || "") ??
+    null;
 
   return (
     <>
@@ -34,7 +41,9 @@ export default function CheckoutPage({
           </p>
 
           <div className="mt-10">
-            <CheckoutFlow planoId={id} />
+            <Suspense fallback={<p className="text-sm text-muted">Loading checkout…</p>}>
+              <CheckoutFlow planoId={id} categoryId={categoryId} />
+            </Suspense>
           </div>
         </div>
       </main>

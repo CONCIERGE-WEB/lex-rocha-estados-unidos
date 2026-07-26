@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { AgendaStatusStrip } from "@/components/agenda-status-strip";
 import { CHECKOUT_CASO_KEY } from "@/components/checkout-flow";
 import { HumanReviewNotice } from "@/components/human-review-notice";
+import { Reveal } from "@/components/reveal";
 import { COPY } from "@/lib/constants/copy-en";
 import { AREAS_CASO, planoPorId } from "@/lib/triagem/criterios-planos";
 import type { ResultadoTriagem } from "@/lib/triagem/analisar-caso";
@@ -95,11 +96,13 @@ export function TriagemSection() {
       className="scroll-mt-24 border-b border-ink/8 bg-folio py-16 md:py-24"
     >
       <div className="mx-auto max-w-3xl px-4 md:px-6">
-        <p className="section-eyebrow">{T.eyebrow}</p>
-        <h2 className="mt-3 font-display text-3xl font-semibold text-ink md:text-4xl">
-          {T.title}
-        </h2>
-        <p className="mt-4 text-body text-muted">{T.intro}</p>
+        <Reveal>
+          <p className="section-eyebrow">{T.eyebrow}</p>
+          <h2 className="mt-3 font-display text-3xl font-semibold text-ink md:text-4xl">
+            {T.title}
+          </h2>
+          <p className="mt-4 text-body text-muted">{T.intro}</p>
+        </Reveal>
 
         <div className="mt-8" aria-label="Progress">
           <div className="h-2 overflow-hidden rounded-full bg-slate-200">
@@ -289,6 +292,9 @@ export function TriagemSection() {
                         {T.passo3.novoCaso}
                       </button>
                     ) : null}
+                    <Link href="/request" className="btn-secondary">
+                      {T.passo3.ctaRequest}
+                    </Link>
                   </div>
                 </div>
               ) : null}
@@ -297,6 +303,10 @@ export function TriagemSection() {
         </div>
 
         <p className="mt-6 text-center text-sm text-muted">
+          <Link href="/request" className="text-trust underline underline-offset-4">
+            {T.passo3.ctaRequest}
+          </Link>
+          {" · "}
           <Link href="/contact" className="text-trust underline underline-offset-4">
             {T.passo3.contactoAntes}
           </Link>

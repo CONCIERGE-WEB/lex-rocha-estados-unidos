@@ -1,87 +1,450 @@
 @tailwind base;
+
 @tailwind components;
+
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --background: 210 40% 98%;
-    --foreground: 215 55% 10%;
-    --card: 0 0% 100%;
-    --card-foreground: 215 50% 12%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 215 50% 12%;
-    --primary: 213 65% 16%;
-    --primary-foreground: 45 70% 96%;
-    --secondary: 210 30% 94%;
-    --secondary-foreground: 213 65% 16%;
-    --muted: 210 25% 92%;
-    --muted-foreground: 215 18% 28%;
-    /* Dourado para botões/fundos — não usar como cor de texto em fundo claro */
-    --accent: 40 72% 38%;
-    --accent-foreground: 45 70% 98%;
-    --accent-bright: 43 78% 58%;
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 214 24% 88%;
-    --input: 214 24% 88%;
-    --ring: 213 65% 16%;
-    --chart-1: 213 65% 16%;
-    --chart-2: 43 72% 47%;
-    --chart-3: 173 58% 39%;
-    --chart-4: 215 18% 28%;
-    --chart-5: 0 72% 51%;
-    --radius: 0.5rem;
+:root {
+
+  color-scheme: light;
+
+}
+
+html {
+
+  font-size: 17px;
+
+  scroll-behavior: smooth;
+
+  overflow-x: hidden;
+
+}
+
+@media (min-width: 640px) {
+
+  html {
+
+    font-size: 18px;
+
   }
 
-  .dark {
-    --background: 215 50% 8%;
-    --foreground: 210 40% 98%;
-    --card: 215 45% 11%;
-    --card-foreground: 210 40% 98%;
-    --popover: 215 45% 11%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 43 72% 47%;
-    --primary-foreground: 213 65% 12%;
-    --secondary: 215 35% 18%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 215 35% 18%;
-    --muted-foreground: 210 25% 78%;
-    /* Dourado para botões/fundos — não usar como cor de texto em fundo claro */
-    --accent: 40 72% 38%;
-    --accent-foreground: 45 70% 98%;
-    --accent-bright: 43 78% 58%;
-    --destructive: 0 62% 45%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 215 35% 22%;
-    --input: 215 35% 22%;
-    --ring: 43 72% 47%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  html {
+
+    scroll-behavior: auto;
+
   }
+
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
 
   body {
-    @apply overflow-x-hidden bg-background text-foreground antialiased;
+
+    @apply bg-paper font-body text-ink antialiased;
+
+    text-rendering: optimizeLegibility;
+
   }
 
-  /*
-   * Chrome Android costuma corromper seções seguintes quando há blur/filter
-   * em camadas absolutas grandes (artefato de faixas coloridas).
-   */
-  @media (max-width: 768px) {
-    .gpu-safe-section {
-      isolation: isolate;
-      transform: translateZ(0);
-    }
+  h1,
 
-    .mobile-no-blur {
-      filter: none !important;
-      -webkit-filter: none !important;
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
-    }
+  h2,
+
+  h3,
+
+  h4 {
+
+    @apply font-display font-semibold text-ink;
+
+  }
+
+  p,
+
+  li,
+
+  dd,
+
+  label {
+
+    @apply text-ink;
+
+  }
+
+  ::selection {
+
+    @apply bg-cite text-ink;
+
+  }
+
+}
+
+@layer components {
+
+  .btn-primary {
+
+    @apply inline-flex min-h-[48px] items-center justify-center rounded-md bg-action px-5 py-3 text-base font-bold text-folio shadow-sm transition duration-200 hover:bg-action-hover hover:shadow-md active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-action focus:ring-offset-2 focus:ring-offset-paper;
+
+  }
+
+  .btn-secondary {
+
+    @apply inline-flex min-h-[48px] items-center justify-center rounded-md border-2 border-trust bg-folio px-5 py-3 text-base font-bold text-trust transition hover:bg-cite focus:outline-none focus:ring-2 focus:ring-trust focus:ring-offset-2 focus:ring-offset-paper;
+
+  }
+
+  .btn-outline-light {
+
+    @apply inline-flex min-h-[48px] items-center justify-center rounded-md border-2 border-onDark bg-transparent px-5 py-3 text-base font-bold text-onDark transition hover:bg-folio/10 focus:outline-none focus:ring-2 focus:ring-onDark focus:ring-offset-2 focus:ring-offset-ink;
+
+  }
+
+  .cite-block {
+
+    @apply border-l-4 border-trust bg-folio pl-5 pr-4 py-4 shadow-folio;
+
+  }
+
+  .cite-label {
+
+    @apply font-mono text-xs font-bold uppercase tracking-widest text-trust;
+
+  }
+
+  .section-eyebrow {
+
+    @apply font-mono text-xs font-bold uppercase tracking-[0.18em] text-trust;
+
+  }
+
+  .display-title {
+
+    @apply font-display text-[1.85rem] font-bold leading-[1.12] tracking-tight text-ink sm:text-4xl md:text-5xl lg:text-[3.25rem];
+
+  }
+
+  .text-secondary {
+
+    @apply font-medium text-muted;
+
+  }
+
+  .text-on-dark {
+
+    @apply text-onDark;
+
+  }
+
+  .text-on-dark-muted {
+
+    @apply text-onDarkMuted;
+
+  }
+
+  .prose-legal h2 {
+
+    @apply font-display text-2xl font-bold text-ink;
+
+  }
+
+  .prose-legal p,
+
+  .prose-legal li {
+
+    @apply text-muted;
+
+  }
+
+  .prose-legal a {
+
+    @apply font-semibold text-trust underline decoration-trust/40 underline-offset-4 hover:decoration-trust;
+
+  }
+
+  .input-field {
+
+    @apply mt-2 w-full rounded-md border-2 border-muted/25 bg-folio px-4 py-3 text-base font-medium text-ink transition focus:border-trust focus:outline-none focus:ring-2 focus:ring-trust/30;
+
+  }
+
+  .hero-enterprise {
+
+    @apply relative overflow-hidden text-onDark;
+
+    background-image: linear-gradient(135deg, #020617 0%, #1e3a8a 48%, #1d4ed8 100%);
+
+  }
+
+  .hero-enterprise::before {
+
+    content: "";
+
+    @apply pointer-events-none absolute inset-0 opacity-40;
+
+    background-image: repeating-linear-gradient(
+
+      to bottom,
+
+      transparent,
+
+      transparent 47px,
+
+      rgba(255, 255, 255, 0.05) 47px,
+
+      rgba(255, 255, 255, 0.05) 48px
+
+    );
+
+  }
+
+  .hero-panel {
+
+    @apply rounded-xl border border-onDark/20 bg-folio/10 p-6 shadow-lift backdrop-blur-md md:p-8;
+
+  }
+
+  .feature-card {
+
+    @apply rounded-xl border-2 border-muted/15 bg-folio p-6 shadow-card transition duration-300 ease-out hover:-translate-y-1 hover:border-trust/35 hover:shadow-lift md:p-7;
+
+  }
+
+  .feature-card p {
+
+    @apply text-muted;
+
+  }
+
+  .solution-card {
+
+    @apply relative flex h-full flex-col overflow-hidden rounded-xl border-2 border-muted/15 bg-folio p-6 shadow-card transition duration-300 ease-out hover:-translate-y-1 hover:border-trust/35 hover:shadow-lift md:p-7;
+
+  }
+
+  .solution-card::after {
+
+    content: "";
+
+    @apply absolute bottom-0 left-0 h-1 w-0 bg-trust transition-all duration-300;
+
+  }
+
+  .solution-card:hover::after {
+
+    width: 100%;
+
+  }
+
+  .stat-tile {
+
+    @apply flex flex-col items-center justify-center border-muted/15 px-4 py-6 text-center sm:border-r last:border-r-0;
+
+  }
+
+  .section-dark {
+
+    @apply bg-nav text-onDark;
+
+  }
+
+  .section-dark p,
+  .section-dark li,
+  .section-dark dd,
+  .section-dark label,
+  .section-dark dt {
+
+    color: #f8fafc !important;
+
+  }
+
+  .section-dark .text-onDarkMuted,
+  .section-dark p.text-onDarkMuted,
+  .section-dark .text-muted,
+  .section-dark p.text-muted,
+  .section-dark .text-muted-foreground {
+
+    color: #cbd5e1 !important;
+
+  }
+
+  /* Verde mais claro no fundo escuro (verify #047857 fica ileg?vel) */
+  .section-dark .text-verify {
+
+    color: #6ee7b7 !important;
+
+  }
+
+  .section-muted {
+
+    @apply bg-paper bg-mesh-light;
+
+  }
+
+  .hero-grid {
+
+    background-color: #ffffff;
+
+    background-image: repeating-linear-gradient(
+
+      to bottom,
+
+      transparent,
+
+      transparent 47px,
+
+      rgba(29, 78, 216, 0.07) 47px,
+
+      rgba(29, 78, 216, 0.07) 48px
+
+    );
+
+  }
+
+}
+
+/* ?? Scroll reveal (desktop + mobile) ?? */
+.reveal {
+  opacity: 0;
+  transition:
+    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-up {
+  transform: translate3d(0, 1.35rem, 0);
+}
+
+.reveal-left {
+  transform: translate3d(-1.1rem, 0, 0);
+}
+
+.reveal-right {
+  transform: translate3d(1.1rem, 0, 0);
+}
+
+.reveal-fade {
+  transform: none;
+}
+
+.reveal-scale {
+  transform: scale(0.96);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Tighter motion on small screens */
+@media (max-width: 640px) {
+  .reveal-up {
+    transform: translate3d(0, 0.75rem, 0);
+  }
+
+  .reveal-left,
+  .reveal-right {
+    transform: translate3d(0, 0.65rem, 0);
+  }
+
+  .reveal-scale {
+    transform: scale(0.98);
   }
 }
+
+/* Hero staggered entrance */
+.hero-stagger > * {
+  opacity: 0;
+  animation: fadeUpSoft 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-stagger > *:nth-child(1) {
+  animation-delay: 0.05s;
+}
+
+.hero-stagger > *:nth-child(2) {
+  animation-delay: 0.18s;
+}
+
+.hero-stagger > *:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.hero-stagger > *:nth-child(4) {
+  animation-delay: 0.42s;
+}
+
+.hero-stagger > *:nth-child(5) {
+  animation-delay: 0.54s;
+}
+
+@keyframes fadeUpSoft {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-safe\:animate-fade-up,
+  .motion-safe\:animate-fade-up-soft,
+  .motion-safe\:animate-menu-in,
+  .motion-safe\:animate-float-pulse,
+  .motion-safe\:animate-hero-zoom {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .reveal,
+  .reveal-up,
+  .reveal-left,
+  .reveal-right,
+  .reveal-scale,
+  .reveal-fade {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .hero-stagger > * {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .feature-card:hover,
+  .solution-card:hover {
+    transform: none !important;
+  }
+}
+
+.hero-sheen {
+  background: radial-gradient(ellipse 70% 55% at 70% 40%, rgba(147, 197, 253, 0.35), transparent 70%);
+  animation: heroSheen 12s ease-in-out infinite alternate;
+}
+
+@keyframes heroSheen {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.28;
+  }
+  to {
+    transform: translate3d(-4%, 2%, 0) scale(1.06);
+    opacity: 0.42;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-sheen {
+    animation: none !important;
+  }
+}
+

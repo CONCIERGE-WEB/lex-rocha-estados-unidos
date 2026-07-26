@@ -40,12 +40,12 @@ describe("pipeline-confiavel/monitor-legislacao (Módulo 5)", () => {
     const diff = compararSnapshotsLegislacao({
       anterior,
       atual,
-      categoriasQueReferenciam: ["negativacao_indevida"],
+      categoriasQueReferenciam: ["fcra_credit_reporting"],
     });
     expect(diff.status).toBe("mudanca_detectada");
     if (diff.status === "mudanca_detectada") {
       expect(diff.trechoDiffLiteral).toMatch(/ALTERADO|-/);
-      expect(diff.categoriasAfetadas).toContain("negativacao_indevida");
+      expect(diff.categoriasAfetadas).toContain("fcra_credit_reporting");
       expect(diff.mensagemTelegram).toMatch(/ALERTA/i);
     }
   });

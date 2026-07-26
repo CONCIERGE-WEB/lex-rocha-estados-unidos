@@ -1,0 +1,48 @@
+{
+  "version": "2026-07-24",
+  "disclaimer": "Normative reference ranges only. Not a prediction of any individual case. Amounts come from statute text or commonly cited statutory caps — never invented case outcomes.",
+  "entries": [
+    {
+      "id": "fcra_willful",
+      "statute": "FCRA — 15 U.S.C. § 1681n (willful noncompliance)",
+      "category_ids": ["fcra_credit_reporting"],
+      "range_usd": "$100 to $1,000 statutory damages (plus possible actual damages, costs, and fees where the statute provides)",
+      "notes": "Actual damages and punitive damages may also be available under the statute in appropriate cases; this line is the statutory range only."
+    },
+    {
+      "id": "fcra_negligent",
+      "statute": "FCRA — 15 U.S.C. § 1681o (negligent noncompliance)",
+      "category_ids": ["fcra_credit_reporting"],
+      "range_usd": "Actual damages (no fixed statutory dollar range in this bank entry)",
+      "notes": "Catalogued as actual-damages statute — do not invent a dollar average."
+    },
+    {
+      "id": "fdcpa_statutory",
+      "statute": "FDCPA — 15 U.S.C. § 1692k",
+      "category_ids": ["fdcpa_debt_collection"],
+      "range_usd": "Up to $1,000 statutory damages in an individual action (plus actual damages where proven)",
+      "notes": "Class-action statutory caps differ; this entry covers the individual-action statutory figure commonly cited."
+    },
+    {
+      "id": "dot_airline_consumer",
+      "statute": "DOT airline consumer rules (14 C.F.R. Part 259 / related consumer protections)",
+      "category_ids": ["dot_flights_baggage"],
+      "range_usd": "Not catalogued as a single federal statutory dollar range in this bank version",
+      "notes": "Refund / compensation rules vary by event type; report only amounts found in cited public decisions or official rule text."
+    },
+    {
+      "id": "magnuson_moss",
+      "statute": "Magnuson-Moss Warranty Act — 15 U.S.C. § 2310",
+      "category_ids": ["lemon_law_warranty", "product_warranty"],
+      "range_usd": "Not a fixed statutory damages schedule in this bank version (remedies often include costs, expenses, and fees where the Act applies)",
+      "notes": "Do not invent a warranty damages average."
+    },
+    {
+      "id": "health_erisa_or_state",
+      "statute": "Health plan denial — ERISA / state insurance frameworks (varies)",
+      "category_ids": ["health_plan_denial"],
+      "range_usd": "Not catalogued as a single statutory dollar range in this bank version",
+      "notes": "Report only amounts documented in cited public materials for the specific plan/framework."
+    }
+  ]
+}

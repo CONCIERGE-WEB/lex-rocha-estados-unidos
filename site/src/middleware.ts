@@ -31,6 +31,7 @@ function precisaProtegerWorkspace(pathname: string): boolean {
   if (pathname.startsWith("/acompanhar")) return false;
   if (pathname.startsWith("/api/pedidos/acompanhar")) return false;
   if (pathname === "/api/pesquisa-documental/solicitar") return false;
+  if (pathname === "/api/request") return false;
   if (pathname.startsWith("/pesquisa-documental")) return true;
   if (pathname.startsWith("/api/pesquisa-documental")) return true;
   if (pathname.startsWith("/api/pedidos/fila")) return true;

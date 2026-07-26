@@ -131,9 +131,9 @@ export function interpolarRelatorioNegativacao(params: {
     entradaBanco,
     params.ambiente ?? resolverAmbientePipeline()
   );
-  if (entradaBanco.categoria !== "negativacao_indevida") {
+  if (entradaBanco.categoria !== "fcra_credit_reporting") {
     throw new Error(
-      `Categoria do banco (${entradaBanco.categoria}) incompatível com interpolação de negativacao_indevida.`
+      `Banco category (${entradaBanco.categoria}) incompatible with FCRA credit-reporting interpolation.`
     );
   }
 
@@ -183,11 +183,11 @@ export function montarResumoNarrativaCobranca(
   const valor = estruturado.valores[0]?.valorReais ?? "[DADO PENDENTE]";
   const data = estruturado.linha_do_tempo[0]?.valor ?? "[DADO PENDENTE]";
   return (
-    `Em ${data}, o solicitante ${estruturado.nome_cliente} informou cobrança ` +
-    `atribuída a ${estruturado.empresa_envolvida}, do tipo ${estruturado.flags.tipo_cobranca}, ` +
-    `no valor de R$ ${valor}. Pagamento do valor informado: ${estruturado.flags.pagou_valor_cobrado}. ` +
-    `Tentativa de resolução direta: ${estruturado.flags.tentativa_resolucao}. ` +
-    `Detalhe adicional (até 120 caracteres): ${estruturado.flags.outro_detalhe}.`
+    `On ${data}, requester ${estruturado.nome_cliente} reported a charge ` +
+    `attributed to ${estruturado.empresa_envolvida}, type ${estruturado.flags.tipo_cobranca}, ` +
+    `amount $${valor}. Paid disputed amount: ${estruturado.flags.pagou_valor_cobrado}. ` +
+    `Tried to resolve directly: ${estruturado.flags.tentativa_resolucao}. ` +
+    `Additional detail (up to 120 chars): ${estruturado.flags.outro_detalhe}.`
   );
 }
 
@@ -201,9 +201,9 @@ export function interpolarRelatorioCobranca(params: {
     entradaBanco,
     params.ambiente ?? resolverAmbientePipeline()
   );
-  if (entradaBanco.categoria !== "cobranca_indevida") {
+  if (entradaBanco.categoria !== "fdcpa_debt_collection") {
     throw new Error(
-      `Categoria do banco (${entradaBanco.categoria}) incompatível com interpolação de cobranca_indevida.`
+      `Banco category (${entradaBanco.categoria}) incompatible with FDCPA debt-collection interpolation.`
     );
   }
 

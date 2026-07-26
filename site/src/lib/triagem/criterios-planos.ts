@@ -5,13 +5,14 @@ export const CRITERIOS_PLANOS = {
   essencial: {
     id: "essencial" as const,
     nome: "Essential",
-    preco: 29,
+    preco: 49,
     ideal_para:
       "Relatively simple situation, one clear problem, few parties involved.",
     inclui: [
       "Your case explained in plain language",
       "Up to 2 public decisions in similar cases",
       "What was granted in each cited case",
+      "Practical results & statutory damages reference (where catalogued)",
     ],
     nao_inclui: [
       "Recommendations or next-step advice (research only)",
@@ -22,7 +23,7 @@ export const CRITERIOS_PLANOS = {
   padrao: {
     id: "padrao" as const,
     nome: "Standard",
-    preco: 39,
+    preco: 79,
     ideal_para:
       "Case with some complexity, several related issues, or significant amount in dispute.",
     inclui: [
@@ -30,6 +31,7 @@ export const CRITERIOS_PLANOS = {
       "3 to 5 public decisions in similar cases",
       "What was granted in each cited case",
       "What U.S. consumer law says about your situation",
+      "Practical results & statutory damages reference (where catalogued)",
     ],
     nao_inclui: [
       "Recommendations or next-step advice (research only)",
@@ -38,8 +40,8 @@ export const CRITERIOS_PLANOS = {
   },
   completo: {
     id: "completo" as const,
-    nome: "Complete",
-    preco: 59,
+    nome: "Premium",
+    preco: 119,
     ideal_para:
       "Situation with multiple phases, multiple entities, high amounts in dispute, or need for rigorous timeline.",
     inclui: [
@@ -47,6 +49,7 @@ export const CRITERIOS_PLANOS = {
       "Extended set of public decisions in similar cases",
       "What was granted across the cited cases",
       "What U.S. consumer law says about your situation",
+      "Practical results & statutory damages reference (where catalogued)",
     ],
     nao_inclui: [
       "Recommendations, strategy, or legal representation",
@@ -56,15 +59,15 @@ export const CRITERIOS_PLANOS = {
 
 export type PlanoId = keyof typeof CRITERIOS_PLANOS;
 
+/** Triage areas aligned to the U.S. category map (public labels). */
 export const AREAS_CASO = [
-  { id: "compras_online", label: "Online shopping / retail" },
-  { id: "telecom", label: "Telecom / internet / cable" },
-  { id: "energia", label: "Utilities (electric, gas, water)" },
-  { id: "banco", label: "Bank / credit card / lending" },
-  { id: "seguros", label: "Insurance" },
-  { id: "viagens", label: "Travel / transportation" },
-  { id: "habitacao", label: "Housing / HOA / landlord" },
-  { id: "saude", label: "Healthcare / pharmacies" },
+  { id: "fcra_credit_reporting", label: "Credit reporting / FCRA" },
+  { id: "fdcpa_debt_collection", label: "Debt collection / billing (FDCPA)" },
+  { id: "tcpa_robocalls", label: "Robocalls / spam texts (TCPA)" },
+  { id: "lemon_law_warranty", label: "Lemon Law / product warranty" },
+  { id: "udap_deceptive_practices", label: "Unfair / deceptive practices (UDAP)" },
+  { id: "dot_flights_baggage", label: "Flights / baggage (DOT)" },
+  { id: "health_plan_denial", label: "Health plan / insurance denial" },
   { id: "outro", label: "Other (consumer)" },
 ] as const;
 

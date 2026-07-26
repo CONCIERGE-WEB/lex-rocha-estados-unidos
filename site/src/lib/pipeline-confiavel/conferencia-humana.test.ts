@@ -8,14 +8,14 @@ import {
 
 describe("pipeline-confiavel/conferencia-humana", () => {
   it("includes FCRA dispute tip (30 days)", () => {
-    const pendentes = listarPendentesConferenciaHumana(["negativacao_indevida"]);
+    const pendentes = listarPendentesConferenciaHumana(["fcra_credit_reporting"]);
     const jur = pendentes.find((p) => p.id === "jur_001");
     expect(jur?.dica).toMatch(/30 days/i);
     expect(jur?.resultado_resumido).toMatch(/30 days/i);
   });
 
-  it("lista os 4 itens pendentes de cobranca_indevida", () => {
-    const pendentes = listarPendentesConferenciaHumana(["cobranca_indevida"]);
+  it("lista os 4 itens pendentes de fdcpa_debt_collection", () => {
+    const pendentes = listarPendentesConferenciaHumana(["fdcpa_debt_collection"]);
     expect(pendentes).toHaveLength(4);
     const ids = pendentes.map((p) => p.id).sort();
     expect(ids).toEqual(
@@ -34,13 +34,13 @@ describe("pipeline-confiavel/conferencia-humana", () => {
   });
 
   it("categoria 2 não está pronta para produção", () => {
-    const r = categoriaProntaParaProducao("cobranca_indevida");
+    const r = categoriaProntaParaProducao("fdcpa_debt_collection");
     expect(r.pronta).toBe(false);
     expect(r.pendentes).toBe(4);
   });
 
   it("documenta pagou_valor_cobrado como variável estruturada", () => {
-    const vars = VARIAVEIS_ESTRUTURADAS_POR_CATEGORIA.cobranca_indevida;
+    const vars = VARIAVEIS_ESTRUTURADAS_POR_CATEGORIA.fdcpa_debt_collection;
     expect(vars.some((v) => v.campo === "pagou_valor_cobrado")).toBe(true);
   });
 });

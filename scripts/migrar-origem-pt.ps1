@@ -1,4 +1,4 @@
-# Migracao selectiva: 000Inteligencia_Resolutiva -> pt-consumidores
+﻿# Migracao selectiva: 000Inteligencia_Resolutiva -> pt-consumidores
 # Read-only na origem. So artefactos PT (Direitos do Consumidor).
 # Ver docs/PROMPT_MIGRACAO_PHD.md
 
@@ -120,7 +120,7 @@ foreach ($d in $docs) {
 # Atalhos uteis (opcional)
 Copy-IfExists "signalhub_v2\CONECTAR_PORTUGAL.bat" "signalhub\CONECTAR_PORTUGAL.bat"
 Copy-IfExists "lex-rocha-pt\COMO_EXECUTAR_PT.md" "site\COMO_EXECUTAR_PT.md"
-Copy-IfExists "lex-rocha-pt\INICIAR_SITE_PT.bat" "site\INICIAR_SITE_PT.bat"
+Copy-IfExists "lex-rocha-pt\lexrocha-us.bat" "site\lexrocha-us.bat"
 
 # FASE 3 — Credenciais (merge chaves vazias; preservar bot novo)
 $neverBot = @("TELEGRAM_BOT_TOKEN", "TELEGRAM_BOT_USERNAME")
