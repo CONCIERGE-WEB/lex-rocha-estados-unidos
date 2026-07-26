@@ -1,8 +1,8 @@
 {
   "categoria": "fdcpa_debt_collection",
   "state": "US",
-  "geradoEm": "2026-07-25T15:44:42.768Z",
-  "total": 3,
+  "geradoEm": "2026-07-26T20:10:14.090Z",
+  "total": 4,
   "status": "parcial",
   "nota": "Written by motor_courtlistener_local.py — deterministic CourtListener hits only. No invented cases.",
   "itens": [
@@ -43,6 +43,19 @@
       "citation": "691 F.3d 218",
       "fonte": "courtlistener",
       "relevance_score": 0.5249,
+      "relevance_method": "minilm"
+    },
+    {
+      "state": "US",
+      "court_id": "cand",
+      "case_name": "Newton v. American Debt Services, Inc.",
+      "cluster_id": 7311152,
+      "absolute_url": "https://www.courtlistener.com/opinion/7311152/newton-v-american-debt-services-inc/",
+      "date_filed": "2014-12-16",
+      "snippet": null,
+      "citation": "75 F. Supp. 3d 1048",
+      "fonte": "courtlistener",
+      "relevance_score": 0.5245,
       "relevance_method": "minilm"
     }
   ]

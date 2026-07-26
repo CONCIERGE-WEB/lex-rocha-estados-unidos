@@ -1,11 +1,10 @@
 {
   "categoria": "lemon_law_warranty",
   "state": "FL",
-  "geradoEm": "2026-07-25T15:52:18.876Z",
-  "total": 5,
+  "geradoEm": "2026-07-26T20:15:22.294Z",
+  "total": 6,
   "status": "pronto",
-  "origem": "federal_seed",
-  "nota": "Seeded from Federal (US) CourtListener hits already synced — not invented. Covers 50 states, DC, and U.S. territories until jurisdiction-scoped API sync is available.",
+  "nota": "Written by motor_courtlistener_local.py — deterministic CourtListener hits only. No invented cases.",
   "itens": [
     {
       "state": "FL",
@@ -18,8 +17,7 @@
       "citation": null,
       "fonte": "courtlistener",
       "relevance_score": 0.5651,
-      "relevance_method": "minilm",
-      "seed_from": "US"
+      "relevance_method": "minilm"
     },
     {
       "state": "FL",
@@ -32,8 +30,7 @@
       "citation": "327 Or. App. 603",
       "fonte": "courtlistener",
       "relevance_score": 0.55,
-      "relevance_method": "lexical",
-      "seed_from": "US"
+      "relevance_method": "lexical"
     },
     {
       "state": "FL",
@@ -46,8 +43,7 @@
       "citation": null,
       "fonte": "courtlistener",
       "relevance_score": 0.5651,
-      "relevance_method": "minilm",
-      "seed_from": "US"
+      "relevance_method": "minilm"
     },
     {
       "state": "FL",
@@ -60,8 +56,7 @@
       "citation": "415 F. Supp. 2d 620",
       "fonte": "courtlistener",
       "relevance_score": 0.55,
-      "relevance_method": "lexical",
-      "seed_from": "US"
+      "relevance_method": "lexical"
     },
     {
       "state": "FL",
@@ -74,8 +69,20 @@
       "citation": null,
       "fonte": "courtlistener",
       "relevance_score": 0.55,
-      "relevance_method": "lexical",
-      "seed_from": "US"
+      "relevance_method": "lexical"
+    },
+    {
+      "state": "FL",
+      "court_id": "pactcomplberks",
+      "case_name": "Kondracki v. Mechanics' Choice Warranty Corp.",
+      "cluster_id": 6514491,
+      "absolute_url": "https://www.courtlistener.com/opinion/6514491/kondracki-v-mechanics-choice-warranty-corp/",
+      "date_filed": "2000-06-09",
+      "snippet": null,
+      "citation": "48 Pa. D. & C.4th 406",
+      "fonte": "courtlistener",
+      "relevance_score": 0.55,
+      "relevance_method": "lexical"
     }
   ]
 }

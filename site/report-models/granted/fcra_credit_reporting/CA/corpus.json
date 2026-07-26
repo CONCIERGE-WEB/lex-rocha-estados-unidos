@@ -1,11 +1,10 @@
 {
   "categoria": "fcra_credit_reporting",
   "state": "CA",
-  "geradoEm": "2026-07-25T15:52:18.761Z",
-  "total": 3,
-  "status": "parcial",
-  "origem": "federal_seed",
-  "nota": "Seeded from Federal (US) CourtListener hits already synced — not invented. Covers 50 states, DC, and U.S. territories until jurisdiction-scoped API sync is available.",
+  "geradoEm": "2026-07-26T20:08:35.476Z",
+  "total": 6,
+  "status": "pronto",
+  "nota": "Written by motor_courtlistener_local.py — deterministic CourtListener hits only. No invented cases.",
   "itens": [
     {
       "state": "CA",
@@ -18,8 +17,7 @@
       "citation": null,
       "fonte": "courtlistener",
       "relevance_score": 0.55,
-      "relevance_method": "lexical",
-      "seed_from": "US"
+      "relevance_method": "lexical"
     },
     {
       "state": "CA",
@@ -32,8 +30,7 @@
       "citation": "494 F. Supp. 2d 127",
       "fonte": "courtlistener",
       "relevance_score": 0.55,
-      "relevance_method": "lexical",
-      "seed_from": "US"
+      "relevance_method": "lexical"
     },
     {
       "state": "CA",
@@ -46,8 +43,46 @@
       "citation": "862 F. Supp. 824",
       "fonte": "courtlistener",
       "relevance_score": 0.55,
-      "relevance_method": "lexical",
-      "seed_from": "US"
+      "relevance_method": "lexical"
+    },
+    {
+      "state": "CA",
+      "court_id": "okwd",
+      "case_name": "In Re Farmers Ins. Co., Inc., Fcra Litigation",
+      "cluster_id": 2472333,
+      "absolute_url": "https://www.courtlistener.com/opinion/2472333/in-re-farmers-ins-co-inc-fcra-litigation/",
+      "date_filed": "2010-09-20",
+      "snippet": null,
+      "citation": "741 F. Supp. 2d 1211",
+      "fonte": "courtlistener",
+      "relevance_score": 0.55,
+      "relevance_method": "lexical"
+    },
+    {
+      "state": "CA",
+      "court_id": "ilnd",
+      "case_name": "Federal Trade Commission v. Credit Bureau Center, LLC",
+      "cluster_id": 7324259,
+      "absolute_url": "https://www.courtlistener.com/opinion/7324259/federal-trade-commission-v-credit-bureau-center-llc/",
+      "date_filed": "2017-02-21",
+      "snippet": null,
+      "citation": "235 F. Supp. 3d 1054",
+      "fonte": "courtlistener",
+      "relevance_score": 0.5394,
+      "relevance_method": "minilm"
+    },
+    {
+      "state": "CA",
+      "court_id": "okwd",
+      "case_name": "In Re Farmers Insurance Co., Inc., FCRA Litigation",
+      "cluster_id": 2467513,
+      "absolute_url": "https://www.courtlistener.com/opinion/2467513/in-re-farmers-insurance-co-inc-fcra-litigation/",
+      "date_filed": "2010-09-20",
+      "snippet": null,
+      "citation": "738 F. Supp. 2d 1180",
+      "fonte": "courtlistener",
+      "relevance_score": 0.55,
+      "relevance_method": "lexical"
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "categoria": "tcpa_robocalls",
   "state": "US",
-  "geradoEm": "2026-07-25T15:46:02.760Z",
+  "geradoEm": "2026-07-26T20:12:08.881Z",
   "total": 1,
   "status": "parcial",
   "nota": "Written by motor_courtlistener_local.py — deterministic CourtListener hits only. No invented cases.",

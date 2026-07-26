@@ -1,11 +1,10 @@
 {
   "categoria": "fcra_credit_reporting",
   "state": "OH",
-  "geradoEm": "2026-07-25T15:52:18.778Z",
-  "total": 3,
-  "status": "parcial",
-  "origem": "federal_seed",
-  "nota": "Seeded from Federal (US) CourtListener hits already synced — not invented. Covers 50 states, DC, and U.S. territories until jurisdiction-scoped API sync is available.",
+  "geradoEm": "2026-07-26T11:19:14.882Z",
+  "total": 13,
+  "status": "pronto",
+  "nota": "Written by motor_courtlistener_local.py — deterministic CourtListener hits only. No invented cases.",
   "itens": [
     {
       "state": "OH",
@@ -18,8 +17,7 @@
       "citation": null,
       "fonte": "courtlistener",
       "relevance_score": 0.55,
-      "relevance_method": "lexical",
-      "seed_from": "US"
+      "relevance_method": "lexical"
     },
     {
       "state": "OH",
@@ -32,8 +30,59 @@
       "citation": "494 F. Supp. 2d 127",
       "fonte": "courtlistener",
       "relevance_score": 0.55,
-      "relevance_method": "lexical",
-      "seed_from": "US"
+      "relevance_method": "lexical"
+    },
+    {
+      "state": "OH",
+      "court_id": "ca8",
+      "case_name": "Austin Fraase v. Advantage Credit Bureau",
+      "cluster_id": 10880330,
+      "absolute_url": "https://www.courtlistener.com/opinion/10880330/austin-fraase-v-advantage-credit-bureau/",
+      "date_filed": "2026-06-25",
+      "snippet": null,
+      "citation": null,
+      "fonte": "courtlistener",
+      "relevance_score": 0.4387,
+      "relevance_method": "minilm"
+    },
+    {
+      "state": "OH",
+      "court_id": "ca7",
+      "case_name": "Michael Wood v. Security Credit Services, LLC",
+      "cluster_id": 10322379,
+      "absolute_url": "https://www.courtlistener.com/opinion/10322379/michael-wood-v-security-credit-services-llc/",
+      "date_filed": "2025-01-28",
+      "snippet": null,
+      "citation": "126 F.4th 1303",
+      "fonte": "courtlistener",
+      "relevance_score": 0.3991,
+      "relevance_method": "minilm"
+    },
+    {
+      "state": "OH",
+      "court_id": "mdd",
+      "case_name": "Green v. Southwest Credit Systems, L.P.",
+      "cluster_id": 7322885,
+      "absolute_url": "https://www.courtlistener.com/opinion/7322885/green-v-southwest-credit-systems-lp/",
+      "date_filed": "2016-12-02",
+      "snippet": null,
+      "citation": "220 F. Supp. 3d 623",
+      "fonte": "courtlistener",
+      "relevance_score": 0.3588,
+      "relevance_method": "minilm"
+    },
+    {
+      "state": "OH",
+      "court_id": "paed",
+      "case_name": "Prater v. Am. Heritage Fed. Credit Union",
+      "cluster_id": 7333492,
+      "absolute_url": "https://www.courtlistener.com/opinion/7333492/prater-v-am-heritage-fed-credit-union/",
+      "date_filed": "2019-01-07",
+      "snippet": null,
+      "citation": "351 F. Supp. 3d 912",
+      "fonte": "courtlistener",
+      "relevance_score": 0.3897,
+      "relevance_method": "minilm"
     },
     {
       "state": "OH",
@@ -46,8 +95,86 @@
       "citation": "862 F. Supp. 824",
       "fonte": "courtlistener",
       "relevance_score": 0.55,
-      "relevance_method": "lexical",
-      "seed_from": "US"
+      "relevance_method": "lexical"
+    },
+    {
+      "state": "OH",
+      "court_id": "ca2",
+      "case_name": "Suluki v. Credit One Bank, NA",
+      "cluster_id": 10593642,
+      "absolute_url": "https://www.courtlistener.com/opinion/10593642/suluki-v-credit-one-bank-na/",
+      "date_filed": "2025-05-28",
+      "snippet": null,
+      "citation": "138 F.4th 709",
+      "fonte": "courtlistener",
+      "relevance_score": 0.3668,
+      "relevance_method": "minilm"
+    },
+    {
+      "state": "OH",
+      "court_id": "ca8",
+      "case_name": "Sarah McIvor v. Credit Control Services, Inc.",
+      "cluster_id": 2757587,
+      "absolute_url": "https://www.courtlistener.com/opinion/2757587/sarah-mcivor-v-credit-control-services-inc/",
+      "date_filed": "2014-12-04",
+      "snippet": null,
+      "citation": "773 F.3d 909",
+      "fonte": "courtlistener",
+      "relevance_score": 0.4753,
+      "relevance_method": "minilm"
+    },
+    {
+      "state": "OH",
+      "court_id": "ca7",
+      "case_name": "Renetrice Pierre v. Midland Credit Management",
+      "cluster_id": 6475898,
+      "absolute_url": "https://www.courtlistener.com/opinion/6475898/renetrice-pierre-v-midland-credit-management/",
+      "date_filed": "2022-06-08",
+      "snippet": null,
+      "citation": null,
+      "fonte": "courtlistener",
+      "relevance_score": 0.4027,
+      "relevance_method": "minilm"
+    },
+    {
+      "state": "OH",
+      "court_id": "txwd",
+      "case_name": "Pettus v. TRW Consumer Credit Service",
+      "cluster_id": 2264555,
+      "absolute_url": "https://www.courtlistener.com/opinion/2264555/pettus-v-trw-consumer-credit-service/",
+      "date_filed": "1994-08-18",
+      "snippet": null,
+      "citation": "879 F. Supp. 695",
+      "fonte": "courtlistener",
+      "relevance_score": 0.3896,
+      "relevance_method": "minilm"
+    },
+    {
+      "state": "OH",
+      "court_id": "dcd",
+      "case_name": "Tall v. Credit Protection Association",
+      "cluster_id": 2665082,
+      "absolute_url": "https://www.courtlistener.com/opinion/2665082/tall-v-credit-protection-association/",
+      "date_filed": "2010-10-29",
+      "snippet": null,
+      "citation": null,
+      "fonte": "courtlistener",
+      "relevance_score": 0.4028,
+      "relevance_method": "minilm"
+    },
+    {
+      "state": "OH",
+      "court_id": "ca10",
+      "case_name": "Ward v. National Credit Systems",
+      "cluster_id": 10932881,
+      "absolute_url": "https://www.courtlistener.com/opinion/10932881/ward-v-national-credit-systems/",
+      "date_filed": "2026-07-20",
+      "snippet": null,
+      "citation": null,
+      "fonte": "courtlistener",
+      "relevance_score": 0.3956,
+      "relevance_method": "minilm"
     }
-  ]
+  ],
+  "origem": "courtlistener_state"
 }
