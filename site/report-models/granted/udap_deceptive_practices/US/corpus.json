@@ -1,7 +1,7 @@
 {
   "categoria": "udap_deceptive_practices",
   "state": "US",
-  "geradoEm": "2026-07-26T20:16:01.101Z",
+  "geradoEm": "2026-07-28T21:12:20.783Z",
   "total": 7,
   "status": "pronto",
   "nota": "Written by motor_courtlistener_local.py — deterministic CourtListener hits only. No invented cases.",
@@ -97,5 +97,6 @@
       "relevance_score": 0.55,
       "relevance_method": "lexical"
     }
-  ]
+  ],
+  "origem": "courtlistener_state_merged"
 }

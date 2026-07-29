@@ -68,7 +68,7 @@ function desenharCabecalhoPagina(doc: jsPDF, numero: string, area: string, dataS
   doc.setTextColor(255, 255, 255);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(9);
-  doc.text("LEX ROCHA", MARGEM, 10);
+  doc.text("JUDICIAL INTELLIGENCE", MARGEM, 10);
   doc.setFontSize(13);
   doc.text(TITULO_RELATORIO_PDF, MARGEM, 18);
 

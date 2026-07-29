@@ -11,6 +11,8 @@ export function rotaPublicaSemAuth(pathname: string): boolean {
     "/",
     "/solicitar",
     "/request",
+    "/checkout",
+    "/dashboard",
     "/modelo-relatorio",
     "/parceiro",
     "/privacidade",
@@ -31,8 +33,12 @@ export function rotaPublicaSemAuth(pathname: string): boolean {
   if (pathname === "/api/pesquisa-documental/solicitar") return true;
   if (pathname === "/api/request") return true;
   if (pathname === "/api/lgpd/consent") return true;
+  if (pathname === "/api/checkout") return true;
+  if (pathname === "/api/corpus/volume") return true;
+  if (pathname === "/api/stripe/status") return true;
   if (pathname.startsWith("/api/pedidos/acompanhar")) return true;
   if (pathname === "/api/stripe/webhook") return true;
+  if (pathname === "/api/webhooks/stripe") return true;
   return false;
 }
 

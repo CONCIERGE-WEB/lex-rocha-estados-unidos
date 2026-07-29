@@ -1,7 +1,7 @@
 {
   "categoria": "lemon_law_warranty",
   "state": "FL",
-  "geradoEm": "2026-07-26T20:15:22.294Z",
+  "geradoEm": "2026-07-28T21:09:01.520Z",
   "total": 6,
   "status": "pronto",
   "nota": "Written by motor_courtlistener_local.py — deterministic CourtListener hits only. No invented cases.",
@@ -84,5 +84,6 @@
       "relevance_score": 0.55,
       "relevance_method": "lexical"
     }
-  ]
+  ],
+  "origem": "courtlistener_state_merged"
 }

@@ -1,7 +1,7 @@
 {
   "categoria": "tcpa_robocalls",
   "state": "FL",
-  "geradoEm": "2026-07-26T20:13:25.908Z",
+  "geradoEm": "2026-07-29T02:15:10.542Z",
   "total": 1,
   "status": "parcial",
   "nota": "Written by motor_courtlistener_local.py — deterministic CourtListener hits only. No invented cases.",
@@ -19,5 +19,12 @@
       "relevance_score": 0.651,
       "relevance_method": "minilm"
     }
+  ],
+  "origem": "courtlistener_state_merged",
+  "courts_filtrados": [
+    "ca11",
+    "flnd",
+    "flmd",
+    "flsd"
   ]
 }

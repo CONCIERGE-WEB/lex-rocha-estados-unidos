@@ -100,11 +100,22 @@ CATEGORIAS: dict[str, str] = {
 }
 
 from jurisdictions_us import JURISDICTIONS_FULL, STATES_SEED_PRIORITY
+from courts_seed import COURTS_POR_STATE
+from priorizacao import (
+    CATEGORIAS_PRIORIDADE_LEVE,
+    STATES_FOCO,
+    mesclar_itens,
+    ordenar_categorias,
+    ordenar_estados,
+    plano_prioridade_leve,
+)
 
 # Legacy alias — priority launch set
 STATES_SEED = STATES_SEED_PRIORITY
 DEFAULT_PAGE_SIZE = 20
 INTERVALO = int(os.environ.get("COURT_LISTENER_INTERVALO_SEG", "600"))
+# Deeper pagination when boosting thin pools (TCPA / FDCPA)
+MAX_PAGES_PRIORIDADE = int(os.environ.get("COURT_LISTENER_MAX_PAGES_PRIORIDADE", "3"))
 
 
 def _utcnow() -> str:
@@ -143,16 +154,19 @@ def buscar_opinioes(
     page_size: int,
     max_pages: int,
     token: str,
+    courts: list[str] | None = None,
 ) -> list[dict[str, Any]]:
     """Paginate CourtListener /search/ until max_pages or no next link."""
-    params = urllib.parse.urlencode(
-        {
-            "q": query,
-            "type": "o",
-            "order_by": "score desc",
-            "page_size": str(page_size),
-        }
-    )
+    pairs: list[tuple[str, str]] = [
+        ("q", query),
+        ("type", "o"),
+        ("order_by", "score desc"),
+        ("page_size", str(page_size)),
+    ]
+    if courts:
+        for c in courts:
+            pairs.append(("court", c))
+    params = urllib.parse.urlencode(pairs)
     url: str | None = f"{_base_url()}/search/?{params}"
     hits: list[dict[str, Any]] = []
     page = 0
@@ -167,8 +181,21 @@ def buscar_opinioes(
             except urllib.error.HTTPError as e:
                 body = e.read().decode("utf-8", errors="replace")[:300]
                 if e.code == 429:
-                    wait = 45 * attempt
-                    print(f"[courtlistener] 429 rate limit — sleep {wait}s (try {attempt}/5)")
+                    retry_after = e.headers.get("Retry-After") if e.headers else None
+                    if retry_after and str(retry_after).isdigit():
+                        wait = max(60, int(retry_after))
+                    else:
+                        wait = min(900, 60 * (2 ** (attempt - 1)))
+                    # Daily/hour quota: don't block the process for hours inside one cell
+                    if wait > 600:
+                        raise RuntimeError(
+                            f"CourtListener quota exhausted — Retry-After={wait}s "
+                            f"(~{wait // 60} min). Pause motor and retry later."
+                        ) from e
+                    print(
+                        f"[courtlistener] 429 rate limit — sleep {wait}s "
+                        f"(try {attempt}/5, Retry-After={retry_after})"
+                    )
                     time.sleep(wait)
                     continue
                 raise RuntimeError(f"CourtListener HTTP {e.code}: {body}") from e
@@ -324,6 +351,17 @@ def notificar_pacote(
             print(f"[signalhub] captacao failed: {exc}", file=sys.stderr)
 
 
+def carregar_itens_arquivo(path: Path) -> list[dict[str, Any]]:
+    if not path.is_file():
+        return []
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+        itens = data.get("itens") or []
+        return [i for i in itens if isinstance(i, dict)]
+    except Exception:
+        return []
+
+
 def sincronizar_celula(
     *,
     categoria: str,
@@ -333,22 +371,33 @@ def sincronizar_celula(
     dry_run: bool,
     notify: bool,
     sem_filtro: bool = False,
+    merge: bool = False,
+    court_scope: bool = False,
 ) -> dict[str, Any]:
     if categoria not in CATEGORIAS:
         raise ValueError(f"Unknown category: {categoria}")
     token = _token()
     if not token:
         print("[aviso] COURTLISTENER_API_TOKEN ausente — tentando API pública sem Token")
+
+    st = state.upper()
+    courts: list[str] | None = None
+    if court_scope and st != "US":
+        courts = list(COURTS_POR_STATE.get(st) or []) or None
+        if courts:
+            print(f"[scope] {categoria}/{st} courts={','.join(courts)}")
+
     raw = buscar_opinioes(
         query=CATEGORIAS[categoria],
         page_size=page_size,
         max_pages=max_pages,
         token=token,
+        courts=courts,
     )
     itens: list[dict[str, Any]] = []
     seen: set[str] = set()
     for row in raw:
-        mapped = mapear_hit(row, state)
+        mapped = mapear_hit(row, st)
         if not mapped:
             continue
         key = mapped["absolute_url"]
@@ -362,24 +411,60 @@ def sincronizar_celula(
         itens, filtro_meta = filtrar_hits(itens, categoria)
         itens = limpar_meta_score(itens) if limpar_meta_score else itens
         print(
-            f"[filtro] {categoria}/{state}: "
+            f"[filtro] {categoria}/{st}: "
             f"{filtro_meta['entrada']}->{filtro_meta['saida']} "
             f"(limiar={filtro_meta['limiar']}, {filtro_meta['metodos']})"
         )
 
+    path = caminho_corpus(categoria, st)
+    if merge:
+        previos = carregar_itens_arquivo(path)
+        antes = len(previos)
+        itens = mesclar_itens(previos, itens)
+        print(f"[merge] {categoria}/{st}: {antes}+new → {len(itens)} unique")
+    elif not itens and path.is_file():
+        # Don't wipe a non-empty cell with an empty API/filter result
+        previos = carregar_itens_arquivo(path)
+        if previos:
+            print(f"[keep] {categoria}/{st} — empty fetch, preserving {len(previos)} items")
+            return {
+                "categoria": categoria,
+                "state": st,
+                "total": len(previos),
+                "status": "parcial" if len(previos) < 5 else "pronto",
+                "path": str(path),
+                "filtro": filtro_meta,
+                "preserved": True,
+            }
+
     path = gravar_corpus(
-        categoria=categoria, state=state, itens=itens, dry_run=dry_run
+        categoria=categoria, state=st, itens=itens, dry_run=dry_run
     )
+    if not dry_run and (merge or court_scope):
+        try:
+            body = json.loads(path.read_text(encoding="utf-8"))
+            body["origem"] = (
+                "courtlistener_state_merged" if merge else "courtlistener_state"
+            )
+            if courts:
+                body["courts_filtrados"] = courts
+            path.write_text(
+                json.dumps(body, ensure_ascii=False, indent=2) + "\n",
+                encoding="utf-8",
+            )
+        except Exception as exc:  # noqa: BLE001
+            print(f"[aviso] origem mark failed: {exc}", file=sys.stderr)
+
     status = "parcial" if itens else "aguardando_corpus"
     if len(itens) >= 5:
         status = "pronto"
     if notify and not dry_run and itens:
         notificar_pacote(
-            categoria=categoria, state=state, total=len(itens), status=status
+            categoria=categoria, state=st, total=len(itens), status=status
         )
     return {
         "categoria": categoria,
-        "state": state.upper(),
+        "state": st,
         "total": len(itens),
         "status": status,
         "path": str(path),
@@ -396,24 +481,32 @@ def ciclo(
     dry_run: bool,
     notify: bool,
     sem_filtro: bool = False,
+    merge: bool = False,
+    court_scope: bool = False,
+    pares: list[tuple[str, str]] | None = None,
 ) -> None:
-    for cat in categorias:
-        for st in states:
-            try:
-                sincronizar_celula(
-                    categoria=cat,
-                    state=st,
-                    page_size=page_size,
-                    max_pages=max_pages,
-                    dry_run=dry_run,
-                    notify=notify,
-                    sem_filtro=sem_filtro,
-                )
-            except Exception as exc:  # noqa: BLE001 — keep loop alive
-                print(f"[erro] {cat}/{st}: {exc}", file=sys.stderr)
-            # Space cells under FLP free-tier hour budget (~50/hr)
-            gap = float(os.environ.get("COURT_LISTENER_PAUSE_SEG", "75" if not _token() else "15"))
-            time.sleep(gap)
+    if pares:
+        work = pares
+    else:
+        work = [(cat, st) for cat in categorias for st in states]
+    for cat, st in work:
+        try:
+            sincronizar_celula(
+                categoria=cat,
+                state=st,
+                page_size=page_size,
+                max_pages=max_pages,
+                dry_run=dry_run,
+                notify=notify,
+                sem_filtro=sem_filtro,
+                merge=merge,
+                court_scope=court_scope,
+            )
+        except Exception as exc:  # noqa: BLE001 — keep loop alive
+            print(f"[erro] {cat}/{st}: {exc}", file=sys.stderr)
+        # Space cells under FLP free-tier hour budget (~50/hr)
+        gap = float(os.environ.get("COURT_LISTENER_PAUSE_SEG", "75" if not _token() else "15"))
+        time.sleep(gap)
 
 
 def main() -> int:
@@ -421,7 +514,12 @@ def main() -> int:
     parser.add_argument("--categoria", default="fcra_credit_reporting")
     parser.add_argument("--state", default="US")
     parser.add_argument("--page-size", type=int, default=DEFAULT_PAGE_SIZE)
-    parser.add_argument("--max-pages", type=int, default=2)
+    parser.add_argument(
+        "--max-pages",
+        type=int,
+        default=None,
+        help="Pages per cell (default 2; with --prioridade-leve default 3)",
+    )
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--no-notify", action="store_true")
     parser.add_argument("--sem-filtro", action="store_true", help="Skip MiniLM/lexical filter")
@@ -436,19 +534,56 @@ def main() -> int:
         action="store_true",
         help="Sync full matrix: Federal + 50 states + DC + territories",
     )
+    parser.add_argument(
+        "--prioridade-leve",
+        action="store_true",
+        help=(
+            "Boost TCPA + FDCPA on focus states (US,CA,NY,TX,FL,IL): "
+            "court-scoped search, merge with existing corpus, deeper pages"
+        ),
+    )
+    parser.add_argument(
+        "--merge",
+        action="store_true",
+        help="Merge new hits into existing corpus.json (dedupe by cluster_id)",
+    )
+    parser.add_argument(
+        "--court-scope",
+        action="store_true",
+        help="Filter by state district/circuit courts when state != US",
+    )
     args = parser.parse_args()
 
-    if args.categoria == "all":
-        cats = list(CATEGORIAS.keys())
-    else:
-        cats = [args.categoria]
+    prioridade = bool(args.prioridade_leve)
+    pares: list[tuple[str, str]] | None = None
 
-    if args.all_jurisdictions:
-        states = list(JURISDICTIONS_FULL)
-    elif args.all_states_seed:
-        states = list(STATES_SEED)
+    if prioridade:
+        pares = plano_prioridade_leve(categorias_disponiveis=list(CATEGORIAS.keys()))
+        cats = list(CATEGORIAS_PRIORIDADE_LEVE)
+        states = list(STATES_FOCO)
+        merge = True
+        court_scope = True
+        max_pages = args.max_pages if args.max_pages is not None else MAX_PAGES_PRIORIDADE
+        print(
+            f"[prioridade-leve] cats={cats} states={states} "
+            f"pares={len(pares)} max_pages={max_pages} merge+court_scope"
+        )
     else:
-        states = [args.state.upper()]
+        if args.categoria == "all":
+            cats = ordenar_categorias(list(CATEGORIAS.keys()), prioridade_leve=True)
+        else:
+            cats = [args.categoria]
+
+        if args.all_jurisdictions:
+            states = ordenar_estados(list(JURISDICTIONS_FULL), prioridade_leve=True)
+        elif args.all_states_seed:
+            states = ordenar_estados(list(STATES_SEED), prioridade_leve=True)
+        else:
+            states = [args.state.upper()]
+        merge = bool(args.merge)
+        court_scope = bool(args.court_scope)
+        max_pages = args.max_pages if args.max_pages is not None else 2
+
     notify = not args.no_notify
 
     def once() -> None:
@@ -456,10 +591,13 @@ def main() -> int:
             categorias=cats,
             states=states,
             page_size=args.page_size,
-            max_pages=args.max_pages,
+            max_pages=max_pages,
             dry_run=args.dry_run,
             notify=notify,
             sem_filtro=args.sem_filtro,
+            merge=merge,
+            court_scope=court_scope,
+            pares=pares,
         )
 
     if args.loop:

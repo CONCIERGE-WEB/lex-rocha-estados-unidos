@@ -11,11 +11,20 @@ import {
   normalizarCategoriaPipeline,
 } from "@/lib/pipeline-confiavel/categorias";
 import {
+  metaJurisdicaoCategoria,
+  nivelJurisdicaoCategoria,
+} from "@/lib/pipeline-confiavel/jurisdicao-categorias";
+import {
   corpusVazio,
   type CorpusGranted,
   type CorpusItemGranted,
 } from "@/lib/fontes-us/corpus-types";
 import type { CourtListenerSearchHit } from "@/lib/fontes-us/courtlistener";
+import {
+  MARCA_JUDICIAL_INTELLIGENCE,
+  notaTransparenciaFallbackUs,
+  rotuloSupportingCaseLaw,
+} from "@/lib/relatorio-templates/transparencia-fallback";
 
 export function raizCorpusGranted(cwd = process.cwd()): string {
   return join(cwd, "report-models", "granted");
@@ -82,8 +91,10 @@ export function carregarCorpusGranted(
 }
 
 /**
- * Prefer the requested state; if empty/missing, try Federal (`US`) with an explicit note.
- * Never silently copies another state's cases without labeling.
+ * Prefer the requested state; if empty/missing, apply jurisdiction-aware fallback.
+ * Federal categories may use Federal (US) / other federal cells with an explicit note.
+ * State categories (Lemon Law, UDAP) never apply neighbor-state law as local rule —
+ * only an exact state cell, or a clearly labeled federal/UCC general note.
  */
 export function resolverCorpusComFallbackFederal(
   categoria: string,
@@ -99,23 +110,55 @@ export function resolverCorpusComFallbackFederal(
   if (local && local.itens.length > 0) {
     return { corpus: local, usado: st, notaFallback: null };
   }
+
+  const nivel = nivelJurisdicaoCategoria(categoria);
+  const meta = metaJurisdicaoCategoria(categoria);
+
   if (st !== "US") {
     const fed = carregarCorpusGranted(categoria, "US", cwd);
     if (fed && fed.itens.length > 0) {
+      if (nivel === "estadual") {
+        return {
+          corpus: fed,
+          usado: "US",
+          notaFallback: notaTransparenciaFallbackUs({
+            stateCliente: st,
+            stateUsado: "US",
+            nivel: "estadual",
+            notaJurisdicao:
+              (meta?.notaJurisdicao ?? "") +
+              " Neighbor-state statutes are not applied as local law.",
+          }),
+        };
+      }
       return {
         corpus: fed,
         usado: "US",
-        notaFallback: `Local cell ${st} empty or awaiting corpus — showing Federal (US) curated hits only, labeled as federal.`,
+        notaFallback: notaTransparenciaFallbackUs({
+          stateCliente: st,
+          stateUsado: "US",
+          nivel: "federal",
+          notaJurisdicao: meta?.notaJurisdicao ?? null,
+        }),
       };
     }
   }
+
   return {
     corpus: local ?? corpusVazio(categoria, st),
     usado: st,
     notaFallback:
       local?.status === "aguardando_corpus"
-        ? `Cell ${st} is awaiting CourtListener sync (no invented cases).`
-        : null,
+        ? `**${MARCA_JUDICIAL_INTELLIGENCE}** — cell **${st}** is awaiting CourtListener sync (no invented cases).`
+        : nivel === "estadual"
+          ? notaTransparenciaFallbackUs({
+              stateCliente: st,
+              stateUsado: st,
+              nivel: "estadual",
+              notaJurisdicao:
+                "No local precedents yet for this state-specific category. Neighbor-state statutes are not applied as local law.",
+            })
+          : null,
   };
 }
 
@@ -167,14 +210,18 @@ export function formatarCorpusMarkdown(
     "",
   ];
   if (notaFallback) {
-    lines.push(`_${notaFallback}_`, "");
+    lines.push(`> ${notaFallback}`, "");
   }
   if (corpus.itens.length === 0) {
     lines.push(`_${corpus.nota}_`);
     return lines.join("\n");
   }
+  const supporting = Boolean(notaFallback);
   for (const item of corpus.itens.slice(0, maxItens)) {
     const when = item.date_filed ? ` (${item.date_filed})` : "";
+    if (supporting) {
+      lines.push(rotuloSupportingCaseLaw(item.state || corpus.state));
+    }
     lines.push(`- **${item.case_name}**${when}`);
     if (item.citation) lines.push(`  - Citation: ${item.citation}`);
     if (item.snippet) lines.push(`  - Snippet: ${item.snippet.slice(0, 280)}`);

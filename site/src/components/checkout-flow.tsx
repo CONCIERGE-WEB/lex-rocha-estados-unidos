@@ -25,6 +25,8 @@ type CasoGuardado = {
   area?: string;
   categoria?: string;
   categoryId?: string;
+  email?: string;
+  userEmail?: string;
   triagem?: TriagemGuardada;
 };
 
@@ -40,6 +42,7 @@ export function CheckoutFlow({ planoId, categoryId: categoryFromUrl }: Props) {
   const [descricao, setDescricao] = useState("");
   const [area, setArea] = useState("");
   const [categoryId, setCategoryId] = useState(categoryFromUrl?.trim() || "");
+  const [userEmail, setUserEmail] = useState("");
   const [triagem, setTriagem] = useState<TriagemGuardada | undefined>(undefined);
   const [veioDaTriagem, setVeioDaTriagem] = useState(false);
   const [terms, setTerms] = useState(false);
@@ -60,6 +63,8 @@ export function CheckoutFlow({ planoId, categoryId: categoryFromUrl }: Props) {
       if (guardado.area) setArea(guardado.area);
       const cat = guardado.categoryId || guardado.categoria || guardado.area;
       if (cat && !categoryFromUrl) setCategoryId(cat);
+      const mail = guardado.userEmail || guardado.email;
+      if (mail) setUserEmail(mail.trim());
       if (guardado.triagem) setTriagem(guardado.triagem);
       setVeioDaTriagem(desc.length >= 80);
     } catch {
@@ -88,6 +93,8 @@ export function CheckoutFlow({ planoId, categoryId: categoryFromUrl }: Props) {
           descricaoCaso: descricao.trim(),
           areaCaso: area || categoryId || undefined,
           categoryId: categoryId || undefined,
+          category: categoryId || undefined,
+          userEmail: userEmail || undefined,
           triagem: triagem
             ? {
                 planoId: triagem.planoId,

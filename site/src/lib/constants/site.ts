@@ -1,6 +1,9 @@
 export const SITE = {
   name: "Judicial Intelligence",
+  /** Full commercial lockup. */
+  brandFull: "Judicial Intelligence | Tiago A. Rocha",
   legalName: "Judicial Intelligence",
+  panoramaBrand: "Panorama | Tiago A. Rocha",
   serviceName: "Documentary Legal Research",
   founderRole: "Legal Research Specialist",
   domain: "judicialintelligence.com",
@@ -9,6 +12,7 @@ export const SITE = {
   /** @deprecated Prefer `ein` — legacy BR field name still referenced in some UI. */
   cnpj: "61-699-939/0001-80",
   founder: "Tiago Aureliano da Rocha",
+  founderShort: "Tiago A. Rocha",
   founderTitle: "Founder",
   city: "United States",
   state: "",

@@ -1,7 +1,7 @@
 {
   "categoria": "fdcpa_debt_collection",
   "state": "CA",
-  "geradoEm": "2026-07-26T20:10:33.396Z",
+  "geradoEm": "2026-07-29T02:33:05.103Z",
   "total": 4,
   "status": "parcial",
   "nota": "Written by motor_courtlistener_local.py — deterministic CourtListener hits only. No invented cases.",
@@ -58,5 +58,14 @@
       "relevance_score": 0.5245,
       "relevance_method": "minilm"
     }
+  ],
+  "origem": "courtlistener_state_merged",
+  "courts_filtrados": [
+    "ca9",
+    "cacd",
+    "caed",
+    "cand",
+    "casd",
+    "cacb"
   ]
 }

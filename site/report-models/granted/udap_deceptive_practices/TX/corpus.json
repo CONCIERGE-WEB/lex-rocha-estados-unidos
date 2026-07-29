@@ -1,11 +1,10 @@
 {
   "categoria": "udap_deceptive_practices",
   "state": "TX",
-  "geradoEm": "2026-07-25T15:52:18.942Z",
-  "total": 5,
+  "geradoEm": "2026-07-28T21:13:23.259Z",
+  "total": 7,
   "status": "pronto",
-  "origem": "federal_seed",
-  "nota": "Seeded from Federal (US) CourtListener hits already synced — not invented. Covers 50 states, DC, and U.S. territories until jurisdiction-scoped API sync is available.",
+  "nota": "Written by motor_courtlistener_local.py — deterministic CourtListener hits only. No invented cases.",
   "itens": [
     {
       "state": "TX",
@@ -18,8 +17,7 @@
       "citation": "81 F.4th 710",
       "fonte": "courtlistener",
       "relevance_score": 0.5071,
-      "relevance_method": "minilm",
-      "seed_from": "US"
+      "relevance_method": "minilm"
     },
     {
       "state": "TX",
@@ -32,8 +30,7 @@
       "citation": null,
       "fonte": "courtlistener",
       "relevance_score": 0.5041,
-      "relevance_method": "minilm",
-      "seed_from": "US"
+      "relevance_method": "minilm"
     },
     {
       "state": "TX",
@@ -46,8 +43,7 @@
       "citation": null,
       "fonte": "courtlistener",
       "relevance_score": 0.5041,
-      "relevance_method": "minilm",
-      "seed_from": "US"
+      "relevance_method": "minilm"
     },
     {
       "state": "TX",
@@ -60,8 +56,7 @@
       "citation": null,
       "fonte": "courtlistener",
       "relevance_score": 0.5041,
-      "relevance_method": "minilm",
-      "seed_from": "US"
+      "relevance_method": "minilm"
     },
     {
       "state": "TX",
@@ -74,8 +69,34 @@
       "citation": "6 F.4th 694",
       "fonte": "courtlistener",
       "relevance_score": 0.5271,
-      "relevance_method": "minilm",
-      "seed_from": "US"
+      "relevance_method": "minilm"
+    },
+    {
+      "state": "TX",
+      "court_id": "wiwd",
+      "case_name": "Consumer Fin. Prot. Bureau v. Mortg. Law Grp., LLP",
+      "cluster_id": 7334795,
+      "absolute_url": "https://www.courtlistener.com/opinion/7334795/consumer-fin-prot-bureau-v-mortg-law-grp-llp/",
+      "date_filed": "2018-11-15",
+      "snippet": null,
+      "citation": "366 F. Supp. 3d 1039",
+      "fonte": "courtlistener",
+      "relevance_score": 0.5248,
+      "relevance_method": "minilm"
+    },
+    {
+      "state": "TX",
+      "court_id": "md",
+      "case_name": "Linton v. Consumer Protection Division",
+      "cluster_id": 10021024,
+      "absolute_url": "https://www.courtlistener.com/opinion/10021024/linton-v-consumer-protection-division/",
+      "date_filed": "2020-03-03",
+      "snippet": null,
+      "citation": "225 A.3d 456",
+      "fonte": "courtlistener",
+      "relevance_score": 0.55,
+      "relevance_method": "lexical"
     }
-  ]
+  ],
+  "origem": "courtlistener_state_merged"
 }

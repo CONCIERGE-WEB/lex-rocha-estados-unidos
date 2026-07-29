@@ -50,8 +50,9 @@ function extrairTribunaisCitados(
     const re = new RegExp(`\\b${t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`, "i");
     if (re.test(texto)) citados.push(t);
   }
-  // Tribunais comuns inventados fora do banco
-  for (const t of ["STF", "STJ", "TJSP", "TJRJ", "TJMG", "TJRS", "TJPR", "TJMT", "TJMA"]) {
+  // Foreign BR courts (clone contamination / invented citations) — always fail if not in bank.
+  // Never treat CNJ TPU / TJ* as valid U.S. authorities.
+  for (const t of ["STF", "STJ", "TJSP", "TJRJ", "TJMG", "TJRS", "TJPR", "TJMT", "TJMA", "CNJ"]) {
     const re = new RegExp(`\\b${t}\\b`, "i");
     if (re.test(texto) && !tribunaisBanco.some((b) => b.toUpperCase() === t)) {
       citados.push(t);

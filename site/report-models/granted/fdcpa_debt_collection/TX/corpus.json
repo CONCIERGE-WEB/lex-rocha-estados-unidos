@@ -1,7 +1,7 @@
 {
   "categoria": "fdcpa_debt_collection",
   "state": "TX",
-  "geradoEm": "2026-07-26T20:11:11.125Z",
+  "geradoEm": "2026-07-28T22:15:29.000Z",
   "total": 4,
   "status": "parcial",
   "nota": "Written by motor_courtlistener_local.py — deterministic CourtListener hits only. No invented cases.",
@@ -58,5 +58,13 @@
       "relevance_score": 0.5245,
       "relevance_method": "minilm"
     }
+  ],
+  "origem": "courtlistener_state_merged",
+  "courts_filtrados": [
+    "ca5",
+    "txnd",
+    "txsd",
+    "txed",
+    "txwd"
   ]
 }

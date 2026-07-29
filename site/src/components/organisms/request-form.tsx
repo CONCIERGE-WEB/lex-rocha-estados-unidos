@@ -199,6 +199,8 @@ export function RequestForm() {
             area: CATEGORIA_LABELS[form.categoria],
             categoryId: form.categoria,
             categoria: form.categoria,
+            email: form.email_cliente.trim(),
+            userEmail: form.email_cliente.trim(),
           })
         );
       } catch {

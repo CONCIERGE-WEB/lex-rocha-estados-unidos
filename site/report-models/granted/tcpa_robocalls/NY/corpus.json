@@ -1,7 +1,7 @@
 {
   "categoria": "tcpa_robocalls",
   "state": "NY",
-  "geradoEm": "2026-07-26T20:12:48.033Z",
+  "geradoEm": "2026-07-29T02:10:01.722Z",
   "total": 1,
   "status": "parcial",
   "nota": "Written by motor_courtlistener_local.py — deterministic CourtListener hits only. No invented cases.",
@@ -19,5 +19,13 @@
       "relevance_score": 0.651,
       "relevance_method": "minilm"
     }
+  ],
+  "origem": "courtlistener_state_merged",
+  "courts_filtrados": [
+    "ca2",
+    "nysd",
+    "nyed",
+    "nynd",
+    "nywd"
   ]
 }

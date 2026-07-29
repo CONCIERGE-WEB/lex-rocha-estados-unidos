@@ -1,8 +1,8 @@
 """
-Módulo 9 — alertas SignalHub-BR a partir do banco curado (sem R2 por IA livre).
+SignalHub USA — curated alerts from the local bank (no free-form R2 LLM).
 
-Uso:
-  from alerta_curado import montar_alerta, registrar_dedup
+Legacy BR category ids may still appear as aliases; prefer US statute ids.
+Never use CNJ TPU codes or Brazilian tribunal dockets here.
 """
 
 from __future__ import annotations
@@ -20,22 +20,65 @@ BANCO_DIR = HUB_ROOT.parent / "site" / "src" / "lib" / "pipeline-confiavel" / "b
 DEDUP_PATH = HUB_ROOT / "logs" / "alertas-dedup.json"
 
 R3_DIVULGACAO_COMERCIAL = (
-    "A Lex Rocha é um serviço pago de pesquisa jurídica sobre casos como este. "
-    "If you want, https://www.judicialintelligence.com/solicitar"
+    "Judicial Intelligence | Tiago A. Rocha is a paid documentary legal research service "
+    "for situations like this. If you want, https://www.judicialintelligence.com/request"
 )
 
 R1_ACOLHIMENTO = (
-    "Entendo a frustração com essa situação — é bem comum em relações de consumo."
+    "I understand how frustrating this consumer dispute can feel — you are not alone."
 )
 
+# US-first rules; legacy BR slug kept only as alias target via categorias.ts on site.
 REGRAS_CATEGORIA: list[tuple[str, list[str]]] = [
-    ("negativacao_indevida", ["negativ", "spc", "serasa", "nome sujo", "cadastro de inadimpl"]),
-    ("cobranca_indevida", ["cobrança indevida", "cobranca indevida", "cobrado indevid"]),
-    ("cancelamento_nao_efetivado", ["cancelei", "cancelamento", "continua cobrando", "após cancel"]),
-    ("produto_defeito_atraso", ["defeito", "não entreg", "nao entreg", "atraso na entrega", "produto veio"]),
-    ("fraude_conta_digital", ["golpe", "fraude", "conta hackeada", "bloqueou minha conta"]),
-    ("plano_seguro_negativa", ["plano de saúde", "plano de saude", "negou cobertura", "seguro negou"]),
-    ("score_credito", ["score", "score de crédito", "score de credito"]),
+    (
+        "fcra_credit_reporting",
+        [
+            "credit report",
+            "fcra",
+            "equifax",
+            "experian",
+            "transunion",
+            "inaccurate file",
+            "consumer reporting",
+        ],
+    ),
+    (
+        "fdcpa_debt_collection",
+        [
+            "debt collector",
+            "fdcpa",
+            "collection call",
+            "harassing collection",
+            "debt collection",
+        ],
+    ),
+    (
+        "tcpa_robocalls",
+        ["robocall", "tcpa", "autodialer", "spam text", "unsolicited text"],
+    ),
+    (
+        "dot_flights_baggage",
+        [
+            "flight delay",
+            "airline",
+            "baggage",
+            "cancelled flight",
+            "denied boarding",
+            "dot ",
+        ],
+    ),
+    (
+        "lemon_law_warranty",
+        ["lemon law", "warranty", "defective vehicle", "magnuson-moss"],
+    ),
+    (
+        "udap_deceptive_practices",
+        ["junk fee", "deceptive", "unfair practice", "udap", "false advertising"],
+    ),
+    (
+        "health_plan_denial",
+        ["claim denied", "erisa", "health insurance denial", "coverage denied"],
+    ),
 ]
 
 

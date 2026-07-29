@@ -8,3 +8,5 @@ out/
 # --- segredos (token GitHub / env) ---
 .env.*
 !.env.example
+# checkout local (teste Stripe sem Supabase remoto)
+data/local-checkout/

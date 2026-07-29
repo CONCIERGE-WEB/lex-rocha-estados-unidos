@@ -29,8 +29,8 @@ export default function AdminCorpusPage() {
           </h1>
           <p className="mt-1 text-sm text-slate-500">
             {matriz.totais.cells} seed cells · States{" "}
-            {matriz.states.join(", ")} · Jurisdictions / Federal courts — not
-            DataJud UFs.
+            {matriz.states.join(", ")} · CourtListener jurisdictions / Federal
+            courts — not Brazilian DataJud UFs.
           </p>
         </div>
         <Link

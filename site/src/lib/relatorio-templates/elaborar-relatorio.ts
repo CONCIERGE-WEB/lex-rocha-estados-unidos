@@ -26,6 +26,7 @@ import {
   formatarCorpusMarkdown,
   resolverCorpusComFallbackFederal,
 } from "@/lib/fontes-us/corpus-loader";
+import { metaJurisdicaoCategoria } from "@/lib/pipeline-confiavel/jurisdicao-categorias";
 
 export type ElaborarRelatorioInput = {
   plano?: string | null;
@@ -75,14 +76,21 @@ export function elaborarRelatorioRascunho(
     cwd
   );
 
+  const juris = metaJurisdicaoCategoria(input.categoria);
+
   const max =
     input.maxPrecedentesCorpus ?? maxPorFaixa(faixa);
 
   const header = [
     "# Consumer Rights Research Report",
     "",
+    `- **Platform:** ${SITE.brandFull}`,
     `- **Plan:** ${faixa}`,
     `- **Category:** ${catLabel}`,
+    juris
+      ? `- **Jurisdiction level:** ${juris.nivel === "federal" ? "Federal" : "State-specific"} (${juris.disponibilidadeLabel})`
+      : null,
+    juris ? `- **Jurisdiction note:** ${juris.notaJurisdicao}` : null,
     input.nomeCliente ? `- **Requester:** ${input.nomeCliente}` : null,
     input.empresa ? `- **Company:** ${input.empresa}` : null,
     input.state ? `- **State (form):** ${input.state}` : null,

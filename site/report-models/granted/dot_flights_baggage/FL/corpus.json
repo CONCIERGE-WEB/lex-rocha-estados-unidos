@@ -1,11 +1,10 @@
 {
   "categoria": "dot_flights_baggage",
   "state": "FL",
-  "geradoEm": "2026-07-25T15:52:18.961Z",
-  "total": 16,
+  "geradoEm": "2026-07-28T21:22:37.683Z",
+  "total": 32,
   "status": "pronto",
-  "origem": "federal_seed",
-  "nota": "Seeded from Federal (US) CourtListener hits already synced — not invented. Covers 50 states, DC, and U.S. territories until jurisdiction-scoped API sync is available.",
+  "nota": "Written by motor_courtlistener_local.py — deterministic CourtListener hits only. No invented cases.",
   "itens": [
     {
       "state": "FL",
@@ -18,8 +17,7 @@
       "citation": "399 U.S. App. D.C. 239",
       "fonte": "courtlistener",
       "relevance_score": 0.55,
-      "relevance_method": "lexical",
-      "seed_from": "US"
+      "relevance_method": "lexical"
     },
     {
       "state": "FL",
@@ -32,8 +30,7 @@
       "citation": null,
       "fonte": "courtlistener",
       "relevance_score": 0.55,
-      "relevance_method": "lexical",
-      "seed_from": "US"
+      "relevance_method": "lexical"
     },
     {
       "state": "FL",
@@ -46,8 +43,7 @@
       "citation": "402 U.S. App. D.C. 70",
       "fonte": "courtlistener",
       "relevance_score": 0.55,
-      "relevance_method": "lexical",
-      "seed_from": "US"
+      "relevance_method": "lexical"
     },
     {
       "state": "FL",
@@ -60,8 +56,7 @@
       "citation": "423 U.S. App. D.C. 343",
       "fonte": "courtlistener",
       "relevance_score": 0.55,
-      "relevance_method": "lexical",
-      "seed_from": "US"
+      "relevance_method": "lexical"
     },
     {
       "state": "FL",
@@ -74,8 +69,7 @@
       "citation": "479 F.3d 21",
       "fonte": "courtlistener",
       "relevance_score": 0.55,
-      "relevance_method": "lexical",
-      "seed_from": "US"
+      "relevance_method": "lexical"
     },
     {
       "state": "FL",
@@ -88,8 +82,7 @@
       "citation": "423 U.S. App. D.C. 409",
       "fonte": "courtlistener",
       "relevance_score": 0.55,
-      "relevance_method": "lexical",
-      "seed_from": "US"
+      "relevance_method": "lexical"
     },
     {
       "state": "FL",
@@ -102,8 +95,7 @@
       "citation": "637 F.3d 408",
       "fonte": "courtlistener",
       "relevance_score": 0.55,
-      "relevance_method": "lexical",
-      "seed_from": "US"
+      "relevance_method": "lexical"
     },
     {
       "state": "FL",
@@ -116,8 +108,7 @@
       "citation": "367 U.S. App. D.C. 233",
       "fonte": "courtlistener",
       "relevance_score": 0.55,
-      "relevance_method": "lexical",
-      "seed_from": "US"
+      "relevance_method": "lexical"
     },
     {
       "state": "FL",
@@ -130,8 +121,7 @@
       "citation": "429 F.3d 1113",
       "fonte": "courtlistener",
       "relevance_score": 0.55,
-      "relevance_method": "lexical",
-      "seed_from": "US"
+      "relevance_method": "lexical"
     },
     {
       "state": "FL",
@@ -144,8 +134,7 @@
       "citation": "78 F. Supp. 3d 407",
       "fonte": "courtlistener",
       "relevance_score": 0.55,
-      "relevance_method": "lexical",
-      "seed_from": "US"
+      "relevance_method": "lexical"
     },
     {
       "state": "FL",
@@ -158,8 +147,7 @@
       "citation": "655 F.3d 1124",
       "fonte": "courtlistener",
       "relevance_score": 0.55,
-      "relevance_method": "lexical",
-      "seed_from": "US"
+      "relevance_method": "lexical"
     },
     {
       "state": "FL",
@@ -172,8 +160,7 @@
       "citation": "122 F.4th 418",
       "fonte": "courtlistener",
       "relevance_score": 0.55,
-      "relevance_method": "lexical",
-      "seed_from": "US"
+      "relevance_method": "lexical"
     },
     {
       "state": "FL",
@@ -186,8 +173,7 @@
       "citation": "340 F.3d 695",
       "fonte": "courtlistener",
       "relevance_score": 0.55,
-      "relevance_method": "lexical",
-      "seed_from": "US"
+      "relevance_method": "lexical"
     },
     {
       "state": "FL",
@@ -200,8 +186,7 @@
       "citation": "778 F. Supp. 2d 1283",
       "fonte": "courtlistener",
       "relevance_score": 0.55,
-      "relevance_method": "lexical",
-      "seed_from": "US"
+      "relevance_method": "lexical"
     },
     {
       "state": "FL",
@@ -214,8 +199,7 @@
       "citation": "123 F. Supp. 3d 638",
       "fonte": "courtlistener",
       "relevance_score": 0.55,
-      "relevance_method": "lexical",
-      "seed_from": "US"
+      "relevance_method": "lexical"
     },
     {
       "state": "FL",
@@ -228,8 +212,216 @@
       "citation": "613 F.3d 206",
       "fonte": "courtlistener",
       "relevance_score": 0.55,
-      "relevance_method": "lexical",
-      "seed_from": "US"
+      "relevance_method": "lexical"
+    },
+    {
+      "state": "FL",
+      "court_id": "ca11",
+      "case_name": "Chandler v. Secretary of the Florida Department of Transportation",
+      "cluster_id": 808863,
+      "absolute_url": "https://www.courtlistener.com/opinion/808863/chandler-v-secretary-of-the-florida-department-of-transportation/",
+      "date_filed": "2012-09-19",
+      "snippet": null,
+      "citation": "695 F.3d 1194",
+      "fonte": "courtlistener",
+      "relevance_score": 0.55,
+      "relevance_method": "lexical"
+    },
+    {
+      "state": "FL",
+      "court_id": "cand",
+      "case_name": "People v. United States Department of Transportation",
+      "cluster_id": 2578741,
+      "absolute_url": "https://www.courtlistener.com/opinion/2578741/people-v-united-states-department-of-transportation/",
+      "date_filed": "2003-04-28",
+      "snippet": null,
+      "citation": "260 F. Supp. 2d 969",
+      "fonte": "courtlistener",
+      "relevance_score": 0.55,
+      "relevance_method": "lexical"
+    },
+    {
+      "state": "FL",
+      "court_id": "ca3",
+      "case_name": "Tinicum Township v. United States Department of Transportation",
+      "cluster_id": 803767,
+      "absolute_url": "https://www.courtlistener.com/opinion/803767/tinicum-township-v-united-states-department-of-transportation/",
+      "date_filed": "2012-07-06",
+      "snippet": null,
+      "citation": "685 F.3d 288",
+      "fonte": "courtlistener",
+      "relevance_score": 0.55,
+      "relevance_method": "lexical"
+    },
+    {
+      "state": "FL",
+      "court_id": "cadc",
+      "case_name": "County of Delaware v. Department of Transportation",
+      "cluster_id": 187316,
+      "absolute_url": "https://www.courtlistener.com/opinion/187316/county-of-delaware-v-department-of-transportation/",
+      "date_filed": "2009-02-03",
+      "snippet": null,
+      "citation": "554 F.3d 143",
+      "fonte": "courtlistener",
+      "relevance_score": 0.55,
+      "relevance_method": "lexical"
+    },
+    {
+      "state": "FL",
+      "court_id": "ca11",
+      "case_name": "Cristobal D. Ramirez v. Secretary, U.S. Department of Transportation",
+      "cluster_id": 804317,
+      "absolute_url": "https://www.courtlistener.com/opinion/804317/cristobal-d-ramirez-v-secretary-us-department-of-transportation/",
+      "date_filed": "2012-07-12",
+      "snippet": null,
+      "citation": "686 F.3d 1239",
+      "fonte": "courtlistener",
+      "relevance_score": 0.55,
+      "relevance_method": "lexical"
+    },
+    {
+      "state": "FL",
+      "court_id": "haw",
+      "case_name": "Sierra Club v. Department of Transportation of the State",
+      "cluster_id": 2515085,
+      "absolute_url": "https://www.courtlistener.com/opinion/2515085/sierra-club-v-department-of-transportation-of-the-state/",
+      "date_filed": "2009-03-16",
+      "snippet": null,
+      "citation": "202 P.3d 1226",
+      "fonte": "courtlistener",
+      "relevance_score": 0.55,
+      "relevance_method": "lexical"
+    },
+    {
+      "state": "FL",
+      "court_id": "cadc",
+      "case_name": "Mesa Air Group, Inc. v. Department of Transportation",
+      "cluster_id": 7036859,
+      "absolute_url": "https://www.courtlistener.com/opinion/7036859/mesa-air-group-inc-v-department-of-transportation/",
+      "date_filed": "1996-07-02",
+      "snippet": null,
+      "citation": "87 F.3d 498",
+      "fonte": "courtlistener",
+      "relevance_score": 0.55,
+      "relevance_method": "lexical"
+    },
+    {
+      "state": "FL",
+      "court_id": "cadc",
+      "case_name": "Mesa Air Group, Inc. v. Department Of Transportation",
+      "cluster_id": 720630,
+      "absolute_url": "https://www.courtlistener.com/opinion/720630/mesa-air-group-inc-v-department-of-transportation/",
+      "date_filed": "1996-07-02",
+      "snippet": null,
+      "citation": "87 F.3d 498",
+      "fonte": "courtlistener",
+      "relevance_score": 0.55,
+      "relevance_method": "lexical"
+    },
+    {
+      "state": "FL",
+      "court_id": "ca9",
+      "case_name": "Grossman v. Department of Transportation",
+      "cluster_id": 7161186,
+      "absolute_url": "https://www.courtlistener.com/opinion/7161186/grossman-v-department-of-transportation/",
+      "date_filed": "2001-03-29",
+      "snippet": null,
+      "citation": "11 F. App'x 780",
+      "fonte": "courtlistener",
+      "relevance_score": 0.55,
+      "relevance_method": "lexical"
+    },
+    {
+      "state": "FL",
+      "court_id": "cadc",
+      "case_name": "Air Canada v. Department Of Transportation",
+      "cluster_id": 755733,
+      "absolute_url": "https://www.courtlistener.com/opinion/755733/air-canada-v-department-of-transportation/",
+      "date_filed": "1998-09-24",
+      "snippet": null,
+      "citation": "148 F.3d 1142",
+      "fonte": "courtlistener",
+      "relevance_score": 0.55,
+      "relevance_method": "lexical"
+    },
+    {
+      "state": "FL",
+      "court_id": "cadc",
+      "case_name": "Air Canada v. Department of Transportation",
+      "cluster_id": 184587,
+      "absolute_url": "https://www.courtlistener.com/opinion/184587/air-canada-v-department-of-transportation/",
+      "date_filed": "1998-07-31",
+      "snippet": null,
+      "citation": "148 F.3d 1142",
+      "fonte": "courtlistener",
+      "relevance_score": 0.55,
+      "relevance_method": "lexical"
+    },
+    {
+      "state": "FL",
+      "court_id": "ca9",
+      "case_name": "Public Citizen v. Department of Transportation",
+      "cluster_id": 7110241,
+      "absolute_url": "https://www.courtlistener.com/opinion/7110241/public-citizen-v-department-of-transportation/",
+      "date_filed": "2003-01-16",
+      "snippet": null,
+      "citation": "316 F.3d 1002",
+      "fonte": "courtlistener",
+      "relevance_score": 0.55,
+      "relevance_method": "lexical"
+    },
+    {
+      "state": "FL",
+      "court_id": "cal",
+      "case_name": "Cornette v. Department of Transportation",
+      "cluster_id": 2621169,
+      "absolute_url": "https://www.courtlistener.com/opinion/2621169/cornette-v-department-of-transportation/",
+      "date_filed": "2001-07-12",
+      "snippet": null,
+      "citation": "26 P.3d 332",
+      "fonte": "courtlistener",
+      "relevance_score": 0.55,
+      "relevance_method": "lexical"
+    },
+    {
+      "state": "FL",
+      "court_id": "ca10",
+      "case_name": "Wells v. Colorado Department of Transportation",
+      "cluster_id": 163378,
+      "absolute_url": "https://www.courtlistener.com/opinion/163378/wells-v-colorado-department-of-transportation/",
+      "date_filed": "2003-04-18",
+      "snippet": null,
+      "citation": "325 F.3d 1205",
+      "fonte": "courtlistener",
+      "relevance_score": 0.55,
+      "relevance_method": "lexical"
+    },
+    {
+      "state": "FL",
+      "court_id": "cadc",
+      "case_name": "Northwest Airlines, Inc. v. U.S. Department of Transportation",
+      "cluster_id": 7027881,
+      "absolute_url": "https://www.courtlistener.com/opinion/7027881/northwest-airlines-inc-v-us-department-of-transportation/",
+      "date_filed": "1994-02-11",
+      "snippet": null,
+      "citation": "15 F.3d 1112",
+      "fonte": "courtlistener",
+      "relevance_score": 0.55,
+      "relevance_method": "lexical"
+    },
+    {
+      "state": "FL",
+      "court_id": "alaska",
+      "case_name": "State, Department of Transportation & Public Facilities v. Sanders",
+      "cluster_id": 5335412,
+      "absolute_url": "https://www.courtlistener.com/opinion/5335412/state-department-of-transportation-public-facilities-v-sanders/",
+      "date_filed": "1997-08-22",
+      "snippet": null,
+      "citation": "944 P.2d 453",
+      "fonte": "courtlistener",
+      "relevance_score": 0.55,
+      "relevance_method": "lexical"
     }
-  ]
+  ],
+  "origem": "courtlistener_state_merged"
 }

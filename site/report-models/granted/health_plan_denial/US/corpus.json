@@ -1,8 +1,8 @@
 {
   "categoria": "health_plan_denial",
   "state": "US",
-  "geradoEm": "2026-07-25T15:52:01.564Z",
-  "total": 10,
+  "geradoEm": "2026-07-28T21:24:17.265Z",
+  "total": 17,
   "status": "pronto",
   "nota": "Written by motor_courtlistener_local.py — deterministic CourtListener hits only. No invented cases.",
   "itens": [
@@ -135,6 +135,98 @@
       "fonte": "courtlistener",
       "relevance_score": 0.55,
       "relevance_method": "lexical"
+    },
+    {
+      "state": "US",
+      "court_id": "ca11",
+      "case_name": "Alexandra H. v. Oxford Health Insurance Inc. Freedom Access Plan",
+      "cluster_id": 4248221,
+      "absolute_url": "https://www.courtlistener.com/opinion/4248221/alexandra-h-v-oxford-health-insurance-inc-freedom-access-plan/",
+      "date_filed": "2016-08-16",
+      "snippet": null,
+      "citation": "833 F.3d 1299",
+      "fonte": "courtlistener",
+      "relevance_score": 0.55,
+      "relevance_method": "lexical"
+    },
+    {
+      "state": "US",
+      "court_id": "ca11",
+      "case_name": "America's Health Insurance Plans v. Ralph Hudgens",
+      "cluster_id": 2653400,
+      "absolute_url": "https://www.courtlistener.com/opinion/2653400/americas-health-insurance-plans-v-ralph-hudgens/",
+      "date_filed": "2014-02-14",
+      "snippet": null,
+      "citation": "742 F.3d 1319",
+      "fonte": "courtlistener",
+      "relevance_score": 0.55,
+      "relevance_method": "lexical"
+    },
+    {
+      "state": "US",
+      "court_id": "mad",
+      "case_name": "Grillo v. Unicare Life & Health Insurance",
+      "cluster_id": 7313884,
+      "absolute_url": "https://www.courtlistener.com/opinion/7313884/grillo-v-unicare-life-health-insurance/",
+      "date_filed": "2015-06-11",
+      "snippet": null,
+      "citation": "109 F. Supp. 3d 377",
+      "fonte": "courtlistener",
+      "relevance_score": 0.55,
+      "relevance_method": "lexical"
+    },
+    {
+      "state": "US",
+      "court_id": "gand",
+      "case_name": "America's Health Insurance Plans v. Hudgens",
+      "cluster_id": 8721794,
+      "absolute_url": "https://www.courtlistener.com/opinion/8721794/americas-health-insurance-plans-v-hudgens/",
+      "date_filed": "2012-12-31",
+      "snippet": null,
+      "citation": "915 F. Supp. 2d 1340",
+      "fonte": "courtlistener",
+      "relevance_score": 0.55,
+      "relevance_method": "lexical"
+    },
+    {
+      "state": "US",
+      "court_id": "txnd",
+      "case_name": "In re 2014 Radioshack ERISA Litigation",
+      "cluster_id": 7318655,
+      "absolute_url": "https://www.courtlistener.com/opinion/7318655/in-re-2014-radioshack-erisa-litigation/",
+      "date_filed": "2016-01-25",
+      "snippet": null,
+      "citation": "165 F. Supp. 3d 492",
+      "fonte": "courtlistener",
+      "relevance_score": 0.55,
+      "relevance_method": "lexical"
+    },
+    {
+      "state": "US",
+      "court_id": "jpml",
+      "case_name": "In re Impulse Monitoring, Inc., Aetna Intraoperative Monitoring Services Claims & Employee Retirement Income Security Act (Erisa) Litigation",
+      "cluster_id": 7309342,
+      "absolute_url": "https://www.courtlistener.com/opinion/7309342/in-re-impulse-monitoring-inc-aetna-intraoperative-monitoring-services/",
+      "date_filed": "2014-10-14",
+      "snippet": null,
+      "citation": "53 F. Supp. 3d 1376",
+      "fonte": "courtlistener",
+      "relevance_score": 0.55,
+      "relevance_method": "lexical"
+    },
+    {
+      "state": "US",
+      "court_id": "cod",
+      "case_name": "Bray v. Sun Life & Health Insurance",
+      "cluster_id": 8712483,
+      "absolute_url": "https://www.courtlistener.com/opinion/8712483/bray-v-sun-life-health-insurance/",
+      "date_filed": "2012-02-27",
+      "snippet": null,
+      "citation": "838 F. Supp. 2d 1183",
+      "fonte": "courtlistener",
+      "relevance_score": 0.55,
+      "relevance_method": "lexical"
     }
-  ]
+  ],
+  "origem": "courtlistener_state_merged"
 }

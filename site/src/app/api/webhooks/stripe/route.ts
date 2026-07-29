@@ -1,7 +1,17 @@
+import { existsSync, mkdirSync, writeFileSync } from "fs";
+import { join } from "path";
 import { NextResponse } from "next/server";
 import type Stripe from "stripe";
 
+import {
+  checkoutLocalStoreEnabled,
+  localFindPagamentoByStripeId,
+  localGetPedido,
+  localInsertPagamento,
+  localInsertRelatorio,
+} from "@/lib/checkout/local-store";
 import { emitirNfse, focusNfeConfigurado } from "@/lib/focus-nfe";
+import { elaborarRelatorioRascunho } from "@/lib/relatorio-templates/elaborar-relatorio";
 import { gerarRelatorioPedido } from "@/lib/relatorio/gerar-us";
 import { getStripe } from "@/lib/stripe";
 import { getSupabase } from "@/lib/supabase";
@@ -15,6 +25,30 @@ function nfseAutomaticaInterna(): boolean {
 
 function isUsMarket(meta: Record<string, string>, currency: string): boolean {
   return meta.mercado === "us" || currency === "usd";
+}
+
+function gravarRascunhoLocal(opts: {
+  relatorioId: string;
+  categoryId: string | null;
+  descricaoCaso: string | null;
+  plano: string | null;
+  nomeCliente: string | null;
+}): void {
+  const category = opts.categoryId || "dot_flights_baggage";
+  const draft = elaborarRelatorioRascunho({
+    plano: opts.plano,
+    categoria: category,
+    nomeCliente: opts.nomeCliente ?? undefined,
+    resumoNarrativa: opts.descricaoCaso,
+    state: "CA",
+  });
+  const dir = join(process.cwd(), "data", "local-checkout", "rascunhos");
+  if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
+  writeFileSync(
+    join(dir, `${opts.relatorioId}.md`),
+    draft.markdown,
+    "utf8"
+  );
 }
 
 export async function POST(request: Request) {
@@ -47,16 +81,95 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Session missing ID" }, { status: 400 });
   }
 
-  const meta = session.metadata ?? {};
+  const meta = (session.metadata ?? {}) as Record<string, string>;
   const email =
-    session.customer_details?.email ?? session.customer_email ?? meta.email ?? null;
+    session.customer_details?.email ??
+    session.customer_email ??
+    meta.user_email?.trim() ??
+    meta.email?.trim() ??
+    null;
   const valor = (session.amount_total ?? 0) / 100;
   const moeda = session.currency ?? "usd";
   const plano = meta.plano_nome ?? meta.plano_id ?? null;
+  const tier = meta.tier?.trim() || null;
   const nomeCliente = session.customer_details?.name || null;
   const zipCliente = meta.zip?.trim() || meta.nif?.trim() || null;
   const mercadoUs = isUsMarket(meta, moeda);
-  const categoryLabel = meta.category_label?.trim() || meta.category_id?.trim() || null;
+  const categoryId =
+    meta.category?.trim() || meta.category_id?.trim() || null;
+  const categoryLabel =
+    meta.category_label?.trim() || categoryId;
+
+  const useLocal = checkoutLocalStoreEnabled();
+
+  if (useLocal) {
+    if (localFindPagamentoByStripeId(stripeId)) {
+      return NextResponse.json({ received: true, duplicate: true, store: "local" });
+    }
+
+    const pagamento = localInsertPagamento({
+      stripe_payment_id: stripeId,
+      nome_cliente: nomeCliente,
+      email_cliente: email,
+      nif_cliente: zipCliente,
+      plano,
+      valor,
+      moeda,
+    });
+
+    const pedidoId = meta.pedido_id?.trim() || null;
+    const trackingCode = meta.tracking_code?.trim() || null;
+    let descricaoCaso: string | null = null;
+    let codeForReport = trackingCode || null;
+    if (pedidoId) {
+      const pedido = localGetPedido(pedidoId);
+      descricaoCaso = pedido?.descricao_caso ?? null;
+      if (!codeForReport) codeForReport = pedido?.tracking_code ?? null;
+    }
+
+    const cabecalhoMeta = [
+      categoryLabel ? `Category: ${categoryLabel}` : null,
+      categoryId ? `category_id: ${categoryId}` : null,
+      tier ? `tier: ${tier}` : null,
+    ]
+      .filter(Boolean)
+      .join(" · ");
+
+    const descricaoFinal = cabecalhoMeta
+      ? `[${cabecalhoMeta}]\n${descricaoCaso ?? ""}`.trim()
+      : descricaoCaso;
+
+    const relatorio = localInsertRelatorio({
+      pagamento_id: pagamento.id,
+      pedido_id: pedidoId,
+      stripe_payment_id: stripeId,
+      nome_cliente: nomeCliente,
+      email_cliente: email,
+      plano: tier ? `${plano ?? "plan"} (${tier})` : plano,
+      descricao_caso: descricaoFinal,
+      tracking_code: codeForReport,
+      status: "a_gerar",
+    });
+
+    try {
+      gravarRascunhoLocal({
+        relatorioId: relatorio.id,
+        categoryId,
+        descricaoCaso: descricaoFinal,
+        plano,
+        nomeCliente,
+      });
+    } catch (e) {
+      console.error("Local draft generation:", e);
+    }
+
+    return NextResponse.json({
+      received: true,
+      store: "local",
+      relatorioId: relatorio.id,
+      tracking_code: codeForReport,
+    });
+  }
 
   const supabase = getSupabase();
 
@@ -105,6 +218,14 @@ export async function POST(request: Request) {
     if (!codeForReport) codeForReport = pedido?.tracking_code ?? null;
   }
 
+  const cabecalhoMeta = [
+    categoryLabel ? `Category: ${categoryLabel}` : null,
+    categoryId ? `category_id: ${categoryId}` : null,
+    tier ? `tier: ${tier}` : null,
+  ]
+    .filter(Boolean)
+    .join(" · ");
+
   const { data: relatorio, error: relErr } = await supabase
     .from("relatorios_pedido")
     .insert({
@@ -113,9 +234,9 @@ export async function POST(request: Request) {
       stripe_payment_id: stripeId,
       nome_cliente: nomeCliente,
       email_cliente: email,
-      plano,
-      descricao_caso: categoryLabel
-        ? `[Category: ${categoryLabel}]\n${descricaoCaso ?? ""}`.trim()
+      plano: tier ? `${plano ?? "plan"} (${tier})` : plano,
+      descricao_caso: cabecalhoMeta
+        ? `[${cabecalhoMeta}]\n${descricaoCaso ?? ""}`.trim()
         : descricaoCaso,
       tracking_code: codeForReport,
       status: "a_gerar",
@@ -133,7 +254,6 @@ export async function POST(request: Request) {
     }
   }
 
-  // Skip Brazilian NFS-e for U.S. market; optional internal MEI flow only otherwise
   if (!mercadoUs && nfseAutomaticaInterna() && email && nomeCliente && focusNfeConfigurado()) {
     try {
       const nfse = await emitirNfse({

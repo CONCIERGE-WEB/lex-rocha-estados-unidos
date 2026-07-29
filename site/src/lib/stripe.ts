@@ -2,16 +2,34 @@ import Stripe from "stripe";
 
 let _stripe: Stripe | null = null;
 
+/** Trim — env colado no Vercel às vezes traz CR/LF. */
+export function stripeSecretKey(): string | null {
+  const key = process.env.STRIPE_SECRET_KEY?.trim();
+  return key || null;
+}
+
 export function getStripe(): Stripe {
   if (_stripe) return _stripe;
-  const key = process.env.STRIPE_SECRET_KEY;
+  const key = stripeSecretKey();
   if (!key) {
     throw new Error("STRIPE_SECRET_KEY não configurada");
   }
-  _stripe = new Stripe(key);
+  _stripe = new Stripe(key, {
+    timeout: 25000,
+    maxNetworkRetries: 2,
+    httpClient: Stripe.createFetchHttpClient(),
+  });
   return _stripe;
 }
 
 export function stripeConfigurado(): boolean {
-  return Boolean(process.env.STRIPE_SECRET_KEY?.trim());
+  return Boolean(stripeSecretKey());
+}
+
+export function stripeModo(): "live" | "test" | "ausente" | "desconhecido" {
+  const key = stripeSecretKey() ?? "";
+  if (!key) return "ausente";
+  if (key.startsWith("sk_live_")) return "live";
+  if (key.startsWith("sk_test_")) return "test";
+  return "desconhecido";
 }

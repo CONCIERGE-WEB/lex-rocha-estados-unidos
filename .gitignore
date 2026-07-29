@@ -11,14 +11,18 @@ signalhub/config/usa/prompts.yaml
 
 # Python
 signalhub/.venv/
+services/courtlistener-ingestor/.venv/
 **/__pycache__/
 **/.pytest_cache/
 signalhub/logs/
+site/logs/
 
 # Node / Next.js
 site/node_modules/
 site/.next/
 site/out/
+site/tsconfig.tsbuildinfo
+*.tsbuildinfo
 
 # Runtime local (PIDs from INICIAR.ps1)
 .runtime/

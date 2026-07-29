@@ -1,7 +1,7 @@
 {
   "categoria": "fdcpa_debt_collection",
   "state": "NY",
-  "geradoEm": "2026-07-26T20:10:52.283Z",
+  "geradoEm": "2026-07-29T02:36:54.949Z",
   "total": 4,
   "status": "parcial",
   "nota": "Written by motor_courtlistener_local.py — deterministic CourtListener hits only. No invented cases.",
@@ -58,5 +58,13 @@
       "relevance_score": 0.5245,
       "relevance_method": "minilm"
     }
+  ],
+  "origem": "courtlistener_state_merged",
+  "courts_filtrados": [
+    "ca2",
+    "nysd",
+    "nyed",
+    "nynd",
+    "nywd"
   ]
 }

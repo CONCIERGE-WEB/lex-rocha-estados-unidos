@@ -1,7 +1,7 @@
 {
   "categoria": "fdcpa_debt_collection",
   "state": "FL",
-  "geradoEm": "2026-07-26T20:11:29.878Z",
+  "geradoEm": "2026-07-28T22:15:54.199Z",
   "total": 4,
   "status": "parcial",
   "nota": "Written by motor_courtlistener_local.py — deterministic CourtListener hits only. No invented cases.",
@@ -58,5 +58,12 @@
       "relevance_score": 0.5245,
       "relevance_method": "minilm"
     }
+  ],
+  "origem": "courtlistener_state_merged",
+  "courts_filtrados": [
+    "ca11",
+    "flnd",
+    "flmd",
+    "flsd"
   ]
 }

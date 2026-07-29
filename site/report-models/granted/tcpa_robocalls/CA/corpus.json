@@ -1,7 +1,7 @@
 {
   "categoria": "tcpa_robocalls",
   "state": "CA",
-  "geradoEm": "2026-07-26T20:12:28.722Z",
+  "geradoEm": "2026-07-29T02:07:29.670Z",
   "total": 1,
   "status": "parcial",
   "nota": "Written by motor_courtlistener_local.py — deterministic CourtListener hits only. No invented cases.",
@@ -19,5 +19,14 @@
       "relevance_score": 0.651,
       "relevance_method": "minilm"
     }
+  ],
+  "origem": "courtlistener_state_merged",
+  "courts_filtrados": [
+    "ca9",
+    "cacd",
+    "caed",
+    "cand",
+    "casd",
+    "cacb"
   ]
 }

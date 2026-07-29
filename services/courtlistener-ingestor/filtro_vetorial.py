@@ -20,6 +20,7 @@ from ancoras_en import (
     KEYWORDS_BOOST,
     LIMIAR_PADRAO,
 )
+from filtro_anti_contaminacao import filtrar_anti_contaminacao  # noqa: E402
 
 _TOKEN = re.compile(r"[a-z0-9]+")
 _ANCHORS_JSON = Path(__file__).resolve().parent / "anchors-en.json"
@@ -214,9 +215,11 @@ def filtrar_hits(
     bag = _ancoras_carregadas()
     thr = LIMIAR_PADRAO if limiar is None else limiar
     thr = float(os.environ.get("COURT_LISTENER_LIMIAR", thr if limiar is not None else bag["limiar"]))
+    # Barrier 1: reject mortgage/SFH (and cross-category) pollution before scoring.
+    limpos, anti = filtrar_anti_contaminacao(hits, categoria)
     kept: list[dict[str, Any]] = []
     methods: dict[str, int] = {}
-    for hit in hits:
+    for hit in limpos:
         score, method = score_relevancia(_texto_hit(hit), categoria, modo="precedente")
         methods[method] = methods.get(method, 0) + 1
         if score >= thr:
@@ -230,6 +233,7 @@ def filtrar_hits(
         "saida": len(kept),
         "metodos": methods,
         "anchors_fonte": bag["fonte"],
+        "anti_contaminacao": anti,
     }
 
 
